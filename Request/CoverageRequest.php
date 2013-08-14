@@ -6,7 +6,7 @@
 
 namespace Navitia\Component\Request;
 
-use Navitia\Component\Exception\BadParametersException;
+use Navitia\Component\Request\Parameters\Processor\CoverageParametersProcessorFactory;
 
 /**
  * Description of CoverageRequest
@@ -32,9 +32,16 @@ class CoverageRequest extends AbstractNavitiaRequest
     /**
      * action
      *
-     * @var string
+     * @var mixed
      */
     protected $action;
+
+    /**
+     * Nom de l'action
+     *
+     * @var string
+     */
+    protected $actionName;
 
     /**
      * getFilter
@@ -46,6 +53,16 @@ class CoverageRequest extends AbstractNavitiaRequest
     public function getFilter()
     {
         return $this->filter;
+    }
+
+    /**
+     * Setter du filtre
+     *
+     * @param string $filter
+     */
+    public function setFilter($filter)
+    {
+        $this->filter = $filter.'/';
     }
 
     /**
@@ -98,18 +115,58 @@ class CoverageRequest extends AbstractNavitiaRequest
      * @return \Navitia\Component\Request\CoverageRequest
      * @throws Exception
      */
-    public function setAction($action, $params = null)
+    public function setAction($action)
     {
-        $this->action = $action;
-        if (!is_null($params)) {
-            if (!is_string($params)) {
-                throw new BadParametersException(
-                    sprintf('The parameter for "%s" action will be a string', $action)
-                );
-            }
-            $this->action .= '?'.$params;
+        switch (gettype($action)) {
+            case 'string':
+                $actionArray = explode("?", $action, 2);
+                $this->setActionName($actionArray[0]);
+                break;
+            case 'array':
+                $this->setActionName($action['name']);
+                break;
+            default:
+
+                break;
         }
+        $this->action = $action;
         return $this;
+    }
+
+    /**
+     * Fonction permettant de récupérer le nom de l'action
+     *
+     * @return string
+     */
+    public function getActionName()
+    {
+        return $this->actionName;
+    }
+
+    /**
+     * Fonction permettant de setter le nom de l'action
+     *
+     * @param string $actionName
+     * @return \Navitia\Component\Request\CoverageRequest
+     */
+    public function setActionName($actionName)
+    {
+        $this->actionName = $actionName;
+        return $this;
+    }
+
+    /**
+     * Fonction permettant de faire le process sur les parametres de l'action
+     *
+     * @return mixed
+     */
+    public function processParameters()
+    {
+        $action = $this->getAction();
+        $factory = new CoverageParametersProcessorFactory();
+        $processor = $factory->create(gettype($action));
+        $request = $processor->convertToObjectCoverageParameters($action);
+        return $request;
     }
 
     /**
@@ -149,6 +206,7 @@ class CoverageRequest extends AbstractNavitiaRequest
     public function buildUrl($base)
     {
         $url = $base.$this::getApiName().'/';
+        $parameters = http_build_query($this->getParams());
         $region = $this->getRegion();
         if (!is_null($region)) {
             $url .= $region;
@@ -156,12 +214,27 @@ class CoverageRequest extends AbstractNavitiaRequest
             if (!is_null($filter)) {
                 $url .= $filter;
             }
-            $action = $this->getAction();
+            $action = $this->getActionName();
             if (!is_null($action)) {
                 $url .= $action;
             }
+            if (!is_null($parameters)) {
+                $url .= '?'.$parameters;
+            }
         }
         return rtrim($url, '/');
+    }
+
+    /**
+     * getParams
+     *
+     * @return array
+     */
+    public function getParams()
+    {
+        $request = $this->processParameters();
+        $params = $request->getParams();
+        return $params;
     }
 
     /**

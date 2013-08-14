@@ -16,6 +16,7 @@ use Navitia\Component\Exception\NavitiaCreationException;
 class AbstractFactory implements FactoryInterface
 {
     private $suffix;
+    private $prefix = null;
 
     /**
      * {@inheritDoc}
@@ -23,6 +24,9 @@ class AbstractFactory implements FactoryInterface
     public function create($type)
     {
         $name = $this->getNamespace().'\\';
+        if ($this->getprefix() !== null) {
+            $name .= $this->getprefix();
+        }
         $name .= ucfirst($type).$this->getSuffix();
         if (class_exists($name)) {
             return new $name;
@@ -59,6 +63,28 @@ class AbstractFactory implements FactoryInterface
     }
 
     /**
+     * Getter du prefix
+     *
+     * @return string
+     */
+    public function getPrefix()
+    {
+        return $this->prefix;
+    }
+
+    /**
+     * Setter du prefix
+     *
+     * @param string $prefix
+     * @return \Navitia\Component\AbstractFactory
+     */
+    public function setPrefix($prefix)
+    {
+        $this->prefix = ucfirst($prefix);
+        return $this;
+    }
+
+        /**
      * Recupération du namespace
      *
      * @return string

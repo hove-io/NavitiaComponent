@@ -29,7 +29,6 @@ abstract class AbstractNavitiaRequest implements NavitiaRequestInterface
                 '%5B%5D=',
                 $parameters
             );
-
             $url .= '?'.$parameters;
         }
         return $url;
