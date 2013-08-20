@@ -32,7 +32,7 @@ class MetadatasRequest extends CoverageRequest
     public function addToFilter($type, $value)
     {
         throw new BadParametersException(
-            sprintf('The Metadatas API does not need a Filter so remove the filter "%s".', $type)
+            sprintf('The Metadatas API does not need Filter so remove the filter "%s".', $type)
         );
     }
 }

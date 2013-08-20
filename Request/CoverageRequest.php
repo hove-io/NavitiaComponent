@@ -6,7 +6,9 @@
 
 namespace Navitia\Component\Request;
 
-use Navitia\Component\Request\Parameters\Processor\CoverageParametersProcessorFactory;
+use Navitia\Component\Request\Parameters\ParametersFactory;
+use Navitia\Component\Exception\BadParametersException;
+use Navitia\Component\Utils;
 
 /**
  * Description of CoverageRequest
@@ -37,11 +39,11 @@ class CoverageRequest extends AbstractNavitiaRequest
     protected $action;
 
     /**
-     * Nom de l'action
+     * parameters de l'action
      *
      * @var string
      */
-    protected $actionName;
+    protected $parameters;
 
     /**
      * getFilter
@@ -108,65 +110,43 @@ class CoverageRequest extends AbstractNavitiaRequest
     /**
      * setAction
      *
-     * Setter pour le parametre action
+     * Setter pour le nom de l'action
      *
      * @param string $action
-     * @param string $params
      * @return \Navitia\Component\Request\CoverageRequest
-     * @throws Exception
      */
     public function setAction($action)
     {
-        switch (gettype($action)) {
-            case 'string':
-                $actionArray = explode("?", $action, 2);
-                $this->setActionName($actionArray[0]);
-                break;
-            case 'array':
-                $this->setActionName($action['name']);
-                break;
-            default:
-
-                break;
+        if (gettype($action) !== 'string') {
+            throw new BadParametersException(
+                sprintf(
+                    ' The action type ("%s") must be a string',
+                    gettype($action)
+                )
+            );
         }
         $this->action = $action;
         return $this;
     }
 
     /**
-     * Fonction permettant de récupérer le nom de l'action
-     *
-     * @return string
-     */
-    public function getActionName()
-    {
-        return $this->actionName;
-    }
-
-    /**
-     * Fonction permettant de setter le nom de l'action
-     *
-     * @param string $actionName
-     * @return \Navitia\Component\Request\CoverageRequest
-     */
-    public function setActionName($actionName)
-    {
-        $this->actionName = $actionName;
-        return $this;
-    }
-
-    /**
-     * Fonction permettant de faire le process sur les parametres de l'action
+     * Getter des parametres de l'action
      *
      * @return mixed
      */
-    public function processParameters()
+    public function getParameters()
     {
-        $action = $this->getAction();
-        $factory = new CoverageParametersProcessorFactory();
-        $processor = $factory->create(gettype($action));
-        $request = $processor->convertToObjectCoverageParameters($action);
-        return $request;
+        return $this->parameters;
+    }
+
+    /**
+     * Setter des parametres de l'action
+     *
+     * @param mixed $parameters
+     */
+    public function setParameters($parameters)
+    {
+        $this->parameters = $parameters;
     }
 
     /**
@@ -196,12 +176,7 @@ class CoverageRequest extends AbstractNavitiaRequest
     }
 
     /**
-     * buildUrl
-     *
-     * Contructeur de l'url
-     *
-     * @param string $base
-     * @return string
+     * {@inheritDoc}
      */
     public function buildUrl($base)
     {
@@ -214,11 +189,11 @@ class CoverageRequest extends AbstractNavitiaRequest
             if (!is_null($filter)) {
                 $url .= $filter;
             }
-            $action = $this->getActionName();
+            $action = $this->getAction();
             if (!is_null($action)) {
                 $url .= $action;
             }
-            if (!is_null($parameters)) {
+            if ($parameters !== '') {
                 $url .= '?'.$parameters;
             }
         }
@@ -226,15 +201,23 @@ class CoverageRequest extends AbstractNavitiaRequest
     }
 
     /**
-     * getParams
-     *
-     * @return array
+     * {@inheritDoc}
      */
-    public function getParams()
+    protected function buildFactory()
     {
-        $request = $this->processParameters();
-        $params = $request->getParams();
-        return $params;
+        $factory = new ParametersFactory();
+        $factory->setPrefix('coverage');
+        $factory->setDefaultClass('CoverageParameters');
+        return $factory;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    protected function buildParametersType()
+    {
+        $parametersType = Utils::deleteUnderscore($this->getAction());
+        return $parametersType;
     }
 
     /**

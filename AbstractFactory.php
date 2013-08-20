@@ -17,20 +17,23 @@ class AbstractFactory implements FactoryInterface
 {
     private $suffix;
     private $prefix = null;
+    private $defaultClass = null;
 
     /**
      * {@inheritDoc}
      */
     public function create($type)
     {
-        $name = $this->getNamespace().'\\';
-        if ($this->getprefix() !== null) {
-            $name .= $this->getprefix();
-        }
-        $name .= ucfirst($type).$this->getSuffix();
+        $name = $this->builClassName($type);
         if (class_exists($name)) {
             return new $name;
         } else {
+            if (!is_null($this->getDefaultClass())) {
+                $default = $this->getNamespace().'\\'.$this->getDefaultClass();
+                if (class_exists($default)) {
+                    return new $default;
+                }
+            }
             throw new NavitiaCreationException(
                 sprintf(
                     'Class "%s" not found',
@@ -84,7 +87,45 @@ class AbstractFactory implements FactoryInterface
         return $this;
     }
 
-        /**
+    /**
+     * Getter d'une class par defaut
+     *
+     * @return string
+     */
+    public function getDefaultClass()
+    {
+        return $this->defaultClass;
+    }
+
+    /**
+     * Setter d'une class par défaut
+     *
+     * @param string $defaultClass
+     * @return \Navitia\Component\AbstractFactory
+     */
+    public function setDefaultClass($defaultClass)
+    {
+        $this->defaultClass = $defaultClass;
+        return $this;
+    }
+
+    /**
+     * Fonction permettant de créer le nom de la class
+     *
+     * @params string
+     * @return string
+     */
+    private function builClassName($type)
+    {
+        $name = $this->getNamespace().'\\';
+        if (!is_null($this->getprefix())) {
+            $name .= $this->getprefix();
+        }
+        $name .= ucfirst($type).$this->getSuffix();
+        return $name;
+    }
+
+    /**
      * Recupération du namespace
      *
      * @return string

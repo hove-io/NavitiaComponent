@@ -11,41 +11,20 @@ namespace Navitia\Component\Request\Parameters;
  *
  * @author rndiaye
  */
-abstract class AbstractCoverageParameters implements CoverageParametersInterface
+abstract class AbstractCoverageParameters extends AbstractParameters
 {
-    protected $from_datetime;
-    protected $duration;
-    protected $wheelchair;
+    protected $count;
     protected $depth;
+    protected $startPage;
 
-    public function getFromDatetime()
+    public function getCount()
     {
-        return $this->from_datetime;
+        return $this->count;
     }
 
-    public function setFromDatetime($from_datetime)
+    public function setCount($count)
     {
-        $this->from_datetime = $from_datetime;
-    }
-
-    public function getDuration()
-    {
-        return $this->duration;
-    }
-
-    public function setDuration($duration)
-    {
-        $this->duration = $duration;
-    }
-
-    public function getWheelchair()
-    {
-        return $this->wheelchair;
-    }
-
-    public function setWheelchair($wheelchair)
-    {
-        $this->wheelchair = $wheelchair;
+        $this->count = $count;
     }
 
     public function getDepth()
@@ -58,15 +37,13 @@ abstract class AbstractCoverageParameters implements CoverageParametersInterface
         $this->depth = $depth;
     }
 
-    public function getParams()
+    public function getStartPage()
     {
-        $properties = get_object_vars($this);
-        $params = array();
-        foreach ($properties as $name => $value) {
-            if (!is_null($value)) {
-                $params[$name] = $value;
-            }
-        }
-        return $params;
+        return $this->startPage;
+    }
+
+    public function setStartPage($startPage)
+    {
+        $this->startPage = $startPage;
     }
 }
