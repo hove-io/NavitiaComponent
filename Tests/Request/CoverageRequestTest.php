@@ -60,7 +60,7 @@ class CoveragaRequestTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($filter, null);
     }
 
-    public function testsetParameters()
+    public function testSetParameters()
     {
         $this->service->setParameters($this->parameters);
         $parameters = $this->service->getParameters();

@@ -16,7 +16,6 @@ use Navitia\Component\Request\Parameters\JourneysParameters;
  */
 class StringToParametersTransformerTest extends \PHPUnit_Framework_TestCase
 {
-    
     /**
      * @expectedException Navitia\Component\Exception\NavitiaCreationException
      */

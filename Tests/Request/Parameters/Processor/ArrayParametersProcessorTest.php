@@ -16,7 +16,6 @@ use Navitia\Component\Request\Parameters\JourneysParameters;
  */
 class ArrayParametersProcessorTest extends \PHPUnit_Framework_TestCase
 {
-    
     public function testConvertToObjectParameters()
     {
         $service = new ArrayParametersProcessor();
