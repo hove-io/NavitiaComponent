@@ -18,7 +18,7 @@ abstract class AbstractParameters implements ParametersInterface
         $properties = get_object_vars($this);
         $params = array();
         foreach ($properties as $name => $value) {
-            if (!is_null($value)) {
+            if ($value !== null) {
                 $params[$name] = $value;
             }
         }

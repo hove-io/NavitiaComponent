@@ -15,11 +15,6 @@ use Navitia\Component\Exception\BadParametersException;
  */
 class MetadatasRequest extends CoverageRequest
 {
-    public function __construct()
-    {
-        $this->setAction('metadatas');
-    }
-
     /**
      * addToFilter
      *

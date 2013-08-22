@@ -19,7 +19,18 @@ use Navitia\Component\Exception\BadParametersException;
  */
 class NavitiaService implements NavitiaServiceInterface
 {
+    /**
+     * Configuration
+     *
+     * @var mixed
+     */
     private $config;
+
+    /**
+     * Logger
+     *
+     * @var LoggerInterface
+     */
     private $logger;
 
     /**

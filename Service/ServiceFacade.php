@@ -20,6 +20,7 @@ class ServiceFacade
     private static $instance = null;
     private $service;
     private $logger = null;
+    private $config;
 
     private function __construct()
     {
@@ -29,12 +30,15 @@ class ServiceFacade
     {
     }
 
-    public static function getInstance()
+    public static function getInstance(LoggerInterface $logger = null)
     {
         if (is_null(self::$instance)) {
             $instance = new ServiceFacade();
             $instance->setService(new NavitiaService());
             self::$instance = $instance;
+        }
+        if ($logger) {
+            $instance->setLogger($logger);
         }
         return self::$instance;
     }
@@ -54,14 +58,24 @@ class ServiceFacade
     /**
      * Facade de setter de la configuration
      * @param mixed $config
-     * @return type
+     * @return NavitiaService
      */
     public function setConfiguration($config)
     {
+        $this->config = $config;
         $service = $this->getService();
-        return $service->processConfiguration($config);
+        return $service->processConfiguration($this->config);
     }
 
+    /**
+     * Getter de la configuration
+     *
+     * @return mixed
+     */
+    public function getConfiguration()
+    {
+        return $this->config;
+    }
     /**
      *
      * @return NavitiaServiceInterface

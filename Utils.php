@@ -23,7 +23,11 @@ class Utils
         $matches = array();
         preg_match('"_[a-z]+"', $param, $matches);
         foreach ($matches as $match) {
-            $param = preg_replace('"_[a-z]+"', ucfirst(ltrim($match, '_')), $param);
+            $param = preg_replace(
+                '"_[a-z]+"',
+                ucfirst(ltrim($match, '_')),
+                $param
+            );
         }
         return $param;
     }
@@ -55,7 +59,12 @@ class Utils
                 }
             }
         } else {
-            throw new NavitiaCreationException(printf('The parameters will be an Array'));
+            throw new NavitiaCreationException(
+                sprintf(
+                    'The parameter (type "%s") will be an Array',
+                    gettype($params)
+                )
+            );
         }
         return $request;
     }

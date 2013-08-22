@@ -52,7 +52,10 @@ abstract class AbstractNavitiaRequest implements NavitiaRequestInterface
         if (!is_null($parameters)) {
             $processorFactory = new ParametersProcessorFactory();
             $processor = $processorFactory->create(gettype($parameters));
-            $request = $processor->convertToObjectParameters($request, $parameters);
+            $request = $processor->convertToObjectParameters(
+                $request,
+                $parameters
+            );
         }
         return $request;
     }
