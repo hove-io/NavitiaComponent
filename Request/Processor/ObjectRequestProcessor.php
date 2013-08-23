@@ -25,8 +25,7 @@ class ObjectRequestProcessor implements RequestProcessorInterface
         if (!($query instanceof NavitiaRequestInterface)) {
             throw new BadParametersException(
                 sprintf(
-                    '"%s" must be an instance of "%s"',
-                    get_class($query),
+                    'The request must be an instance of "%s"',
                     'NavitiaRequestInterface'
                 )
             );

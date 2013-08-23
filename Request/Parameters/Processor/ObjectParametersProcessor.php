@@ -21,8 +21,7 @@ class ObjectParametersProcessor implements ParametersProcessorInterface
         if (!($params instanceof ParametersInterface)) {
             throw new BadParametersException(
                 sprintf(
-                    '"%s" must be an instance of "%s"',
-                    get_class($params),
+                    'The parameter must be an instance of "%s"',
                     'ParametersInterface'
                 )
             );

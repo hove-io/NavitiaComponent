@@ -24,8 +24,7 @@ class ObjectConfigurationProcessor extends AbstractConfigurationProcessor
         if (!($config instanceof NavitiaConfigurationInterface)) {
             throw new BadParametersException(
                 sprintf(
-                    '"%s" must be an instance of "%s"',
-                    get_class($config),
+                    'The configuration must be an instance of "%s"',
                     'NavitiaConfigurationInterface'
                 )
             );
