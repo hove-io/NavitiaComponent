@@ -3,6 +3,7 @@
 namespace Navitia\Component\Tests\Service;
 
 use Navitia\Component\Service\ServiceFacade;
+use Navitia\Component\Tests\Logger;
 
 /**
  * Description of ServiceFacadeTest
@@ -12,14 +13,15 @@ use Navitia\Component\Service\ServiceFacade;
  */
 class ServiceFacadeTest extends \PHPUnit_Framework_TestCase
 {
-
     private $service;
     private $config;
     private $formats;
+    private $logger;
 
     protected function setUp()
     {
-        $this->service = ServiceFacade::getInstance();
+        $this->logger = new Logger('test');
+        $this->service = ServiceFacade::getInstance($this->logger);
         $this->formats = array('json', 'object', 'xml');
         $this->config = array(
             'url' => 'http://navitia2-ws.ctp.dev.canaltp.fr',
@@ -27,8 +29,17 @@ class ServiceFacadeTest extends \PHPUnit_Framework_TestCase
         );
     }
 
+    /**
+     * Test for getInstance Function
+     * The Logger will be a instance of LoggerInterface
+     * The Service (ServiceFacade) will be a instance of ServiceFacade
+     */
     public function testGetInstance()
     {
+        $this->assertInstanceOf(
+            'Psr\Log\LoggerInterface',
+            $this->logger
+        );
         $this->assertInstanceOf(
             'Navitia\Component\Service\ServiceFacade',
             $this->service
@@ -36,6 +47,8 @@ class ServiceFacadeTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * Test for setConfiguration function
+     *
      * @expectedException Navitia\Component\Exception\NavitiaCreationException
      * @expectedException Navitia\Component\Exception\BadParametersException
      */
@@ -55,8 +68,10 @@ class ServiceFacadeTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-      * @expectedException Navitia\Component\Exception\BadParametersException
-      */
+     * Test for call Function
+     *
+     * @expectedException Navitia\Component\Exception\BadParametersException
+     */
     public function testCall()
     {
         $action = 'networks';
@@ -83,5 +98,15 @@ class ServiceFacadeTest extends \PHPUnit_Framework_TestCase
                     break;
             }
         }
+    }
+
+    /**
+     * Test for setLogger function
+     */
+    public function testSetLogger()
+    {
+        $this->service->setLogger($this->logger);
+        $logger = $this->service->getLogger();
+        $this->assertEquals($logger, $this->logger);
     }
 }

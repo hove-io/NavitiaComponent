@@ -26,10 +26,6 @@ class ServiceFacade
     {
     }
 
-    private function __clone()
-    {
-    }
-
     public static function getInstance(LoggerInterface $logger = null)
     {
         if (is_null(self::$instance)) {
@@ -37,8 +33,8 @@ class ServiceFacade
             $instance->setService(new NavitiaService());
             self::$instance = $instance;
         }
-        if ($logger) {
-            $instance->setLogger($logger);
+        if (!is_null($logger)) {
+            self::$instance->setLogger($logger);
         }
         return self::$instance;
     }

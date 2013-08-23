@@ -5,12 +5,15 @@ namespace Navitia\Component\Tests\Request\Parameters;
 use Navitia\Component\Request\Parameters\CoverageParametersFactory;
 
 /**
- * Description of JourneysRequest
+ * Description of CoverageParametersFactoryTest
  *
  * @author rndiaye
  */
 class CoverageParametersFactoryTest extends \PHPUnit_Framework_TestCase
 {
+    /**
+     * Test the CoverageParametersFactory construct
+     */
     public function testConstruct()
     {
         $service = new CoverageParametersFactory();

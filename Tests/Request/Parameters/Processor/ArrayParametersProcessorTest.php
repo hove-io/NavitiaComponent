@@ -1,21 +1,21 @@
 <?php
 
-/*
- * JourneysRequest
- */
-
 namespace Navitia\Component\Tests\Request\Parameters\Processor;
 
 use Navitia\Component\Request\Parameters\Processor\ArrayParametersProcessor;
 use Navitia\Component\Request\Parameters\JourneysParameters;
 
 /**
- * Description of JourneysRequest
+ * Description of ArrayParametersProcessorTest
  *
  * @author rndiaye
  */
 class ArrayParametersProcessorTest extends \PHPUnit_Framework_TestCase
 {
+    /**
+     * test ConvertToObjectParameters function
+     * the result will be an instance of ParametersInterface
+     */
     public function testConvertToObjectParameters()
     {
         $service = new ArrayParametersProcessor();

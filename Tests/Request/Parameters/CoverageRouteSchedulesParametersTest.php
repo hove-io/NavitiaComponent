@@ -6,16 +6,16 @@ use Navitia\Component\Request\Parameters\CoverageRouteSchedulesParameters;
 use Navitia\Component\Tests\UtilsFunctionTest;
 
 /**
- * Description of JourneysRequest
+ * Description of CoverageRouteSchedulesParametersTest
  *
  * @author rndiaye
  */
 class CoverageRouteSchedulesParametersTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * This function is used to test all setter/getter
+     * This function is used to test all CoverageSchedules setter/getter
      */
-    public function testAllCoverageParamsSetter()
+    public function testAllCoverageSchedulesParamsSetter()
     {
         $service = new CoverageRouteSchedulesParameters();
         $testArray = array(

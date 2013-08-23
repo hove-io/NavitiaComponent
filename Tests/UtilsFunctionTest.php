@@ -5,8 +5,9 @@ namespace Navitia\Component\Tests;
 use Navitia\Component\Utils;
 
 /**
- * Description of JourneysRequest
- *
+ * Description of UtilsFunctionTest
+ * Class for generic test function
+ * 
  * @author rndiaye
  */
 class UtilsFunctionTest extends \PHPUnit_Framework_TestCase

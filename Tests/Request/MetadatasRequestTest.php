@@ -1,9 +1,5 @@
 <?php
 
-/*
- * MetadatasRequest
- */
-
 namespace Navitia\Component\Test\Request;
 
 use Navitia\Component\Request\MetadatasRequest;
@@ -16,6 +12,8 @@ use Navitia\Component\Request\MetadatasRequest;
 class MetadatasRequestTest extends \PHPUnit_Framework_TestCase
 {
     /**
+     * Test for addTOFilter
+     * 
      * @expectedException Navitia\Component\Exception\BadParametersException
      */
     public function testAddToFilter()

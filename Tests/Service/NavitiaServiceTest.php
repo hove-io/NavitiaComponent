@@ -3,8 +3,6 @@
 namespace Navitia\Component\Tests\Service;
 
 use Navitia\Component\Service\NavitiaService;
-use Navitia\Component\Request\CoverageRequest;
-use Navitia\Component\Service\ServiceFacade;
 
 /**
  * Description of NavitiaServiceTest
@@ -14,7 +12,6 @@ use Navitia\Component\Service\ServiceFacade;
  */
 class NavitiaServiceTest extends \PHPUnit_Framework_TestCase
 {
-
     private $api;
     private $service;
 
@@ -24,6 +21,10 @@ class NavitiaServiceTest extends \PHPUnit_Framework_TestCase
         $this->service = new NavitiaService();
     }
 
+    /**
+     * Test for generateRequest Function
+     * This request will be an instance of CoverageRequest
+     */
     public function testGenerateRequest()
     {
         $request = $this->service->generateRequest($this->api);
@@ -34,6 +35,9 @@ class NavitiaServiceTest extends \PHPUnit_Framework_TestCase
 
     }
 
+    /**
+     * Test for callApi function
+     */
     public function testCallApi()
     {
         $config = array(

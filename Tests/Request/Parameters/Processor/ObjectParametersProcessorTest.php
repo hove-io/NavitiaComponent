@@ -1,23 +1,20 @@
 <?php
 
-/*
- * JourneysRequest
- */
-
 namespace Navitia\Component\Tests\Request\Parameters\Processor;
 
 use Navitia\Component\Request\Parameters\Processor\ObjectParametersProcessor;
 use Navitia\Component\Request\Parameters\JourneysParameters;
 
 /**
- * Description of JourneysRequest
+ * Description of ObjectParametersProcessorTest
  *
  * @author rndiaye
  */
 class ObjectParametersProcessorTest extends \PHPUnit_Framework_TestCase
 {
-
     /**
+     * Test ConvertToObjectParameters function with Exception
+     * 
      * @expectedException Navitia\Component\Exception\BadParametersException
      */
     public function testConvertToObjectParameters()

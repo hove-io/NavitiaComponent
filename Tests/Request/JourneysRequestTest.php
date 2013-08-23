@@ -1,15 +1,11 @@
 <?php
 
-/*
- * JourneysRequest
- */
-
 namespace Navitia\Component\Tests\Request;
 
 use Navitia\Component\Request\JourneysRequest;
 
 /**
- * Description of JourneysRequest
+ * Description of JourneysRequestTest
  *
  * @author rndiaye
  */
@@ -22,6 +18,9 @@ class JourneysRequestTest extends \PHPUnit_Framework_TestCase
         $this->service = new JourneysRequest();
     }
 
+    /**
+     * Test for setParameters function
+     */
     public function testSetParameters()
     {
         $params = 'foo';
@@ -30,12 +29,18 @@ class JourneysRequestTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($params, $result);
     }
 
+    /**
+     * Test for getApiName Function
+     */
     public function testGetApiName()
     {
         $name = $this->service->getApiName();
         $this->assertEquals('journeys', $name);
     }
 
+    /**
+     * Test for buildUrl function
+     */
     public function testBuildUrl()
     {
         $base = 'http://navitia2-ws.ctp.dev.canaltp.fr/v1/';

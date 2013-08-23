@@ -1,15 +1,11 @@
 <?php
 
-/*
- * JourneysRequest
- */
-
 namespace Navitia\Component\Tests\Request;
 
 use Navitia\Component\Request\CoverageRequest;
 
 /**
- * Description of JourneysRequest
+ * Description of CoveragaRequestTest
  *
  * @author rndiaye
  */
@@ -29,6 +25,9 @@ class CoveragaRequestTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * Test for setAction
+     * Will have a BadParametersException Exception
+     *
      * @expectedException Navitia\Component\Exception\BadParametersException
      */
     public function testSetAction()
@@ -37,6 +36,9 @@ class CoveragaRequestTest extends \PHPUnit_Framework_TestCase
         $this->service->setAction($action);
     }
 
+    /**
+     * Test for setFilter function
+     */
     public function testSetFilter()
     {
         $this->service->setFilter($this->filter);
@@ -44,6 +46,9 @@ class CoveragaRequestTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($filter, $this->filter.'/');
     }
 
+    /**
+     * Test for addToFilter function
+     */
     public function testAddToFilter()
     {
         $type = 'lines';
@@ -53,6 +58,9 @@ class CoveragaRequestTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($filter, $this->filter.'/');
     }
 
+    /**
+     * Test for clearFilter function
+     */
     public function testClearFilter()
     {
         $this->service->clearFilter();
@@ -60,6 +68,9 @@ class CoveragaRequestTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($filter, null);
     }
 
+    /**
+     * Test for setParameters function
+     */
     public function testSetParameters()
     {
         $this->service->setParameters($this->parameters);

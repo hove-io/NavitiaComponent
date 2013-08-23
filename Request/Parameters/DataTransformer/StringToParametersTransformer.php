@@ -28,7 +28,8 @@ class StringToParametersTransformer extends AbstractParametersTransformer
             } else {
                 throw new NavitiaCreationException(
                     sprintf(
-                        'Neither property "%s" nor method "%s" nor method "%s" exist.',
+                        'Neither property "%s" nor method "%s"'.
+                        'nor method "%s" exist.',
                         $property,
                         'get'.ucfirst($property),
                         $setter

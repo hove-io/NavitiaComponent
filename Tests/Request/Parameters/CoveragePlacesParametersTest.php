@@ -6,14 +6,14 @@ use Navitia\Component\Request\Parameters\CoveragePlacesParameters;
 use Navitia\Component\Tests\UtilsFunctionTest;
 
 /**
- * Description of JourneysRequest
+ * Description of CoveragePlacesParametersTest
  *
  * @author rndiaye
  */
 class CoveragePlacesParametersTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * This function is used to test all setter/getter
+     * This function is used to test all CoveragePlaces setter/getter
      */
     public function testAllCoveragePlacesSetter()
     {

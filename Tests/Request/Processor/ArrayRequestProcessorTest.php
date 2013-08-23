@@ -1,21 +1,16 @@
 <?php
 
-/*
- * JourneysRequest
- */
-
 namespace Navitia\Component\Tests\Request\Processor;
 
 use Navitia\Component\Request\Processor\ArrayRequestProcessor;
 
 /**
- * Description of JourneysRequest
+ * Description of ArrayRequestProcessorTest
  *
  * @author rndiaye
  */
 class ArrayRequestProcessorTest extends \PHPUnit_Framework_TestCase
 {
-
     private $service;
     private $query;
 
@@ -31,6 +26,10 @@ class ArrayRequestProcessorTest extends \PHPUnit_Framework_TestCase
         );
     }
 
+    /**
+     * Test for ConvertToObjectRequest function
+     * this request will be an instance of JourneysRequest
+     */
     public function testConvertToObjectRequest()
     {
         $request = $this->service->convertToObjectRequest($this->query);

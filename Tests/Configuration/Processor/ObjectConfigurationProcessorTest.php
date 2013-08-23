@@ -6,12 +6,13 @@ use Navitia\Component\Configuration\Processor\ObjectConfigurationProcessor;
 use Navitia\Component\Configuration\NavitiaConfiguration;
 
 /**
- * Description of AbstractConfigurationProcessor
+ * Description of ObjectConfigurationProcessorTest
  *
  * @author rndiaye
  */
 class ObjectConfigurationProcessorTest extends \PHPUnit_Framework_TestCase
 {
+
     private $processor;
 
     protected function setUp()
@@ -20,9 +21,11 @@ class ObjectConfigurationProcessorTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-      * @expectedException Navitia\Component\Exception\BadParametersException
-      */
-    public function testconvertToObjectConfiguration()
+     * Test for convertToObjectConfiguration with Exception
+     *
+     * @expectedException Navitia\Component\Exception\BadParametersException
+     */
+    public function testConvertToObjectConfiguration()
     {
         $service = new NavitiaConfiguration();
         $config = $service->setUrl('http://navitia2-ws.ctp.dev.canaltp.fr');
@@ -37,8 +40,10 @@ class ObjectConfigurationProcessorTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-      * @expectedException Navitia\Component\Exception\BadParametersException
-      */
+     * Test for validate with Exception
+     *
+     * @expectedException Navitia\Component\Exception\BadParametersException
+     */
     public function testValidate()
     {
         // Test a required parameter

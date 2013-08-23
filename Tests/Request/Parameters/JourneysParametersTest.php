@@ -1,23 +1,19 @@
 <?php
 
-/*
- * JourneysRequest
- */
-
 namespace Navitia\Component\Tests\Request\Parameters;
 
 use Navitia\Component\Request\Parameters\JourneysParameters;
 use Navitia\Component\Tests\UtilsFunctionTest;
 
 /**
- * Description of JourneysRequest
+ * Description of JourneysParametersTest
  *
  * @author rndiaye
  */
 class JourneysParametersTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * This function is used to test all setter/getter
+     * This function is used to test all Journeys setter/getter
      */
     public function testAllJourneysSetter()
     {
