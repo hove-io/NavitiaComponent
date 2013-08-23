@@ -3,7 +3,7 @@
 namespace Navitia\Component\Tests\Request\Parameters;
 
 use Navitia\Component\Request\Parameters\CoverageRouteSchedulesParameters;
-use Navitia\Component\Tests\UtilsFunctionTest;
+use Navitia\Component\Tests\UtilsTestFunction;
 
 /**
  * Description of CoverageRouteSchedulesParametersTest
@@ -23,7 +23,7 @@ class CoverageRouteSchedulesParametersTest extends \PHPUnit_Framework_TestCase
             'duration' => 20,
             'wheelchair' => true,
         );
-        $setter = new UtilsFunctionTest();
-        $setter->testSetter($testArray, $service);
+        $setter = new UtilsTestFunction();
+        $setter->setter($testArray, $service);
     }
 }

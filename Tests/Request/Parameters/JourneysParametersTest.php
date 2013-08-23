@@ -3,7 +3,7 @@
 namespace Navitia\Component\Tests\Request\Parameters;
 
 use Navitia\Component\Request\Parameters\JourneysParameters;
-use Navitia\Component\Tests\UtilsFunctionTest;
+use Navitia\Component\Tests\UtilsTestFunction;
 
 /**
  * Description of JourneysParametersTest
@@ -17,7 +17,7 @@ class JourneysParametersTest extends \PHPUnit_Framework_TestCase
      */
     public function testAllJourneysSetter()
     {
-        $setter = new UtilsFunctionTest();
+        $setter = new UtilsTestFunction();
         $service = new JourneysParameters();
         $testArray = array(
             'from' => 'stop_area:TAN:SA:COMM',
@@ -36,6 +36,6 @@ class JourneysParametersTest extends \PHPUnit_Framework_TestCase
             'car_distance' => 100,
             'wheelchair' => true
         );
-        $setter->testSetter($testArray, $service);
+        $setter->setter($testArray, $service);
     }
 }

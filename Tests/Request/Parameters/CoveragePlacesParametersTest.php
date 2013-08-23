@@ -3,7 +3,7 @@
 namespace Navitia\Component\Tests\Request\Parameters;
 
 use Navitia\Component\Request\Parameters\CoveragePlacesParameters;
-use Navitia\Component\Tests\UtilsFunctionTest;
+use Navitia\Component\Tests\UtilsTestFunction;
 
 /**
  * Description of CoveragePlacesParametersTest
@@ -17,7 +17,7 @@ class CoveragePlacesParametersTest extends \PHPUnit_Framework_TestCase
      */
     public function testAllCoveragePlacesSetter()
     {
-        $setter = new UtilsFunctionTest();
+        $setter = new UtilsTestFunction();
         $service = new CoveragePlacesParameters();
         $testArray = array(
             'q' => 'place',
@@ -25,6 +25,6 @@ class CoveragePlacesParametersTest extends \PHPUnit_Framework_TestCase
             'nb_max' => 10,
             'admin_uri' => array('test')
         );
-        $setter->testSetter($testArray, $service);
+        $setter->setter($testArray, $service);
     }
 }

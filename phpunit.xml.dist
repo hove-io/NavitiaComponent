@@ -29,7 +29,6 @@
                 <directory>Tests/</directory>
                 <directory>vendor/</directory>
                 <file>bootstrap.php</file>
-                <file>Tests/UtilsFunctionTest.php</file>
             </exclude>
         </whitelist>
     </filter>

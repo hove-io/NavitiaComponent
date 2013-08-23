@@ -3,7 +3,7 @@
 namespace Navitia\Component\Tests\Request\Parameters;
 
 use Navitia\Component\Request\Parameters\CoverageParameters;
-use Navitia\Component\Tests\UtilsFunctionTest;
+use Navitia\Component\Tests\UtilsTestFunction;
 
 /**
  * Description of CoverageParametersTest
@@ -23,7 +23,7 @@ class CoverageParametersTest extends \PHPUnit_Framework_TestCase
             'depth' => null,
             'start_page' => 2
         );
-        $setter = new UtilsFunctionTest();
-        $setter->testSetter($testArray, $service);
+        $setter = new UtilsTestFunction();
+        $setter->setter($testArray, $service);
     }
 }
