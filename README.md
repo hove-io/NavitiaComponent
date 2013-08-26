@@ -2,20 +2,25 @@ README
 ======
 What is NavitiaComponent ?
 ---------------------------
-Le composant Navitia permet de faire des appels à l'API __Navitia 2__ et de contrôler les paramètres.
-NavitiaComponent est une librairie full-stack PHP 5.3. Il peut être associé à un framework (Symfony, Zend, ...).
+Le composant Navitia permet de faire des appels à l'API __Navitia 2__
+et de contrôler les paramètres.
 
+NavitiaComponent est une librairie full-stack PHP 5.3.
+Il peut être associé à un framework (Symfony, Zend, ...).
 
 Requirements
 ------------
 1. PHP: >=5.3.3 - NavitiaComponent utilise PHP 5.3.3 et plus.
-2. Psr/Log: ~1.0 - Pour utiliser un logger, il faut qu'il implémente l'interface LoggerInterface de Psr
+2. Psr/Log: ~1.0 - Pour utiliser un logger, il faut qu'il implémente
+l'interface LoggerInterface de Psr
 
 Installation
 ------------
 Pour installer NavitiaComponent il faut utiliser composer.
+
 1. Ouvrir votre composer.json
-2. Placer à la dernière ligne de vos require "canaltp/navitia": "dev-master" (dev-master ou la dernière version stable)
+2. Placer à la dernière ligne de vos require "canaltp/navitia": "dev-master"
+(dev-master ou la dernière version stable)
 3. Placer dans vos repositories le type et l'url de packagist
 
     {
@@ -47,11 +52,11 @@ NavitiaComponent propose une utilisation simple et une utilisation avancée.
 
 La configuration est sous la forme d'un tableau (array).
 
-| Parametres          | Type       |Explication              | Valeurs acceptées  | Valeur par défaut |
-| :------------------ | :--------- |:----------------------: | :----------------: | ----------------: |
-| url (obligatoires)  | string     | Url d'appel navitia     |                    |                   |
-| version (optionnel) | string     | Version de l'api navitia| v1                 | v1                |
-| format (optionnel)  | string     | Format de la sortie     | 'json', 'object'   | object            |
+| Parametres          | Type       |Explication              | Valeurs acceptées  | Valeur défaut |
+| :------------------ | :--------- |:----------------------: | :----------------: | ------------: |
+| url (obligatoires)  | string     | Url d'appel navitia     |                    |               |
+| version (optionnel) | string     | Version de l'api navitia| v1                 | v1            |
+| format (optionnel)  | string     | Format de la sortie     | 'json', 'object'   | object        |
 
 ##### 1.1.2 - Exemple d'utilisation #####
 
@@ -74,10 +79,10 @@ Pour ces deux API, nous pouvons passer les paramètres sous la forme d'un "Strin
 
 ###### 1.2.1.1 Journeys ######
 
-| Parametres                 | Type                      |Explication              | Valeurs acceptées  |
-| :------------------------- | :------------------------ |:----------------------: | :----------------: |
-| api (obligatoires)         | string                    | api journeys de Navitia |journeys            |
-| parameters (obligatoires)  | mixed (string, array)     | parametres journeys     |                    |
+| Parametres                | Type                  |Explication              | Valeurs acceptées  |
+| :------------------------ | :-------------------- |:----------------------: | :----------------: |
+| api (obligatoires)        | string                | api journeys de Navitia |journeys            |
+| parameters (obligatoires) | mixed (string, array) | parametres journeys     |                    |
 
 ###### 1.2.1.1.2 Exemple parameters (Array) ######
 
@@ -119,20 +124,20 @@ Pour Journeys, le passage des paramètres peut se faire de deux manières:
 
 ###### 1.2.1.2 Coverage ######
 
-| Parametres                 | Type                      |Explication              | Valeurs acceptées  |
-| :------------------------- | :------------------------ |:----------------------: | :----------------: |
-| api (obligatoires)         | string                    | api coverage de Navitia | coverage           |
-| parameters (obligatoires)  | array                     | parametres coverage     |                    |
+| Parametres                 | Type               |Explication              | Valeurs acceptées  |
+| :------------------------- | :----------------- |:----------------------: | :----------------: |
+| api (obligatoires)         | string             | api coverage de Navitia | coverage           |
+| parameters (obligatoires)  | array              | parametres coverage     |                    |
 
 ###### 1.2.1.2.1 Paramètres Coverage #####
  Les paramètres de coverage sont plus complexes que ceux de journeys.
 
-| Parametres Coverage        | Type                      |Explication              | Exemples           |
-| :------------------------- | :------------------------ |:----------------------: | :----------------: |
-| region (obligatoires)      | string                    | Region                  | 'centre'           |
-| Filter                     | string                    | Filtre de coverage      | 'lines/line_id'    |
-| action                     | string                    | l'api de coverage       | 'route_schedules'  |
-| parameters                 | mixed (array, string)     | paramètres de l'action  |                    |
+| Parametres Coverage      | Type                  |Explication              | Exemples           |
+| :----------------------- | :-------------------- |:----------------------: | :----------------: |
+| region (obligatoires)    | string                | Region                  | 'centre'           |
+| Filter                   | string                | Filtre de coverage      | 'lines/line_id'    |
+| action                   | string                | l'api de coverage       | 'route_schedules'  |
+| parameters               | mixed (array, string) | paramètres de l'action  |                    |
 
 
 ###### 1.2.1.2.2 Exemple parameters (array) ######
@@ -187,10 +192,10 @@ Des objets sont disponibles pour une utilisation avancée du NavitiaComponent.
     $query->setRegion('centre');
     $query->setFilter('lines/12');
     $query->setAction('route_schedules');
-    $actionParameters = new \Navitia\Component\Request\Parameters\CoverageRouteSchedulesParameters();
-    $actionParameters->setFromDatetime(123312);
-    $actionParameters->setDuration(10);
-    $query->setParameters($actionParameters);
+    $actionParams = new \Navitia\Component\Request\Parameters\CoverageRouteSchedulesParameters();
+    $actionParams->setFromDatetime(123312);
+    $actionParams->setDuration(10);
+    $query->setParameters($actionParams);
 
 #### 2.2 Exemples paramètres (object) pour journeys ####
 
