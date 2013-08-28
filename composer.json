@@ -19,5 +19,6 @@
     "autoload": {
         "psr-0": { "Navitia\\Component\\": "" }
     },
-    "target-dir": "Navitia/Component"
+    "target-dir": "Navitia/Component",
+    "minimum-stability": "dev"
 }
