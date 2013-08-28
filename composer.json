@@ -2,8 +2,7 @@
     "name": "canaltp/navitia",
     "type": "library",
     "description": "Navitia Component",
-    "keywords": [],
-    "license": "MIT",
+    "license": "proprietary",
     "authors": [
         {
             "name": "Ramatoulaye Ndiaye",
@@ -15,11 +14,10 @@
         }
     ],
     "require": {
-        "php": ">=5.3.3"
+        "psr/log": "~1.0"
     },
     "autoload": {
         "psr-0": { "Navitia\\Component\\": "" }
     },
-    "target-dir": "Navitia/Component",
-    "minimum-stability": "dev"
+    "target-dir": "Navitia/Component"
 }
