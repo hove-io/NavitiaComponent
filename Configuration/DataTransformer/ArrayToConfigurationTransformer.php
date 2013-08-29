@@ -7,7 +7,7 @@
 namespace Navitia\Component\Configuration\DataTransformer;
 
 use Navitia\Component\Configuration\NavitiaConfiguration;
-use Navitia\Component\Exception\BadParametersException;
+use Navitia\Component\Utils;
 
 /**
  * Description of ArrayToConfigurationTransformer
@@ -22,21 +22,6 @@ class ArrayToConfigurationTransformer implements ConfigurationTransformerInterfa
     public function transform($config)
     {
         $result = new NavitiaConfiguration();
-        foreach ($config as $property => $value) {
-            $setter = 'set'.ucfirst($property);
-            if (method_exists($result, $setter)) {
-                $result->$setter($value);
-            } else {
-                throw new BadParametersException(
-                    sprintf(
-                        'Neither property "%s" nor method "%s" nor method "%s" exist.',
-                        $property,
-                        'get'.ucfirst($property),
-                        $setter
-                    )
-                );
-            }
-        }
-        return $result;
+        return Utils::setter($result, $config);
     }
 }
