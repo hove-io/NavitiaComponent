@@ -6,6 +6,10 @@
 
 namespace Navitia\Component\Request;
 
+use Navitia\Component\Request\Parameters\Processor\ParametersProcessorFactory;
+use Navitia\Component\Request\Parameters\ParametersFactory;
+use Navitia\Component\Utils;
+
 /**
  * Description of AbstractNavitiaRequest
  *
@@ -29,12 +33,32 @@ abstract class AbstractNavitiaRequest implements NavitiaRequestInterface
                 '%5B%5D=',
                 $parameters
             );
-
             $url .= '?'.$parameters;
         }
         return $url;
     }
 
+    /**
+     * Fonction de process pour les parametres
+     *
+     * @return mixed
+     */
+    public function processParameters()
+    {
+        $parameters = $this->getParameters();
+        $factory = $this->buildFactory();
+        $parametersType = $this->buildParametersType();
+        $request = $factory->create($parametersType);
+        if (!is_null($parameters)) {
+            $processorFactory = new ParametersProcessorFactory();
+            $processor = $processorFactory->create(gettype($parameters));
+            $request = $processor->convertToObjectParameters(
+                $request,
+                $parameters
+            );
+        }
+        return $request;
+    }
     /**
      * getParams
      *
@@ -42,13 +66,30 @@ abstract class AbstractNavitiaRequest implements NavitiaRequestInterface
      */
     public function getParams()
     {
-        $properties = get_object_vars($this);
-        $params = array();
-        foreach ($properties as $name => $value) {
-            if (!is_null($value)) {
-                $params[$name] = $value;
-            }
-        }
+        $request = $this->processParameters();
+        $params = $request->getParams();
         return $params;
+    }
+
+    /**
+     * Fonction permettant de créer le factory de coverage
+     *
+     * @return \Navitia\Component\Request\Parameters\ParametersFactory
+     */
+    protected function buildFactory()
+    {
+        $factory = new ParametersFactory();
+        return $factory;
+    }
+
+    /**
+     * Fonction permettant d'avoir la classe à créer pour les parameters
+     *
+     * @return string
+     */
+    protected function buildParametersType()
+    {
+        $parametersType = Utils::deleteUnderscore($this->getApiName());
+        return $parametersType;
     }
 }

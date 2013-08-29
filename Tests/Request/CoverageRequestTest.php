@@ -1,0 +1,80 @@
+<?php
+
+namespace Navitia\Component\Tests\Request;
+
+use Navitia\Component\Request\CoverageRequest;
+
+/**
+ * Description of CoveragaRequestTest
+ *
+ * @author rndiaye
+ */
+class CoveragaRequestTest extends \PHPUnit_Framework_TestCase
+{
+    private $service;
+    private $filter;
+    private $action;
+    private $parameters;
+
+    protected function setUp()
+    {
+        $this->service = new CoverageRequest();
+        $this->filter = 'lines/12';
+        $this->action = 'route_schedules';
+        $this->parameters = '?from_datetime=123312&duration=10';
+    }
+
+    /**
+     * Test for setAction
+     * Will have a BadParametersException Exception
+     *
+     * @expectedException Navitia\Component\Exception\BadParametersException
+     */
+    public function testSetAction()
+    {
+        $action = array('foo', 'bar');
+        $this->service->setAction($action);
+    }
+
+    /**
+     * Test for setFilter function
+     */
+    public function testSetFilter()
+    {
+        $this->service->setFilter($this->filter);
+        $filter = $this->service->getFilter();
+        $this->assertEquals($filter, $this->filter.'/');
+    }
+
+    /**
+     * Test for addToFilter function
+     */
+    public function testAddToFilter()
+    {
+        $type = 'lines';
+        $value = '12';
+        $this->service->addToFilter($type, $value);
+        $filter = $this->service->getFilter();
+        $this->assertEquals($filter, $this->filter.'/');
+    }
+
+    /**
+     * Test for clearFilter function
+     */
+    public function testClearFilter()
+    {
+        $this->service->clearFilter();
+        $filter = $this->service->getFilter();
+        $this->assertEquals($filter, null);
+    }
+
+    /**
+     * Test for setParameters function
+     */
+    public function testSetParameters()
+    {
+        $this->service->setParameters($this->parameters);
+        $parameters = $this->service->getParameters();
+        $this->assertEquals($parameters, $this->parameters);
+    }
+}

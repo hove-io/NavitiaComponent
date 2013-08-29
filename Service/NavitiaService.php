@@ -19,7 +19,19 @@ use Navitia\Component\Exception\BadParametersException;
  */
 class NavitiaService implements NavitiaServiceInterface
 {
+    /**
+     * Configuration
+     *
+     * @var mixed
+     */
     private $config;
+
+    /**
+     * Logger
+     *
+     * @var LoggerInterface
+     */
+    private $logger;
 
     /**
      * processConfiguration
@@ -65,9 +77,9 @@ class NavitiaService implements NavitiaServiceInterface
      */
     public function callApi(NavitiaRequestInterface $request, $format)
     {
-        //$baseUrl = $this->config->getUrl().'/'.$this->config->getVersion().'/';
-        $baseUrl = $this->config->getUrl().'/';
+        $baseUrl = $this->config->getUrl().'/'.$this->config->getVersion().'/';
         $url = $request->buildUrl($baseUrl);
+        $this->log($url, $request->getApiName(), $request->getParams());
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -98,5 +110,46 @@ class NavitiaService implements NavitiaServiceInterface
                     sprintf('the "%s" format is not supported.', $format)
                 );
         }
+    }
+
+    /**
+     * Appel à la fonction debug du logger LoggerInterface
+     *
+     * @param string $url
+     * @param string $api
+     * @param array $parameters
+     */
+    protected function log($url, $api, $parameters)
+    {
+        $logger = $this->getLogger();
+        if ($logger !== null) {
+            $logger->debug(
+                $url,
+                array(
+                    'api' => $api,
+                    'parameters' => $parameters
+                )
+            );
+        }
+    }
+
+    /**
+     * Getter du logger
+     *
+     * @return type
+     */
+    public function getLogger()
+    {
+        return $this->logger;
+    }
+
+    /**
+     * Setter du logger
+     *
+     * @param LoggerInterface $logger
+     */
+    public function setLogger($logger)
+    {
+        $this->logger = $logger;
     }
 }

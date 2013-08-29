@@ -6,7 +6,9 @@
 
 namespace Navitia\Component\Request;
 
+use Navitia\Component\Request\Parameters\ParametersFactory;
 use Navitia\Component\Exception\BadParametersException;
+use Navitia\Component\Utils;
 
 /**
  * Description of CoverageRequest
@@ -32,9 +34,16 @@ class CoverageRequest extends AbstractNavitiaRequest
     /**
      * action
      *
-     * @var string
+     * @var mixed
      */
     protected $action;
+
+    /**
+     * parameters de l'action
+     *
+     * @var string
+     */
+    protected $parameters;
 
     /**
      * getFilter
@@ -46,6 +55,16 @@ class CoverageRequest extends AbstractNavitiaRequest
     public function getFilter()
     {
         return $this->filter;
+    }
+
+    /**
+     * Setter du filtre
+     *
+     * @param string $filter
+     */
+    public function setFilter($filter)
+    {
+        $this->filter = $filter.'/';
     }
 
     /**
@@ -91,25 +110,43 @@ class CoverageRequest extends AbstractNavitiaRequest
     /**
      * setAction
      *
-     * Setter pour le parametre action
+     * Setter pour le nom de l'action
      *
      * @param string $action
-     * @param string $params
      * @return \Navitia\Component\Request\CoverageRequest
-     * @throws Exception
      */
-    public function setAction($action, $params = null)
+    public function setAction($action)
     {
-        $this->action = $action;
-        if (!is_null($params)) {
-            if (!is_string($params)) {
-                throw new BadParametersException(
-                    sprintf('The parameter for "%s" action will be a string', $action)
-                );
-            }
-            $this->action .= '?'.$params;
+        if (gettype($action) !== 'string') {
+            throw new BadParametersException(
+                sprintf(
+                    ' The action type ("%s") must be a string',
+                    gettype($action)
+                )
+            );
         }
+        $this->action = $action;
         return $this;
+    }
+
+    /**
+     * Getter des parametres de l'action
+     *
+     * @return mixed
+     */
+    public function getParameters()
+    {
+        return $this->parameters;
+    }
+
+    /**
+     * Setter des parametres de l'action
+     *
+     * @param mixed $parameters
+     */
+    public function setParameters($parameters)
+    {
+        $this->parameters = $parameters;
     }
 
     /**
@@ -139,16 +176,12 @@ class CoverageRequest extends AbstractNavitiaRequest
     }
 
     /**
-     * buildUrl
-     *
-     * Contructeur de l'url
-     *
-     * @param string $base
-     * @return string
+     * {@inheritDoc}
      */
     public function buildUrl($base)
     {
         $url = $base.$this::getApiName().'/';
+        $parameters = http_build_query($this->getParams());
         $region = $this->getRegion();
         if (!is_null($region)) {
             $url .= $region;
@@ -160,8 +193,31 @@ class CoverageRequest extends AbstractNavitiaRequest
             if (!is_null($action)) {
                 $url .= $action;
             }
+            if ($parameters !== '') {
+                $url .= '?'.$parameters;
+            }
         }
         return rtrim($url, '/');
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    protected function buildFactory()
+    {
+        $factory = new ParametersFactory();
+        $factory->setPrefix('coverage');
+        $factory->setDefaultClass('CoverageParameters');
+        return $factory;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    protected function buildParametersType()
+    {
+        $parametersType = Utils::deleteUnderscore($this->getAction());
+        return $parametersType;
     }
 
     /**
