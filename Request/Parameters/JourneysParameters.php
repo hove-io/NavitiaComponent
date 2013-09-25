@@ -26,6 +26,7 @@ class JourneysParameters extends AbstractParameters
     protected $car_distance;
     protected $wheelchair;
     protected $journey_type;
+    protected $count;
 
     public function getFrom()
     {
@@ -200,6 +201,17 @@ class JourneysParameters extends AbstractParameters
     public function setJourneyType($journey_type)
     {
         $this->journey_type = $journey_type;
+        return $this;
+    }
+
+    public function getCount()
+    {
+        return $this->count;
+    }
+
+    public function setCount($count)
+    {
+        $this->count = $count;
         return $this;
     }
 }
