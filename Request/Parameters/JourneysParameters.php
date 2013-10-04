@@ -215,7 +215,7 @@ class JourneysParameters extends AbstractParameters
         $this->count = $count;
         return $this;
     }
-    
+
     public function getOverride()
     {
         return $this->override;
