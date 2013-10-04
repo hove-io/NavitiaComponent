@@ -27,7 +27,6 @@ class JourneysParameters extends AbstractParameters
     protected $wheelchair;
     protected $type;
     protected $count;
-    protected $override;
 
     public function getFrom()
     {
@@ -213,17 +212,6 @@ class JourneysParameters extends AbstractParameters
     public function setCount($count)
     {
         $this->count = $count;
-        return $this;
-    }
-
-    public function getOverride()
-    {
-        return $this->override;
-    }
-
-    public function setOverride($override)
-    {
-        $this->override = $override;
         return $this;
     }
 }
