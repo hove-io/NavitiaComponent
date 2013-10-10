@@ -6,6 +6,7 @@
 
 namespace Navitia\Component\Service;
 
+use Symfony\Component\Validator\Validation;
 use Navitia\Component\Request\NavitiaRequestInterface;
 use Navitia\Component\Request\RequestFactory;
 use Navitia\Component\Request\Processor\RequestProcessorFactory;
@@ -51,7 +52,7 @@ class NavitiaService implements NavitiaServiceInterface
 
     /**
      * Conversion de query en object NavitiaRequest
-     * Appel Navitia
+     * Validation de la requete et appel Navitia si requete valide
      *
      * @param mixed $query
      */
@@ -60,7 +61,27 @@ class NavitiaService implements NavitiaServiceInterface
         $factory = new RequestProcessorFactory();
         $processor = $factory->create(gettype($query));
         $request = $processor->convertToObjectRequest($query);
-        return $this->callApi($request, $format);
+        $validation = $this->validate($request);
+        if ($validation->count() === 0) {
+            return $this->callApi($request, $format);
+        } else {
+            return $validation;
+        }
+    }
+
+    /**
+     * Permet de valider une requete avec les contraintes en annotations
+     *
+     * @param \Navitia\Component\Request\NavitiaRequestInterface $request
+     * @return \Symfony\Component\Validator\ConstraintViolationListInterface
+     */
+    public function validate(NavitiaRequestInterface $request)
+    {
+        $validator = Validation::createValidatorBuilder()
+            ->enableAnnotationMapping()
+            ->getValidator();
+        $violations = $validator->validate($request->processParameters());
+        return $violations;
     }
 
     /**

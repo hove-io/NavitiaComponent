@@ -59,6 +59,7 @@ abstract class AbstractNavitiaRequest implements NavitiaRequestInterface
         }
         return $request;
     }
+
     /**
      * getParams
      *
