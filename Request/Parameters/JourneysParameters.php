@@ -10,7 +10,14 @@ namespace Navitia\Component\Request\Parameters;
  */
 class JourneysParameters extends AbstractParameters
 {
+    /**
+     * @Assert\NotBlank
+     */
     protected $from;
+
+    /**
+     * @Assert\NotBlank
+     */
     protected $to;
     protected $datetime;
     protected $datetime_represents;
