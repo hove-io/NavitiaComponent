@@ -2,6 +2,8 @@
 
 namespace Navitia\Component\Request\Parameters;
 
+use Symfony\Component\Validator\Constraints as Assert;
+
 /**
  * Description of JourneysParameters
  *
