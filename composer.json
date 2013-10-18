@@ -15,7 +15,7 @@
     ],
     "require": {
         "psr/log": "~1.0",
-        "symfony/validator": "~2.3",
+        "symfony/validator": "~2.2",
         "doctrine/common": "~2.4"
     },
     "autoload": {
