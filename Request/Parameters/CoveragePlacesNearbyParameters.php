@@ -2,8 +2,6 @@
 
 namespace Navitia\Component\Request\Parameters;
 
-use Symfony\Component\Validator\Constraints as Assert;
-
 /**
  * Description of CoveragePlacesNearbyParameters
  *
@@ -12,25 +10,9 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class CoveragePlacesNearbyParameters extends AbstractCoverageParameters
 {
-    /**
-     * @Assert\NotBlank
-     */
-    protected $uri;
-
     protected $type;
 
     protected $distance;
-
-    public function getUri()
-    {
-        return $this->uri;
-    }
-
-    public function setUri($uri)
-    {
-        $this->uri = $uri;
-        return $this;
-    }
 
     public function getType()
     {
