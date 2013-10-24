@@ -12,14 +12,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class JourneysParameters extends AbstractParameters
 {
-    /**
-     * @Assert\NotBlank
-     */
     protected $from;
-
-    /**
-     * @Assert\NotBlank
-     */
     protected $to;
     protected $datetime;
     protected $datetime_represents;
