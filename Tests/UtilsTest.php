@@ -15,12 +15,22 @@ class UtilsTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * Test For deleteUnderscore function
+     *
+     * @dataProvider dataDeleteUnderscore
      */
-    public function testDeleteUnderscore()
+    public function testDeleteUnderscore($source, $result)
     {
-        $params = Utils::deleteUnderscore('datetime_represents');
-        $result = 'datetimeRepresents';
+        $params = Utils::deleteUnderscore($source);
         $this->assertEquals($params, $result);
+    }
+
+    public function dataDeleteUnderscore()
+    {
+        return array(
+          array('test', 'test'),
+          array('test_un', 'testUn'),
+          array('test_un_deux', 'testUnDeux')
+        );
     }
 
     /**
