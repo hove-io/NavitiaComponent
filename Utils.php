@@ -20,16 +20,12 @@ class Utils
      */
     public static function deleteUnderscore($param)
     {
-        $matches = array();
-        preg_match('"_[a-z]+"', $param, $matches);
-        foreach ($matches as $match) {
-            $param = preg_replace(
-                '"_[a-z]+"',
-                ucfirst(ltrim($match, '_')),
-                $param
-            );
+        $parts = explode('_', $param);
+        $result = array_shift($parts);
+        foreach ($parts as $part) {
+            $result .= ucfirst($part);
         }
-        return $param;
+        return $result;
     }
 
     /**
