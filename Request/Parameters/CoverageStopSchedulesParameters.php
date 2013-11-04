@@ -10,4 +10,16 @@ namespace Navitia\Component\Request\Parameters;
  */
 class CoverageStopSchedulesParameters extends AbstractCoverageSchedulesParameters
 {
+    protected $max_stop_date_times;
+
+    public function getMaxStopDateTimes()
+    {
+        return $this->max_stop_date_times;
+    }
+
+    public function setMaxStopDateTimes($max_stop_date_times)
+    {
+        $this->max_stop_date_times = $max_stop_date_times;
+        return $this;
+    }
 }
