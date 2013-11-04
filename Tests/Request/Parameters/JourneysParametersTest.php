@@ -34,7 +34,9 @@ class JourneysParametersTest extends \PHPUnit_Framework_TestCase
             'walking_distance' => 10,
             'bike_distance' => 100,
             'car_distance' => 100,
-            'wheelchair' => true
+            'wheelchair' => true,
+            'type' => 'comfort, rapid',
+            'count' => 10
         );
         $setter->setter($testArray, $service);
     }

@@ -56,4 +56,27 @@ class NavitiaServiceTest extends \PHPUnit_Framework_TestCase
         $this->service->processConfiguration($config);
         $this->service->process($coverage);
     }
+
+    /**
+     * Test validation
+     */
+    public function testValidation()
+    {
+        $config = array(
+            'url' => 'http://navitia2-ws.ctp.dev.canaltp.fr',
+            'version' => 'v1'
+        );
+        $journeys = array(
+            'api' => 'journeys',
+            'parameters' => array(
+                'max_duration' => 0
+            )
+        );
+        $this->service->processConfiguration($config);
+        $result = $this->service->process($journeys);
+        $this->assertInstanceOf(
+            'Symfony\Component\Validator\ConstraintViolationListInterface',
+            $result
+        );
+    }
 }
