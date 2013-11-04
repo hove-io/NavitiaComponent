@@ -11,7 +11,6 @@ namespace Navitia\Component\Request\Parameters;
 class CoveragePlacesNearbyParameters extends AbstractCoverageParameters
 {
     protected $type;
-
     protected $distance;
 
     public function getType()
