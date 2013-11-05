@@ -18,7 +18,7 @@ class JourneysParameters extends AbstractParameters
     protected $datetime_represents;
 
     /**
-     * @Assert\GreaterThan(value = 0)
+     * @Assert\Min(value = 1)
      */
     protected $max_duration;
     protected $walking_speed;
