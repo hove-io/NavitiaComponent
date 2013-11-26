@@ -25,11 +25,11 @@ class CoverageRequest extends AbstractNavitiaRequest
     protected $region;
 
     /**
-     * filter
+     * path_filter
      *
      * @var string
      */
-    protected $filter;
+    protected $path_filter;
 
     /**
      * action
@@ -46,52 +46,52 @@ class CoverageRequest extends AbstractNavitiaRequest
     protected $parameters;
 
     /**
-     * getFilter
+     * getpathFilter
      *
-     * Getter for filter parameter
+     * Getter for path_filter parameter
      *
      * @return string
      */
-    public function getFilter()
+    public function getPathFilter()
     {
-        return $this->filter;
+        return $this->path_filter;
     }
 
     /**
      * Setter du filtre
      *
-     * @param string $filter
+     * @param string $path_filter
      */
-    public function setFilter($filter)
+    public function setPathFilter($path_filter)
     {
-        $this->filter = $filter.'/';
+        $this->path_filter = $path_filter.'/';
     }
 
     /**
-     * addToFilter
+     * addToPathFilter
      *
-     * Fonction permettant d'ajouter un filter
+     * Fonction permettant d'ajouter un path_filter
      *
      * @param string $type
      * @param string $value
      * @return \Navitia\Component\Request\CoverageRequest
      */
-    public function addToFilter($type, $value)
+    public function addToPathFilter($type, $value)
     {
-        $this->filter .= $type.'/'.$value.'/';
+        $this->path_filter .= $type.'/'.$value.'/';
         return $this;
     }
 
     /**
-     * clearFilter
+     * clearPathFilter
      *
      * Fonction permettant de supprimer les filtres
      *
      * @return \Navitia\Component\Request\CoverageRequest
      */
-    public function clearFilter()
+    public function clearPathFilter()
     {
-        $this->filter = null;
+        $this->path_filter = null;
         return $this;
     }
 
@@ -185,9 +185,9 @@ class CoverageRequest extends AbstractNavitiaRequest
         $region = $this->getRegion();
         if (!is_null($region)) {
             $url .= $region;
-            $filter = $this->getFilter();
-            if (!is_null($filter)) {
-                $url .= $filter;
+            $path_filter = $this->getPathFilter();
+            if (!is_null($path_filter)) {
+                $url .= $path_filter;
             }
             $action = $this->getAction();
             if (!is_null($action)) {

@@ -135,7 +135,7 @@ Pour Journeys, le passage des paramètres peut se faire de deux manières:
 | Parametres Coverage      | Type                  |Explication              | Exemples           |
 | :----------------------- | :-------------------- |:----------------------: | :----------------: |
 | region (obligatoires)    | string                | Region                  | 'centre'           |
-| Filter                   | string                | Filtre de coverage      | 'lines/line_id'    |
+| path_filter              | string                | Filtre de coverage      | 'lines/line_id'    |
 | action                   | string                | l'api de coverage       | 'route_schedules'  |
 | parameters               | mixed (array, string) | paramètres de l'action  |                    |
 
@@ -147,7 +147,7 @@ Pour Journeys, le passage des paramètres peut se faire de deux manières:
         'api' => 'coverage',
     	'parameters' => array(
     		'region' => 'PaysDeLaLoire',
-    		'filter' => 'lines/12',
+    		'path_filter' => 'lines/12',
     		'action' => 'route_schedules',
     		'parameters' => array (
     			'from_datetime' => 123312,
@@ -163,7 +163,7 @@ Pour Journeys, le passage des paramètres peut se faire de deux manières:
         'api' => 'coverage',
     	'parameters' => array(
     		'region' => 'centre',
-    		'filter' => 'lines/12',
+    		'path_filter' => 'lines/12',
     		'action' => 'route_schedules',
     		'parameters' => '?from_datetime=123312&duration=10'
     	)
@@ -190,7 +190,7 @@ Des objets sont disponibles pour une utilisation avancée du NavitiaComponent.
     // parameters object avec Coverage
     $query = new \Navitia\Component\Request\CoverageRequest();
     $query->setRegion('centre');
-    $query->setFilter('lines/12');
+    $query->setPathFilter('lines/12');
     $query->setAction('route_schedules');
     $actionParams = new \Navitia\Component\Request\Parameters\CoverageRouteSchedulesParameters();
     $actionParams->setFromDatetime(123312);

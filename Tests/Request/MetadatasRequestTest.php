@@ -12,13 +12,13 @@ use Navitia\Component\Request\MetadatasRequest;
 class MetadatasRequestTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * Test for addTOFilter
-     * 
+     * Test for addToPathFilter
+     *
      * @expectedException Navitia\Component\Exception\BadParametersException
      */
-    public function testAddToFilter()
+    public function testAddToPathFilter()
     {
         $service = new MetadatasRequest();
-        $service->addtoFilter('bar', 'foo');
+        $service->addtoPathFilter('bar', 'foo');
     }
 }

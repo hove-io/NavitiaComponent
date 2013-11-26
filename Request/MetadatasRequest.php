@@ -16,7 +16,7 @@ use Navitia\Component\Exception\BadParametersException;
 class MetadatasRequest extends CoverageRequest
 {
     /**
-     * addToFilter
+     * addToPathFilter
      *
      * Fonction permettant d'ajout un filtre
      *
@@ -24,12 +24,12 @@ class MetadatasRequest extends CoverageRequest
      * @param string $value
      * @throws \Exception
      */
-    public function addToFilter($type, $value)
+    public function addToPathFilter($type, $value)
     {
         throw new BadParametersException(
             sprintf(
-                'The Metadatas API does not need Filter'.
-                'so remove the filter "%s".',
+                'The Metadatas API does not need path_filter'.
+                'so remove the path_filter "%s".',
                 $type
             )
         );

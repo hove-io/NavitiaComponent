@@ -48,7 +48,7 @@ class NavitiaServiceTest extends \PHPUnit_Framework_TestCase
             'api' => 'coverage',
             'parameters' => array(
                 'region' => 'centre',
-                'filter' => 'lines/12',
+                'path_filter' => 'lines/12',
                 'action' => 'route_schedules',
                 'parameters' => '?from_datetime=123312&duration=10'
             )

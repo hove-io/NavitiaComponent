@@ -12,14 +12,14 @@ use Navitia\Component\Request\CoverageRequest;
 class CoveragaRequestTest extends \PHPUnit_Framework_TestCase
 {
     private $service;
-    private $filter;
+    private $path_filter;
     private $action;
     private $parameters;
 
     protected function setUp()
     {
         $this->service = new CoverageRequest();
-        $this->filter = 'lines/12';
+        $this->path_filter = 'lines/12';
         $this->action = 'route_schedules';
         $this->parameters = '?from_datetime=123312&duration=10';
     }
@@ -37,35 +37,35 @@ class CoveragaRequestTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test for setFilter function
+     * Test for setPathFilter function
      */
-    public function testSetFilter()
+    public function testSetPathFilter()
     {
-        $this->service->setFilter($this->filter);
-        $filter = $this->service->getFilter();
-        $this->assertEquals($filter, $this->filter.'/');
+        $this->service->setPathFilter($this->path_filter);
+        $path_filter = $this->service->getPathFilter();
+        $this->assertEquals($path_filter, $this->path_filter.'/');
     }
 
     /**
-     * Test for addToFilter function
+     * Test for addToPathFilter function
      */
-    public function testAddToFilter()
+    public function testAddToPathFilter()
     {
         $type = 'lines';
         $value = '12';
-        $this->service->addToFilter($type, $value);
-        $filter = $this->service->getFilter();
-        $this->assertEquals($filter, $this->filter.'/');
+        $this->service->addToPathFilter($type, $value);
+        $path_filter = $this->service->getPathFilter();
+        $this->assertEquals($path_filter, $this->path_filter.'/');
     }
 
     /**
-     * Test for clearFilter function
+     * Test for clearPathFilter function
      */
-    public function testClearFilter()
+    public function testClearPathFilter()
     {
-        $this->service->clearFilter();
-        $filter = $this->service->getFilter();
-        $this->assertEquals($filter, null);
+        $this->service->clearPathFilter();
+        $path_filter = $this->service->getPathFilter();
+        $this->assertEquals($path_filter, null);
     }
 
     /**
