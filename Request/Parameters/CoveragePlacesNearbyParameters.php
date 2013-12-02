@@ -12,6 +12,7 @@ class CoveragePlacesNearbyParameters extends AbstractCoverageParameters
 {
     protected $type;
     protected $distance;
+    protected $filter;
 
     public function getType()
     {
@@ -32,6 +33,17 @@ class CoveragePlacesNearbyParameters extends AbstractCoverageParameters
     public function setDistance($distance)
     {
         $this->distance = $distance;
+        return $this;
+    }
+
+    public function getFilter()
+    {
+        return $this->filter;
+    }
+
+    public function setFilter($filter)
+    {
+        $this->filter = $filter;
         return $this;
     }
 }
