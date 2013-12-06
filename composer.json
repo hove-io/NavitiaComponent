@@ -21,10 +21,5 @@
     "autoload": {
         "psr-0": { "Navitia\\Component\\": "" }
     },
-    "target-dir": "Navitia/Component",
-    "extra": {
-        "branch-alias": {
-            "dev-release-0.16": "0.16-dev"
-        }
-    }
+    "target-dir": "Navitia/Component"
 }
