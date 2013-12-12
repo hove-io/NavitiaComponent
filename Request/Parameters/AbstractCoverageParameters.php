@@ -16,6 +16,7 @@ abstract class AbstractCoverageParameters extends AbstractParameters
     protected $count;
     protected $depth;
     protected $startPage;
+    protected $forbidden_id;
 
     public function getCount()
     {
@@ -45,5 +46,16 @@ abstract class AbstractCoverageParameters extends AbstractParameters
     public function setStartPage($startPage)
     {
         $this->startPage = $startPage;
+    }
+
+    public function getForbiddenId()
+    {
+        return $this->forbidden_id;
+    }
+
+    public function setForbiddenId($forbidden_id)
+    {
+        $this->forbidden_id = $forbidden_id;
+        return $this;
     }
 }
