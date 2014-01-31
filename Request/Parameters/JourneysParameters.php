@@ -33,6 +33,7 @@ class JourneysParameters extends AbstractParameters
     protected $wheelchair;
     protected $type;
     protected $count;
+    protected $debug;
 
     public function getFrom()
     {
@@ -219,5 +220,15 @@ class JourneysParameters extends AbstractParameters
     {
         $this->count = $count;
         return $this;
+    }
+    
+    public function getDebug()
+    {
+        return $this->debug;
+    }
+
+    public function setDebug($debug)
+    {
+        $this->debug = $debug;
     }
 }
