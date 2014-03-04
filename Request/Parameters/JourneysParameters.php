@@ -33,6 +33,7 @@ class JourneysParameters extends AbstractParameters
     protected $wheelchair;
     protected $type;
     protected $count;
+    protected $disruption_active;
     protected $debug;
 
     public function getFrom()
@@ -221,7 +222,18 @@ class JourneysParameters extends AbstractParameters
         $this->count = $count;
         return $this;
     }
-    
+
+    public function getDisruptionActive()
+    {
+        return $this->disruption_active;
+    }
+
+    public function setDisruptionActive($disruption_active)
+    {
+        $this->disruption_active = $disruption_active;
+        return $this;
+    }
+
     public function getDebug()
     {
         return $this->debug;
