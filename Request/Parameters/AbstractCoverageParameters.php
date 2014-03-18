@@ -15,6 +15,7 @@ abstract class AbstractCoverageParameters extends AbstractParameters
 {
     protected $count;
     protected $depth;
+    protected $calendar;
     protected $startPage;
 
     public function getCount()
@@ -45,5 +46,16 @@ abstract class AbstractCoverageParameters extends AbstractParameters
     public function setStartPage($startPage)
     {
         $this->startPage = $startPage;
+    }
+
+    public function getCalendar()
+    {
+        return $this->count;
+    }
+
+    public function setCalendar($calendar)
+    {
+        $this->calendar = $calendar;
+        return $this;
     }
 }
