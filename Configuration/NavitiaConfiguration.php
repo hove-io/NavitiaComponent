@@ -26,7 +26,17 @@ class NavitiaConfiguration implements NavitiaConfigurationInterface
      */
     private $version = 'v1';
 
+    /**
+     *
+     * @var string
+     */
     private $format = 'object';
+
+    /**
+     * Token for authentication
+     * @var string
+     */
+    private $token;
 
     /**
      * Returns the Url of navitia configuration.
@@ -92,6 +102,28 @@ class NavitiaConfiguration implements NavitiaConfigurationInterface
     public function setFormat($format)
     {
         $this->format = $format;
+        return $this;
+    }
+
+    /**
+     * Returns the Token of navitia configuration.
+     *
+     * @return string
+     */
+    public function getToken()
+    {
+        return $this->token;
+    }
+
+    /**
+     * Set the Token of navitia configuration
+     *
+     * @param string $token
+     * @return \Navitia\Component\Configuration\NavitiaConfiguration
+     */
+    public function setToken($token)
+    {
+        $this->token = $token;
         return $this;
     }
 

@@ -100,11 +100,19 @@ class NavitiaService implements NavitiaServiceInterface
     {
         $baseUrl = $this->config->getUrl().'/'.$this->config->getVersion().'/';
         $url = $request->buildUrl($baseUrl);
-        $this->log($url, $request->getApiName(), $request->getParams());
+        $token = $this->config->getToken();
+        $this->log(
+            $url,
+            $request->getApiName(),
+            array_merge($request->getParams(), array('token'=>$token))
+        );
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_HEADER, false);
+        if ($token !== null && $token !== '') {
+            curl_setopt($ch, CURLOPT_HTTPHEADER, array('Authorization: '.$token));
+        }
         $response = curl_exec($ch);
         curl_close($ch);
         return $this->responseProcessor($response, $format);
