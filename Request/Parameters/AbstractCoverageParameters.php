@@ -19,6 +19,7 @@ abstract class AbstractCoverageParameters extends AbstractParameters
     protected $startPage;
     protected $start_date;
     protected $end_date;
+    protected $show_codes;
 
     public function getCount()
     {
@@ -69,6 +70,17 @@ abstract class AbstractCoverageParameters extends AbstractParameters
     public function setStartDate($start_date)
     {
         $this->start_date = $start_date;
+        return $this;
+    }
+
+    public function getShowCodes()
+    {
+        return $this->show_codes;
+    }
+
+    public function setShowCodes($show_codes)
+    {
+        $this->show_codes = $show_codes;
         return $this;
     }
 
