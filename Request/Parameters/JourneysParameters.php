@@ -33,6 +33,7 @@ class JourneysParameters extends AbstractParameters
     protected $wheelchair;
     protected $type;
     protected $count;
+    protected $min_nb_journeys;
     protected $disruption_active;
     protected $debug;
 
@@ -220,6 +221,17 @@ class JourneysParameters extends AbstractParameters
     public function setCount($count)
     {
         $this->count = $count;
+        return $this;
+    }
+
+    public function getMinNbJourneys()
+    {
+        return $this->min_nb_journeys;
+    }
+
+    public function setMinNbJourneys($min_nb_journeys)
+    {
+        $this->min_nb_journeys = $min_nb_journeys;
         return $this;
     }
 
