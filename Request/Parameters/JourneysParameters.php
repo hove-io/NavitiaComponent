@@ -35,8 +35,8 @@ class JourneysParameters extends AbstractParameters
     protected $count;
     protected $min_nb_journeys;
     protected $disruption_active;
-	protected $first_section_mode;
-	protected $last_section_mode;
+    protected $first_section_mode;
+    protected $last_section_mode;
     protected $debug;
 
     public function getFrom()
@@ -256,7 +256,8 @@ class JourneysParameters extends AbstractParameters
     public function setDebug($debug)
     {
         $this->debug = $debug;
-	}
+    }
+
     public function getFirstSectionMode()
     {
         return $this->first_section_mode;
