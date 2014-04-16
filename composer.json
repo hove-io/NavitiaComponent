@@ -19,7 +19,6 @@
         "doctrine/common": "~2.4"
     },
     "autoload": {
-        "psr-0": { "Navitia\\Component\\": "" }
-    },
-    "target-dir": "Navitia/Component"
+        "psr-4": { "Navitia\\Component\\": "" }
+    }
 }
