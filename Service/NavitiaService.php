@@ -12,6 +12,7 @@ use Navitia\Component\Request\RequestFactory;
 use Navitia\Component\Request\Processor\RequestProcessorFactory;
 use Navitia\Component\Configuration\Processor\ConfigurationProcessorFactory;
 use Navitia\Component\Exception\BadParametersException;
+use Navitia\Component\Exception\NavitiaNotRespondingException;
 
 /**
  * Description of NavitiaService
@@ -113,8 +114,16 @@ class NavitiaService implements NavitiaServiceInterface
         if ($token !== null && $token !== '') {
             curl_setopt($ch, CURLOPT_HTTPHEADER, array('Authorization: '.$token));
         }
+        curl_setopt($ch, CURLOPT_NOSIGNAL, 1);
+        //Timeout in 5s
+        curl_setopt($ch, CURLOPT_TIMEOUT_MS, 5000);
         $response = curl_exec($ch);
         curl_close($ch);
+        if ($response === false) {
+            throw new NavitiaNotRespondingException(
+                sprintf('Navitia not responding')
+            );
+        }
         return $this->responseProcessor($response, $format);
     }
 
