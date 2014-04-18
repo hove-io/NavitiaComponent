@@ -120,9 +120,7 @@ class NavitiaService implements NavitiaServiceInterface
         $response = curl_exec($ch);
         curl_close($ch);
         if ($response === false) {
-            throw new NavitiaNotRespondingException(
-                sprintf('Navitia not responding')
-            );
+            throw new NavitiaNotRespondingException('Navitia not responding');
         }
         return $this->responseProcessor($response, $format);
     }
