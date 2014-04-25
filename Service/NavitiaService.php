@@ -103,10 +103,11 @@ class NavitiaService implements NavitiaServiceInterface
         $url = $request->buildUrl($baseUrl);
         $token = $this->config->getToken();
         $request_uri = (isset($_SERVER['REQUEST_URI'])) ? basename($_SERVER['REQUEST_URI']) : '';
-        if (strpos($request_uri, 'debug=1') !== false ||
+        if (strpos($request_uri, 'debug=0') === false &&
+            (strpos($request_uri, 'debug=1') !== false ||
             strpos($request_uri, 'debug=2') !== false ||
             (isset($_COOKIE['ctp_debug']) && $_COOKIE['ctp_debug'] == '2') ||
-            (isset($_COOKIE['ctp_debug']) && $_COOKIE['ctp_debug'] == '1')) {
+            (isset($_COOKIE['ctp_debug']) && $_COOKIE['ctp_debug'] == '1'))) {
             $this->log(
                 $url,
                 $request->getApiName(),
