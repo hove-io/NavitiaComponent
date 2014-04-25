@@ -102,11 +102,17 @@ class NavitiaService implements NavitiaServiceInterface
         $baseUrl = $this->config->getUrl().'/'.$this->config->getVersion().'/';
         $url = $request->buildUrl($baseUrl);
         $token = $this->config->getToken();
-        $this->log(
-            $url,
-            $request->getApiName(),
-            array_merge($request->getParams(), array('token'=>$token))
-        );
+        $request_uri = basename($_SERVER['REQUEST_URI']);
+        if (strpos($request_uri, 'debug=1') !== false ||
+            strpos($request_uri, 'debug=2') !== false ||
+            (isset($_COOKIE['ctp_debug']) && $_COOKIE['ctp_debug'] == '2') ||
+            (isset($_COOKIE['ctp_debug']) && $_COOKIE['ctp_debug'] == '1')) {
+            $this->log(
+                $url,
+                $request->getApiName(),
+                array_merge($request->getParams(), array('token'=>$token))
+            );
+        }
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
