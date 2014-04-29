@@ -78,7 +78,7 @@ class ServiceFacadeTest extends \PHPUnit_Framework_TestCase
         $value = array(
             'api' => 'coverage',
             'parameters' => array(
-                'region' => 'PaysDeLaLoire',
+                'region' => 'Centre',
                 'action' => $action
             )
         );
