@@ -64,7 +64,11 @@ class CoverageRequest extends AbstractNavitiaRequest
      */
     public function setPathFilter($path_filter)
     {
-        $this->path_filter = $path_filter.'/';
+        if (empty($path_filter)) {
+            $this->clearPathFilter();
+        } else {
+            $this->path_filter = $path_filter.'/';
+        }
     }
 
     /**
