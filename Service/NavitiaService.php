@@ -36,6 +36,12 @@ class NavitiaService implements NavitiaServiceInterface
     private $logger;
 
     /**
+     * Timeout
+     * @var integer
+     */
+    private $timeout;
+
+    /**
      * processConfiguration
      * Conversion de la configuration en object NavitiaConfiguration
      * Validation de la configuration
@@ -57,8 +63,9 @@ class NavitiaService implements NavitiaServiceInterface
      *
      * @param mixed $query
      */
-    public function process($query, $format = null)
+    public function process($query, $format = null, $timeout = 5000)
     {
+        $this->timeout = $timeout;
         $factory = new RequestProcessorFactory();
         $processor = $factory->create(gettype($query));
         $request = $processor->convertToObjectRequest($query);
@@ -123,7 +130,7 @@ class NavitiaService implements NavitiaServiceInterface
         }
         curl_setopt($ch, CURLOPT_NOSIGNAL, 1);
         //Timeout in 5s
-        curl_setopt($ch, CURLOPT_TIMEOUT_MS, 5000);
+        curl_setopt($ch, CURLOPT_TIMEOUT_MS, $this->timeout);
         $response = curl_exec($ch);
         curl_close($ch);
         if ($response === false) {

@@ -44,11 +44,11 @@ class ServiceFacade
      * @param mixed $call
      * @return type
      */
-    public function call($call, $format = null)
+    public function call($call, $format = null, $timeout = 5000)
     {
         $service = $this->getService();
         $service->setLogger($this->getLogger());
-        return $service->process($call, $format);
+        return $service->process($call, $format, $timeout);
     }
 
     /**
