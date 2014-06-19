@@ -63,7 +63,7 @@ class NavitiaService implements NavitiaServiceInterface
      *
      * @param mixed $query
      */
-    public function process($query, $format = null, $timeout = 5000)
+    public function process($query, $format = null, $timeout = 5000, $pagination = true)
     {
         $this->timeout = $timeout;
         $factory = new RequestProcessorFactory();
@@ -71,12 +71,38 @@ class NavitiaService implements NavitiaServiceInterface
         $request = $processor->convertToObjectRequest($query);
         $validation = $this->validate($request);
         if ($validation->count() === 0) {
-            return $this->callApi($request, $format);
+            $result = $this->callApi($request, $format);
+            if ($pagination !== false ||
+                $result->pagination->total_result <= $result->pagination->items_per_page) {
+                return $result;
+            } else {
+                return $this->deletePagination($request, $format, $result);
+            }
         } else {
             return $validation;
         }
     }
 
+    /**
+     * Function to delete Navitia pagination
+     * Retrieve the result count and call again with count
+     * @param NavitiaRequestInterface $request
+     * @param string $format
+     * @param mixed $result
+     * @return mixed
+     */
+    public function deletePagination($request, $format, $result)
+    {
+        $parameters = $request->getParameters();
+        if (gettype($parameters) === 'string') {
+            $parameters .= '&count='.$result->pagination->total_result;
+        }
+        if (gettype($parameters) === 'array') {
+            $parameters['count'] = $result->pagination->total_result;
+        }
+        $request->setParameters($parameters);
+        return $this->callApi($request, $format);
+    }
     /**
      * Permet de valider une requete avec les contraintes en annotations
      *
