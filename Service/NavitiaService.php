@@ -194,7 +194,8 @@ class NavitiaService implements NavitiaServiceInterface
     }
 
     /**
-     * Function throwing an exception containing navitia error message and code
+     * Function throwing an exception containing navitia error message and code.
+     * @link http://doc.navitia.io/documentation.html#Errors
      *
      * @param string $response
      * @param string $httpCode
@@ -204,10 +205,23 @@ class NavitiaService implements NavitiaServiceInterface
     public function errorProcessor($response, $httpCode)
     {
         $responseObject = json_decode($response);
-        throw new NavitiaException(
-            'Navitia Error message: ' . $responseObject->message,
-            $responseObject->status
-        );
+        switch ($httpCode) {
+            case 401:
+            case 403:
+                throw new NavitiaException(
+                    'Navitia Access Forbidden: ' . $responseObject->message,
+                    $responseObject->status
+                );
+                break;
+            case 400:
+            case 404:
+            default:
+                throw new NavitiaException(
+                    'Navitia error Message: ' . $responseObject->error->message,
+                    $httpCode
+                );
+            break;
+        }
     }
 
     /**
