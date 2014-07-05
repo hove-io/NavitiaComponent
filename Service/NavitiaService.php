@@ -12,6 +12,7 @@ use Navitia\Component\Request\RequestFactory;
 use Navitia\Component\Request\Processor\RequestProcessorFactory;
 use Navitia\Component\Configuration\Processor\ConfigurationProcessorFactory;
 use Navitia\Component\Exception\BadParametersException;
+use Navitia\Component\Exception\NavitiaException;
 use Navitia\Component\Exception\NavitiaNotRespondingException;
 
 /**
@@ -158,9 +159,13 @@ class NavitiaService implements NavitiaServiceInterface
         //Timeout in 5s
         curl_setopt($ch, CURLOPT_TIMEOUT_MS, $this->timeout);
         $response = curl_exec($ch);
+        $errorMsg = curl_error($ch);
+        $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
         curl_close($ch);
         if ($response === false) {
-            throw new NavitiaNotRespondingException('Navitia not responding');
+            throw new NavitiaNotRespondingException('Navitia not responding: ' . $errorMsg);
+        } else if ($httpCode !== 200) {
+            $this->errorProcessor($response, $httpCode);
         }
         return $this->responseProcessor($response, $format);
     }
@@ -186,6 +191,23 @@ class NavitiaService implements NavitiaServiceInterface
                     sprintf('the "%s" format is not supported.', $format)
                 );
         }
+    }
+
+    /**
+     * Function throwing an exception containing navitia error message and code
+     *
+     * @param string $response
+     * @param string $httpCode
+     * @return void
+     * @throws NavitiaException
+     */
+    public function errorProcessor($response, $httpCode)
+    {
+        $responseObject = json_decode($response);
+        throw new NavitiaException(
+            'Navitia Error message: ' . $responseObject->message,
+            $responseObject->status
+        );
     }
 
     /**
