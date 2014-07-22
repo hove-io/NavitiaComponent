@@ -11,10 +11,7 @@ use Navitia\Component\Request\NavitiaRequestInterface;
 use Navitia\Component\Request\RequestFactory;
 use Navitia\Component\Request\Processor\RequestProcessorFactory;
 use Navitia\Component\Configuration\Processor\ConfigurationProcessorFactory;
-use Navitia\Component\Exception\BadParametersException;
-use Navitia\Component\Exception\NavitiaException;
-use Navitia\Component\Exception\NavitiaNotFoundException;
-use Navitia\Component\Exception\NotFound;
+use Navitia\Component\NavitiaExceptionFactory;
 use Navitia\Component\Exception\NavitiaNotRespondingException;
 
 /**
@@ -207,69 +204,15 @@ class NavitiaService implements NavitiaServiceInterface
     public function errorProcessor($response, $httpCode)
     {
         $responseObject = json_decode($response);
-        switch ($httpCode) {
-            case 400:
-                throw new NavitiaBadRequestException(
-                    'Navitia Error Message: ' . $responseObject->error->message,
-                    $httpCode
-                );
-                break;
-            case 401:
-                throw new NavitiaUnauthorizedException(
-                    'Navitia Authentication failed: ' . $responseObject->message,
-                    $responseObject->status
-                );
-                break;
-            case 403:
-                throw new NavitiaForbiddenException(
-                    'Navitia Access Forbidden: ' . $responseObject->message,
-                    $responseObject->status
-                );
-                break;
-            case 404:
-                switch ($responseObject->error->id) {
-                    case 'date_out_of_bounds':
-                        throw new NotFound\DateOutOfBoundsException(
-                            'Navitia Error Message: ' . $responseObject->error->message,
-                            $httpCode
-                        );
-                        break;
-                    case 'no_origin':
-                        throw new NotFound\NoOriginException(
-                            'Navitia Error Message: ' . $responseObject->error->message,
-                            $httpCode
-                        );
-                        break;
-                    case 'no_destination':
-                        throw new NotFound\NoDestinationException(
-                            'Navitia Error Message: ' . $responseObject->error->message,
-                            $httpCode
-                        );
-                        break;
-                    case 'no_origin_nor_destination':
-                        throw new NotFound\NoOriginNorDestinationException(
-                            'Navitia Error Message: ' . $responseObject->error->message,
-                            $httpCode
-                        );
-                        break;
-                    case 'unknown_object':
-                        throw new NotFound\UnknownObjectException(
-                            'Navitia Error Message: ' . $responseObject->error->message,
-                            $httpCode
-                        );
-                        break;
-                    default:
-                        throw new NavitiaNotFoundException(
-                            'Navitia Error Message: ' . $responseObject->error->message,
-                            $httpCode
-                        );
-                }
-            default:
-                throw new NavitiaException(
-                    'Navitia Error Message: ' . $responseObject->error->message,
-                    $httpCode
-                );
-        }
+        $exceptionFactory = new NavitiaExceptionFactory();
+        $exception = $exceptionFactory->create(
+            $httpCode,
+            $responseObject->error->id,
+            $responseObject->error->message
+        );
+        $exception->setExceptions($responseObject->exceptions);
+        $exception->setNotes($responseObject->notes);
+        throw $exception;
     }
 
     /**
