@@ -203,15 +203,25 @@ class NavitiaService implements NavitiaServiceInterface
      */
     public function errorProcessor($response, $httpCode)
     {
-        $responseObject = json_decode($response);
         $exceptionFactory = new NavitiaExceptionFactory();
-        $exception = $exceptionFactory->create(
-            $httpCode,
-            $responseObject->error->id,
-            $responseObject->error->message
-        );
-        $exception->setExceptions($responseObject->exceptions);
-        $exception->setNotes($responseObject->notes);
+        $errorId = null;
+        $errorMessage = '';
+        
+        $responseObject = json_decode($response);
+        if (isset($responseObject->error)) {
+            $errorId = $responseObject->error->id;
+            $errorMessage = $responseObject->error->message;
+        }
+        
+        $exception = $exceptionFactory->create($httpCode, $errorId, $errorMessage);
+        
+        if (isset($responseObject->exceptions)) {
+            $exception->setExceptions($responseObject->exceptions);
+        }
+        if (isset($responseObject->notes)) {
+            $exception->setNotes($responseObject->notes);
+        }
+        
         throw $exception;
     }
 

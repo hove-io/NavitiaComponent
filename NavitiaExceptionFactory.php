@@ -34,7 +34,7 @@ class NavitiaExceptionFactory implements FactoryInterface
         switch ($httpCode) {
             case 404:
                 return new $this->errorIds[$errorId](
-                    'Navitia Error Message: ' . $message,
+                    'Navitia error message: ' . $message,
                     $httpCode
                 );
                 break;
@@ -42,13 +42,13 @@ class NavitiaExceptionFactory implements FactoryInterface
             case 401:
             case 403:
                 return new $this->httpCodes[$httpCode](
-                    'Navitia Error Message: ' . $message,
+                    'Navitia access error',
                     $httpCode
                 );
                 break;
             default:
                 return new NavitiaException(
-                    'Navitia Error Message: ' . $message,
+                    'Navitia error message: ' . $message,
                     $httpCode
                 );
         }
