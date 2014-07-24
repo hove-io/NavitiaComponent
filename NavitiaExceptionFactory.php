@@ -35,7 +35,8 @@ class NavitiaExceptionFactory implements FactoryInterface
             case 404:
                 return new $this->errorIds[$errorId](
                     'Navitia error message: ' . $message,
-                    $httpCode
+                    $httpCode,
+                    $errorId
                 );
                 break;
             case 400:
