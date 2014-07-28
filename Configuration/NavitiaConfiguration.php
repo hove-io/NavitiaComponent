@@ -38,6 +38,12 @@ class NavitiaConfiguration implements NavitiaConfigurationInterface
      */
     private $token;
 
+    /**Resposne error type
+     *
+     * @var string
+     */
+    private $response_error;
+
     /**
      * Returns the Url of navitia configuration.
      *
@@ -128,6 +134,26 @@ class NavitiaConfiguration implements NavitiaConfigurationInterface
     }
 
     /**
+     * Get the error response type
+     * @return string
+     */
+    public function getResponseError()
+    {
+        return $this->response_error;
+    }
+
+    /**
+     * Set Error Response Type
+     * @param string $response_error
+     * @return \Navitia\Component\Configuration\NavitiaConfiguration
+     */
+    public function setResponseError($response_error)
+    {
+        $this->response_error = $response_error;
+        return $this;
+    }
+
+        /**
      * {@inheritDoc}
      */
     public static function getRequiredProperties()
@@ -135,7 +161,8 @@ class NavitiaConfiguration implements NavitiaConfigurationInterface
         return array(
             'url' => 'getUrl',
             'version' => 'getVersion',
-            'format' => 'getFormat'
+            'format' => 'getFormat',
+            'response_error' => 'getResponseError'
         );
     }
 }

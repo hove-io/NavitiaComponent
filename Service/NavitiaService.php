@@ -163,7 +163,7 @@ class NavitiaService implements NavitiaServiceInterface
         curl_close($ch);
         if ($response === false) {
             throw new NavitiaNotRespondingException('Navitia not responding: ' . $errorMsg);
-        } else if ($httpCode !== 200) {
+        } elseif ($httpCode !== 200) {
             $this->errorProcessor($response, $httpCode);
         }
         return $this->responseProcessor($response, $format);
@@ -194,6 +194,9 @@ class NavitiaService implements NavitiaServiceInterface
 
     /**
      * Function throwing an exception containing navitia error message and code.
+     * if response_error in config is 'exception' Function throwing the exception.
+     * else Function return navitia response
+     * Default mode is the exception mode
      * @link http://doc.navitia.io/documentation.html#Errors
      *
      * @param string $response
@@ -203,26 +206,29 @@ class NavitiaService implements NavitiaServiceInterface
      */
     public function errorProcessor($response, $httpCode)
     {
-        $exceptionFactory = new NavitiaExceptionFactory();
-        $errorId = null;
-        $errorMessage = '';
-        
-        $responseObject = json_decode($response);
-        if (isset($responseObject->error)) {
-            $errorId = $responseObject->error->id;
-            $errorMessage = $responseObject->error->message;
+        if ($this->config->getResponseError() === 'exception') {
+            $exceptionFactory = new NavitiaExceptionFactory();
+            $errorId = null;
+            $errorMessage = '';
+
+            $responseObject = json_decode($response);
+            if (isset($responseObject->error)) {
+                $errorId = $responseObject->error->id;
+                $errorMessage = $responseObject->error->message;
+            }
+
+            $exception = $exceptionFactory->create($httpCode, $errorId, $errorMessage);
+
+            if (isset($responseObject->exceptions)) {
+                $exception->setExceptions($responseObject->exceptions);
+            }
+            if (isset($responseObject->notes)) {
+                $exception->setNotes($responseObject->notes);
+            }
+
+            throw $exception;
         }
-        
-        $exception = $exceptionFactory->create($httpCode, $errorId, $errorMessage);
-        
-        if (isset($responseObject->exceptions)) {
-            $exception->setExceptions($responseObject->exceptions);
-        }
-        if (isset($responseObject->notes)) {
-            $exception->setNotes($responseObject->notes);
-        }
-        
-        throw $exception;
+        return $response;
     }
 
     /**
