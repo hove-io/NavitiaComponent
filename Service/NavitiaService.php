@@ -13,6 +13,7 @@ use Navitia\Component\Request\Processor\RequestProcessorFactory;
 use Navitia\Component\Configuration\Processor\ConfigurationProcessorFactory;
 use Navitia\Component\NavitiaExceptionFactory;
 use Navitia\Component\Exception\NavitiaNotRespondingException;
+use Navitia\Component\Service\CurlService;
 
 /**
  * Description of NavitiaService
@@ -72,8 +73,14 @@ class NavitiaService implements NavitiaServiceInterface
         $validation = $this->validate($request);
         if ($validation->count() === 0) {
             $result = $this->callApi($request, $format);
+            $pagination_total_result_le_pagination_item_per_page = false;
+            if (isset($result->pagination)) {
+                if ($result->pagination->total_result <= $result->pagination->items_per_page) {
+                    $pagination_total_result_le_pagination_item_per_page = true;
+                }
+            }
             if ($pagination !== false ||
-                $result->pagination->total_result <= $result->pagination->items_per_page) {
+                $pagination_total_result_le_pagination_item_per_page) {
                 return $result;
             } else {
                 return $this->deletePagination($request, $format, $result);
@@ -94,11 +101,19 @@ class NavitiaService implements NavitiaServiceInterface
     public function deletePagination($request, $format, $result)
     {
         $parameters = $request->getParameters();
+
+        if (isset($result->pagination)) {
+            $result_pagination_total_result = $result->pagination->total_result;
+        }
+        else {
+            $result_pagination_total_result = 0;
+        }
+
         if (gettype($parameters) === 'string') {
-            $parameters .= '&count='.$result->pagination->total_result;
+            $parameters .= '&count='.$result_pagination_total_result;
         }
         if (gettype($parameters) === 'array') {
-            $parameters['count'] = $result->pagination->total_result;
+            $parameters['count'] = $result_pagination_total_result;
         }
         $request->setParameters($parameters);
         return $this->callApi($request, $format);
@@ -147,26 +162,16 @@ class NavitiaService implements NavitiaServiceInterface
                 array_merge($request->getParams(), array('token'=>$token))
             );
         }
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, $url);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_HEADER, false);
-        if ($token !== null && $token !== '') {
-            curl_setopt($ch, CURLOPT_HTTPHEADER, array('Authorization: '.$token));
-        }
-        curl_setopt($ch, CURLOPT_NOSIGNAL, 1);
-        //Timeout in 5s
-        curl_setopt($ch, CURLOPT_TIMEOUT_MS, $this->timeout);
-        $response = curl_exec($ch);
-        $errorMsg = curl_error($ch);
-        $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-        curl_close($ch);
-        if ($response === false) {
-            throw new NavitiaNotRespondingException('Navitia not responding: ' . $errorMsg);
-        } elseif ($httpCode !== 200) {
+        $ch = new CurlService($url, $this->timeout, $token);
+        $curlResponse = $ch->process();
+        $response = $curlResponse['response'];
+        $curlError = $curlResponse['curlError'];
+        $httpCode = $curlResponse['httpCode'];
+
+        if ($httpCode !== 200) {
             $this->errorProcessor($response, $httpCode);
         }
-        return $this->responseProcessor($response, $format);
+        return $this->responseProcessor($response, $format, $curlError);
     }
 
     /**
@@ -177,14 +182,20 @@ class NavitiaService implements NavitiaServiceInterface
      * @return mixed
      * @throws BadParametersException
      */
-    public function responseProcessor($response, $format)
+    public function responseProcessor($response, $format, $curlError)
     {
         $format = (is_null($format)) ? $this->config->getFormat() : $format;
         switch ($format) {
             case 'json':
                 return $response;
             case 'object':
-                return json_decode($response);
+                if ('NO_CURL_ERROR' == current($curlError)) {
+                    return json_decode($response);
+                } else {
+                    $responseError = new \stdClass();
+                    $responseError->error = $curlError;
+                    return $responseError;
+                }
             default:
                 throw new BadParametersException(
                     sprintf('the "%s" format is not supported.', $format)
