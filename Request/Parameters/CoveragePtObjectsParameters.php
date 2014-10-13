@@ -5,8 +5,7 @@ namespace Navitia\Component\Request\Parameters;
 /**
  * Description of StopsSchedulesParameters
  *
- * @copyright (c) 2013, CANALTP
- * @author rndiaye
+ * @copyright (c) 2014, CANALTP
  */
 class CoveragePtObjectsParameters extends AbstractCoverageParameters
 {
