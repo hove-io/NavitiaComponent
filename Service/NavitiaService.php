@@ -64,7 +64,7 @@ class NavitiaService implements NavitiaServiceInterface
      *
      * @param mixed $query
      */
-    public function process($query, $format = null, $timeout = 5000, $pagination = true)
+    public function process($query, $format = null, $timeout = 10000, $pagination = true)
     {
         $this->timeout = $timeout;
         $factory = new RequestProcessorFactory();
