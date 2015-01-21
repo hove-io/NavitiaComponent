@@ -213,5 +213,4 @@ Les trois étapes de l'appel restent les mêmes pour l'utilisation simple et ava
 
 Contributing
 ------------
-1. Ramatoulaye Ndiaye - ramatoulaye.ndiaye@canaltp.fr
-2. Johan Rouve - johan.rouve@canaltp.fr
+[View all contributors](https://github.com/CanalTP/NavitiaComponent/graphs/contributors)
