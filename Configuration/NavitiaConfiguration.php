@@ -161,8 +161,7 @@ class NavitiaConfiguration implements NavitiaConfigurationInterface
         return array(
             'url' => 'getUrl',
             'version' => 'getVersion',
-            'format' => 'getFormat',
-            'response_error' => 'getResponseError'
+            'format' => 'getFormat'
         );
     }
 }

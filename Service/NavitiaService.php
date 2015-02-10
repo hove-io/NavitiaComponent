@@ -12,7 +12,7 @@ use Navitia\Component\Request\RequestFactory;
 use Navitia\Component\Request\Processor\RequestProcessorFactory;
 use Navitia\Component\Configuration\Processor\ConfigurationProcessorFactory;
 use Navitia\Component\NavitiaExceptionFactory;
-use Navitia\Component\Exception\NavitiaNotRespondingException;
+use Navitia\Component\Exception\BadParametersException;
 use Navitia\Component\Service\CurlService;
 
 /**
@@ -104,8 +104,7 @@ class NavitiaService implements NavitiaServiceInterface
 
         if (isset($result->pagination)) {
             $result_pagination_total_result = $result->pagination->total_result;
-        }
-        else {
+        } else {
             $result_pagination_total_result = 0;
         }
 
@@ -196,6 +195,7 @@ class NavitiaService implements NavitiaServiceInterface
                     $responseError->error = $curlError;
                     return $responseError;
                 }
+                break;
             default:
                 throw new BadParametersException(
                     sprintf('the "%s" format is not supported.', $format)
