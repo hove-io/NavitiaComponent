@@ -63,9 +63,9 @@ La configuration est sous la forme d'un tableau (array).
 
     // Configuration
     $config = array(
-		'url' => 'http://navitia2-ws.ctp.dev.canaltp.fr',
-		'format' => 'json',
-		'token' => '123456789abcdef'
+        'url' => 'http://navitia2-ws.ctp.dev.canaltp.fr',
+        'format' => 'json',
+        'token' => '123456789abcdef'
     );
 
 #### 1.2 - Appel Navitia ####
@@ -120,7 +120,7 @@ Pour Journeys, le passage des paramètres peut se faire de deux manières:
     // parameters string avec Journeys
     $query = array(
         'api' => 'journeys',
-    	'parameters' => '?from=stop_area:TAN:SA:COMM&to=stop_area:SCF:SA:SAOCE87481051&'.
+        'parameters' => '?from=stop_area:TAN:SA:COMM&to=stop_area:SCF:SA:SAOCE87481051&'.
         'datetime=20130819T153000&datetime_represents=departure'
     );
 
@@ -147,15 +147,15 @@ Pour Journeys, le passage des paramètres peut se faire de deux manières:
     // parameters array avec Coverage
     $query = array(
         'api' => 'coverage',
-    	'parameters' => array(
-    		'region' => 'PaysDeLaLoire',
-    		'path_filter' => 'lines/12',
-    		'action' => 'route_schedules',
-    		'parameters' => array (
-    			'from_datetime' => 123312,
-    			'duration' => 10
-    		)
-    	)
+        'parameters' => array(
+            'region' => 'PaysDeLaLoire',
+            'path_filter' => 'lines/12',
+            'action' => 'route_schedules',
+            'parameters' => array (
+                'from_datetime' => 123312,
+                'duration' => 10
+            )
+        )
     );
 
 ###### 1.2.1.2.3 Exemple paramètres (string) ######
@@ -163,12 +163,12 @@ Pour Journeys, le passage des paramètres peut se faire de deux manières:
     // parameters string avec Coverage
     $query = array(
         'api' => 'coverage',
-    	'parameters' => array(
-    		'region' => 'centre',
-    		'path_filter' => 'lines/12',
-    		'action' => 'route_schedules',
-    		'parameters' => '?from_datetime=123312&duration=10'
-    	)
+        'parameters' => array(
+            'region' => 'centre',
+            'path_filter' => 'lines/12',
+            'action' => 'route_schedules',
+            'parameters' => '?from_datetime=123312&duration=10'
+        )
     );
 
 ##### 1.2.2 - Appel Navitia #####
@@ -219,9 +219,9 @@ Running Tests
 
 Afin d'exécuter les tests unitaires, vous devez définir la variable d'environnement "NAVITIA_TOKEN" avec le token dont vous disposez:
 
-	// Exemple pour une distribution Linux
-	export NAVITIA_TOKEN=123456789abcdef
-	phpunit
+    // Exemple pour une distribution Linux
+    export NAVITIA_TOKEN=123456789abcdef
+    phpunit
 
 Contributing
 ------------
