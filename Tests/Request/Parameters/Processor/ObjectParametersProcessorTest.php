@@ -14,7 +14,7 @@ class ObjectParametersProcessorTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * Test ConvertToObjectParameters function with Exception
-     * 
+     *
      * @expectedException Navitia\Component\Exception\BadParametersException
      */
     public function testConvertToObjectParameters()

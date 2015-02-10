@@ -40,7 +40,7 @@ class CurlService
     private $curlErrors;
 
 
-    public function __construct($url,$timeout, $token)
+    public function __construct($url, $timeout, $token)
     {
         $this->url = $url;
         $this->timeout = $timeout;
@@ -128,7 +128,8 @@ class CurlService
 
     }
 
-    public function process(){
+    public function process()
+    {
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $this->url);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -152,4 +153,3 @@ class CurlService
         return $buffer;
     }
 }
-

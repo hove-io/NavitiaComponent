@@ -12,11 +12,13 @@ class NavitiaNotFoundException extends NavitiaException implements ExceptionInte
         $this->errorNavitia = $errorNavitia;
     }
 
-    public function getErrorNavitia() {
+    public function getErrorNavitia()
+    {
         return $this->errorNavitia;
     }
 
-    public function setErrorNavitia($errorNavitia) {
+    public function setErrorNavitia($errorNavitia)
+    {
         $this->errorNavitia = $errorNavitia;
     }
 }

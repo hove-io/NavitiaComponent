@@ -7,7 +7,7 @@ use Navitia\Component\Tests\UtilsTestFunction;
 
 /**
  * Description of CoveragePtObjectsParametersTest
- * 
+ *
  */
 class CoveragePtObjectsParametersTest extends \PHPUnit_Framework_TestCase
 {

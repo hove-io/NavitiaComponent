@@ -14,7 +14,7 @@ class StringToParametersTransformerTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * Test for transfrom function with Exception
-     * 
+     *
      * @expectedException Navitia\Component\Exception\NavitiaCreationException
      */
     public function testTransform()

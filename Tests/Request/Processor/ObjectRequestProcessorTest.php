@@ -15,7 +15,7 @@ class ObjectRequestProcessorTest extends \PHPUnit_Framework_TestCase
     /**
      * Test for convertToObjectRequest
      * Will have an BadParametersException Exception
-     * 
+     *
      * @expectedException Navitia\Component\Exception\BadParametersException
      */
     public function testConvertToObjectRequest()
