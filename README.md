@@ -94,10 +94,10 @@ Pour Journeys, le passage des paramètres peut se faire de deux manières:
     $query = array(
         'api' => 'journeys',
     	'parameters' => array(
-	    	'from' => 'stop_area:TAN:SA:COMM',
-	    	'to' => 'stop_area:SCF:SA:SAOCE87481051',
-	    	'datetime' => '20130819T153000',
-	    	'datetime_represents' => 'departure'
+            'from' => 'stop_area:TAN:SA:COMM',
+            'to' => 'stop_area:SCF:SA:SAOCE87481051',
+            'datetime' => '20130819T153000',
+            'datetime_represents' => 'departure'
     	)
     );
 
