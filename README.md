@@ -54,7 +54,8 @@ La configuration est sous la forme d'un tableau (array).
 
 | Parametres          | Type       |Explication              | Valeurs acceptées  | Valeur défaut |
 | :------------------ | :--------- |:----------------------: | :----------------: | ------------: |
-| url (obligatoires)  | string     | Url d'appel navitia     |                    |               |
+| url (obligatoire)   | string     | Url d'appel navitia     |                    |               |
+| token (obligatoire) | string     | Token de l'api navitia  |                    |               |
 | version (optionnel) | string     | Version de l'api navitia| v1                 | v1            |
 | format (optionnel)  | string     | Format de la sortie     | 'json', 'object'   | object        |
 
@@ -62,8 +63,9 @@ La configuration est sous la forme d'un tableau (array).
 
     // Configuration
     $config = array(
-        'url' => 'http://navitia2-ws.ctp.dev.canaltp.fr',
-	    'format' => 'json'
+		'url' => 'http://navitia2-ws.ctp.dev.canaltp.fr',
+		'format' => 'json',
+		'token' => '123456789abcdef'
     );
 
 #### 1.2 - Appel Navitia ####
@@ -81,8 +83,8 @@ Pour ces deux API, nous pouvons passer les paramètres sous la forme d'un "Strin
 
 | Parametres                | Type                  |Explication              | Valeurs acceptées  |
 | :------------------------ | :-------------------- |:----------------------: | :----------------: |
-| api (obligatoires)        | string                | api journeys de Navitia |journeys            |
-| parameters (obligatoires) | mixed (string, array) | parametres journeys     |                    |
+| api (obligatoire)         | string                | api journeys de Navitia |journeys            |
+| parameters (obligatoire)  | mixed (string, array) | parametres journeys     |                    |
 
 ###### 1.2.1.1.2 Exemple parameters (Array) ######
 
@@ -92,10 +94,10 @@ Pour Journeys, le passage des paramètres peut se faire de deux manières:
     $query = array(
         'api' => 'journeys',
     	'parameters' => array(
-    		'from' => 'stop_area:TAN:SA:COMM',
-    		'to' => 'stop_area:SCF:SA:SAOCE87481051',
-    		'datetime' => '20130819T153000',
-    		'datetime_represents' => 'departure'
+	    	'from' => 'stop_area:TAN:SA:COMM',
+	    	'to' => 'stop_area:SCF:SA:SAOCE87481051',
+	    	'datetime' => '20130819T153000',
+	    	'datetime_represents' => 'departure'
     	)
     );
 
@@ -119,22 +121,22 @@ Pour Journeys, le passage des paramètres peut se faire de deux manières:
     $query = array(
         'api' => 'journeys',
     	'parameters' => '?from=stop_area:TAN:SA:COMM&to=stop_area:SCF:SA:SAOCE87481051&'.
-            'datetime=20130819T153000&datetime_represents=departure'
+        'datetime=20130819T153000&datetime_represents=departure'
     );
 
 ###### 1.2.1.2 Coverage ######
 
 | Parametres                 | Type               |Explication              | Valeurs acceptées  |
 | :------------------------- | :----------------- |:----------------------: | :----------------: |
-| api (obligatoires)         | string             | api coverage de Navitia | coverage           |
-| parameters (obligatoires)  | array              | parametres coverage     |                    |
+| api (obligatoire)          | string             | api coverage de Navitia | coverage           |
+| parameters (obligatoire)   | array              | parametres coverage     |                    |
 
 ###### 1.2.1.2.1 Paramètres Coverage #####
  Les paramètres de coverage sont plus complexes que ceux de journeys.
 
 | Parametres Coverage      | Type                  |Explication              | Exemples           |
 | :----------------------- | :-------------------- |:----------------------: | :----------------: |
-| region (obligatoires)    | string                | Region                  | 'centre'           |
+| region (obligatoire)     | string                | Region                  | 'centre'           |
 | path_filter              | string                | Filtre de coverage      | 'lines/line_id'    |
 | action                   | string                | l'api de coverage       | 'route_schedules'  |
 | parameters               | mixed (array, string) | paramètres de l'action  |                    |
@@ -210,6 +212,16 @@ Des objets sont disponibles pour une utilisation avancée du NavitiaComponent.
 
 #### 2.3 Appel ####
 Les trois étapes de l'appel restent les mêmes pour l'utilisation simple et avancée.
+
+
+Running Tests
+-----------------------------
+
+Afin d'exécuter les tests unitaires, vous devez définir la variable d'environnement "NAVITIA_TOKEN" avec le token dont vous disposez:
+
+	// Exemple pour une distribution Linux
+	export NAVITIA_TOKEN=123456789abcdef
+	phpunit
 
 Contributing
 ------------
