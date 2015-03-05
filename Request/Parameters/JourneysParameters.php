@@ -34,6 +34,7 @@ class JourneysParameters extends AbstractParameters
     protected $type;
     protected $count;
     protected $min_nb_journeys;
+    protected $max_nb_journeys;
     protected $disruption_active;
     protected $first_section_mode;
     protected $last_section_mode;
@@ -234,6 +235,16 @@ class JourneysParameters extends AbstractParameters
     public function setMinNbJourneys($min_nb_journeys)
     {
         $this->min_nb_journeys = $min_nb_journeys;
+        return $this;
+    }
+    public function getMaxNbJourneys()
+    {
+        return $this->max_nb_journeys;
+    }
+
+    public function setMaxNbJourneys($max_nb_journeys)
+    {
+        $this->max_nb_journeys = $max_nb_journeys;
         return $this;
     }
 
