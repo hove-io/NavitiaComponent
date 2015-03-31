@@ -6,6 +6,8 @@
 
 namespace Navitia\Component\Service;
 
+use Psr\Log\LoggerInterface;
+
 /**
  * Description of CurlService
  *
@@ -182,7 +184,7 @@ class CurlService
         }
         curl_setopt($ch, CURLOPT_NOSIGNAL, 1);
         //Default timeout in 5s
-        curl_setopt($ch, CURLOPT_TIMEOUT_MS, 500);
+        curl_setopt($ch, CURLOPT_TIMEOUT_MS, $this->timeout);
 
         $buffer = array(
                     'response' => curl_exec($ch),
