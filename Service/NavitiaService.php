@@ -161,7 +161,7 @@ class NavitiaService implements NavitiaServiceInterface
                 array_merge($request->getParams(), array('token'=>$token))
             );
         }
-        $ch = new CurlService($url, $this->timeout, $token);
+        $ch = new CurlService($url, $this->timeout, $token, $this->logger);
         $curlResponse = $ch->process();
         $response = $curlResponse['response'];
         $curlError = $curlResponse['curlError'];
