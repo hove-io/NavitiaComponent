@@ -6,6 +6,8 @@
 
 namespace Navitia\Component\Service;
 
+use Psr\Log\LoggerInterface;
+
 /**
  * Description of CurlService
  *
@@ -26,6 +28,13 @@ class CurlService
      * @var string
      */
     private $token;
+    
+    /**
+     * Logger
+     *
+     * @var string
+     */
+    private $logger;
 
     /**
      * Timeout
@@ -40,7 +49,7 @@ class CurlService
     private $curlErrors;
 
 
-    public function __construct($url, $timeout, $token)
+    public function __construct($url, $timeout, $token, LoggerInterface $logger = null)
     {
         $this->url = $url;
         $this->timeout = $timeout;
@@ -125,7 +134,43 @@ class CurlService
             '87'    =>  'CURLE_FTP_BAD_FILE_LIST',
             '88'    =>  'CURLE_CHUNK_FAILED'
         );
+        $this->logger = $logger;
 
+    }
+    
+    /**
+     * Getter du logger
+     *
+     * @return \Psr\Log\LoggerInterface $logger
+     */
+    public function getLogger()
+    {
+        return $this->logger;
+    }
+    
+    /**
+     * Setter du logger
+     *
+     * @param \Psr\Log\LoggerInterface $logger
+     */
+    public function setLogger(LoggerInterface $logger)
+    {
+        $this->logger = $logger;
+    }
+    
+    
+    /**
+     * Curl operation error logging function
+     *
+     * @param string $message
+     * @param array $context
+     */
+    protected function log($message, $context)
+    {
+        $logger = $this->getLogger();
+        if ($logger !== null) {
+            $logger->error($message, $context);
+        }
     }
 
     public function process()
@@ -138,7 +183,7 @@ class CurlService
             curl_setopt($ch, CURLOPT_HTTPHEADER, array('Authorization: ' . $this->token));
         }
         curl_setopt($ch, CURLOPT_NOSIGNAL, 1);
-        //Timeout in 5s
+        //Default timeout in 5s
         curl_setopt($ch, CURLOPT_TIMEOUT_MS, $this->timeout);
 
         $buffer = array(
@@ -147,7 +192,15 @@ class CurlService
                     'curlError' => array($this->curlErrors[curl_errno($ch)]),
                     'httpCode' => curl_getinfo($ch, CURLINFO_HTTP_CODE),
                     );
-
+        
+        // Timeout error
+        if (curl_errno($ch) == 28) {
+            $context = array();
+            $context["url"] = $this->url;
+            $context["token"] = $this->token;
+            $this->log($this->curlErrors[curl_errno($ch)], $context);
+        }
+        
         curl_close($ch);
 
         return $buffer;
