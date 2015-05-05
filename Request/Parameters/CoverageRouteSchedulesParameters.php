@@ -12,7 +12,7 @@ class CoverageRouteSchedulesParameters extends AbstractCoverageSchedulesParamete
 {
     protected $max_date_times;
 
-	public function getMaxDateTimes()
+    public function getMaxDateTimes()
     {
         return $this->max_date_times;
     }
