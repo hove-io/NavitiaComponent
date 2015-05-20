@@ -89,6 +89,7 @@ class ServiceFacadeTest extends \PHPUnit_Framework_TestCase
             $this->config['format'] = $format;
             $this->service->setConfiguration($this->config);
             $result = $this->service->call($value);
+            $this->assertNotEquals(false, $result);
             switch ($format) {
                 case 'json':
                     $this->assertContains($action, $result);
