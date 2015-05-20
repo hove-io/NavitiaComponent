@@ -21,6 +21,7 @@ abstract class AbstractCoverageParameters extends AbstractParameters
     protected $start_date;
     protected $end_date;
     protected $show_codes;
+    protected $distance;
 
     public function getCount()
     {
@@ -105,5 +106,15 @@ abstract class AbstractCoverageParameters extends AbstractParameters
     {
         $this->end_date = $end_date;
         return $this;
+    }
+
+    public function getDistance()
+    {
+        return $this->distance;
+    }
+
+    public function setDistance($distance)
+    {
+        $this->distance = $distance;
     }
 }
