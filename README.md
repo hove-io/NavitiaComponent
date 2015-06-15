@@ -18,26 +18,7 @@ Installation
 ------------
 Pour installer NavitiaComponent il faut utiliser composer.
 
-1. Ouvrir votre composer.json
-2. Placer à la dernière ligne de vos require "canaltp/navitia": "dev-master"
-(dev-master ou la dernière version stable)
-3. Placer dans vos repositories le type et l'url de packagist
-
-    {
-        ...
-        "require": {
-            ...
-            "canaltp/navitia": "dev-master"
-        },
-        "repositories": [
-            {
-                "type": "composer",
-                "url": "http://packagist.canaltp.fr"
-            },
-            ...
-        ],
-        ...
-    }
+    composer require "canaltp/navitia":"~1.1"
 
 
 How to use NavitiaComponent ?
