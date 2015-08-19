@@ -38,6 +38,7 @@ class JourneysParameters extends AbstractParameters
     protected $disruption_active;
     protected $first_section_mode;
     protected $last_section_mode;
+    protected $traveler_type;
     protected $debug;
 
     public function getFrom()
@@ -288,4 +289,15 @@ class JourneysParameters extends AbstractParameters
     {
         $this->last_section_mode = $last_section_mode;
     }
+    
+    public function getTravelerType()
+    {
+        return $this->traveler_type;
+    }
+    
+    public function setTravelerType($traveler_type)
+    {
+        $this->traveler_type = $traveler_type;
+    }
+    
 }
