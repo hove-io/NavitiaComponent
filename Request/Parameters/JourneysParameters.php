@@ -299,5 +299,4 @@ class JourneysParameters extends AbstractParameters
     {
         $this->traveler_type = $traveler_type;
     }
-    
 }
