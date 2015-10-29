@@ -30,13 +30,16 @@ class JourneysParametersTest extends \PHPUnit_Framework_TestCase
             'car_speed' => 10,
             'departure_mode' => 'bike',
             'arrival_mode' => 'car',
-            'forbidden_uris' => 'plane',
+            'forbidden_uris' => array('plane', 'train', 'tramway'),
             'walking_distance' => 10,
             'bike_distance' => 100,
             'car_distance' => 100,
             'wheelchair' => true,
             'type' => 'comfort, rapid',
-            'count' => 10
+            'count' => 10,
+            'first_section_mode' => array('bus', 'bike'),
+            'last_section_mode' => array('bus', 'bike'),
+            'traveler_type' => 'wheelchair'
         );
         $setter->setter($testArray, $service);
     }

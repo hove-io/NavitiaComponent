@@ -26,7 +26,6 @@ class JourneysParameters extends AbstractParameters
     protected $car_speed;
     protected $departure_mode;
     protected $arrival_mode;
-    protected $forbidden_uris;
     protected $walking_distance;
     protected $bike_distance;
     protected $car_distance;
@@ -36,10 +35,13 @@ class JourneysParameters extends AbstractParameters
     protected $min_nb_journeys;
     protected $max_nb_journeys;
     protected $disruption_active;
-    protected $first_section_mode;
-    protected $last_section_mode;
-    protected $traveler_type;
     protected $debug;
+    protected $preferences;
+
+    public function __construct()
+    {
+        $this->preferences = new JourneysPreferencesParameters();
+    }
 
     public function getFrom()
     {
@@ -153,12 +155,12 @@ class JourneysParameters extends AbstractParameters
 
     public function getForbiddenUris()
     {
-        return $this->forbidden_uris;
+        return $this->preferences->getForbiddenUris();
     }
 
     public function setForbiddenUris($forbidden_uris)
     {
-        $this->forbidden_uris = $forbidden_uris;
+        $this->preferences->setForbiddenUris($forbidden_uris);
         return $this;
     }
 
@@ -272,31 +274,52 @@ class JourneysParameters extends AbstractParameters
 
     public function getFirstSectionMode()
     {
-        return $this->first_section_mode;
+        return $this->preferences->getFirstSectionMode();
     }
 
     public function setFirstSectionMode($first_section_mode)
     {
-        $this->first_section_mode = $first_section_mode;
+        $this->preferences->setFirstSectionMode($first_section_mode);
     }
 
     public function getLastSectionMode()
     {
-        return $this->last_section_mode;
+        return $this->preferences->getLastSectionMode();
     }
 
     public function setLastSectionMode($last_section_mode)
     {
-        $this->last_section_mode = $last_section_mode;
+        $this->preferences->setLastSectionMode($last_section_mode);
     }
-    
+
     public function getTravelerType()
     {
-        return $this->traveler_type;
+        return $this->preferences->getTravelerType();
     }
-    
+
     public function setTravelerType($traveler_type)
     {
-        $this->traveler_type = $traveler_type;
+        $this->preferences->setTravelerType($traveler_type);
+    }
+
+    /**
+     * Preferences getter
+     * @return JourneysPreferencesParameters
+     */
+    public function getPreferences()
+    {
+        return $this->preferences;
+    }
+
+    /**
+     * Preferences setter
+     * @param JourneysPreferencesParameters $preferences
+     * @return $this
+     */
+    public function setPreferences(JourneysPreferencesParameters $preferences)
+    {
+        $this->preferences = $preferences;
+
+        return $this;
     }
 }
