@@ -38,6 +38,11 @@ class JourneysParameters extends AbstractParameters
     protected $debug;
     protected $preferences;
 
+    public function __construct()
+    {
+        $this->preferences = new JourneysPreferencesParameters();
+    }
+
     public function getFrom()
     {
         return $this->from;
@@ -145,6 +150,17 @@ class JourneysParameters extends AbstractParameters
     public function setArrivalMode($arrival_mode)
     {
         $this->arrival_mode = $arrival_mode;
+        return $this;
+    }
+
+    public function getForbiddenUris()
+    {
+        return $this->preferences->getForbiddenUris();
+    }
+
+    public function setForbiddenUris($forbidden_uris)
+    {
+        $this->preferences->setForbiddenUris($forbidden_uris);
         return $this;
     }
 
@@ -256,6 +272,36 @@ class JourneysParameters extends AbstractParameters
         $this->debug = $debug;
     }
 
+    public function getFirstSectionMode()
+    {
+        return $this->preferences->getFirstSectionMode();
+    }
+
+    public function setFirstSectionMode($first_section_mode)
+    {
+        $this->preferences->setFirstSectionMode($first_section_mode);
+    }
+
+    public function getLastSectionMode()
+    {
+        return $this->preferences->getLastSectionMode();
+    }
+
+    public function setLastSectionMode($last_section_mode)
+    {
+        $this->preferences->setLastSectionMode($last_section_mode);
+    }
+
+    public function getTravelerType()
+    {
+        return $this->preferences->getTravelerType();
+    }
+
+    public function setTravelerType($traveler_type)
+    {
+        $this->preferences->setTravelerType($traveler_type);
+    }
+
     /**
      * Preferences getter
      * @return JourneysPreferencesParameters
@@ -276,5 +322,4 @@ class JourneysParameters extends AbstractParameters
 
         return $this;
     }
-
 }

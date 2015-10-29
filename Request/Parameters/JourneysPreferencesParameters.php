@@ -67,7 +67,7 @@ class JourneysPreferencesParameters
     }
 
     /**
-     * @return array
+     * @return string
      */
     public function getTravelerType()
     {
@@ -75,10 +75,10 @@ class JourneysPreferencesParameters
     }
 
     /**
-     * @param array $traveler_type
+     * @param string $traveler_type
      * @return $this
      */
-    public function setTravelerType(array $traveler_type)
+    public function setTravelerType($traveler_type)
     {
         $this->traveler_type = $traveler_type;
 
