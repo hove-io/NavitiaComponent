@@ -26,7 +26,6 @@ class JourneysParameters extends AbstractParameters
     protected $car_speed;
     protected $departure_mode;
     protected $arrival_mode;
-    protected $forbidden_uris;
     protected $walking_distance;
     protected $bike_distance;
     protected $car_distance;
@@ -36,10 +35,8 @@ class JourneysParameters extends AbstractParameters
     protected $min_nb_journeys;
     protected $max_nb_journeys;
     protected $disruption_active;
-    protected $first_section_mode;
-    protected $last_section_mode;
-    protected $traveler_type;
     protected $debug;
+    protected $preferences;
 
     public function getFrom()
     {
@@ -151,17 +148,6 @@ class JourneysParameters extends AbstractParameters
         return $this;
     }
 
-    public function getForbiddenUris()
-    {
-        return $this->forbidden_uris;
-    }
-
-    public function setForbiddenUris($forbidden_uris)
-    {
-        $this->forbidden_uris = $forbidden_uris;
-        return $this;
-    }
-
     public function getWalkingDistance()
     {
         return $this->walking_distance;
@@ -270,33 +256,25 @@ class JourneysParameters extends AbstractParameters
         $this->debug = $debug;
     }
 
-    public function getFirstSectionMode()
+    /**
+     * Preferences getter
+     * @return JourneysPreferencesParameters
+     */
+    public function getPreferences()
     {
-        return $this->first_section_mode;
+        return $this->preferences;
     }
 
-    public function setFirstSectionMode($first_section_mode)
+    /**
+     * Preferences setter
+     * @param JourneysPreferencesParameters $preferences
+     * @return $this
+     */
+    public function setPreferences(JourneysPreferencesParameters $preferences)
     {
-        $this->first_section_mode = $first_section_mode;
+        $this->preferences = $preferences;
+
+        return $this;
     }
 
-    public function getLastSectionMode()
-    {
-        return $this->last_section_mode;
-    }
-
-    public function setLastSectionMode($last_section_mode)
-    {
-        $this->last_section_mode = $last_section_mode;
-    }
-    
-    public function getTravelerType()
-    {
-        return $this->traveler_type;
-    }
-    
-    public function setTravelerType($traveler_type)
-    {
-        $this->traveler_type = $traveler_type;
-    }
 }
