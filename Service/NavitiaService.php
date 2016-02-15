@@ -6,6 +6,8 @@
 
 namespace Navitia\Component\Service;
 
+use Psr\Log\LoggerAwareInterface;
+use Psr\Log\LoggerInterface;
 use Symfony\Component\Validator\Validation;
 use Navitia\Component\Request\NavitiaRequestInterface;
 use Navitia\Component\Request\RequestFactory;
@@ -20,7 +22,7 @@ use Navitia\Component\Service\CurlService;
  *
  * @author rndiaye
  */
-class NavitiaService implements NavitiaServiceInterface
+class NavitiaService implements NavitiaServiceInterface, LoggerAwareInterface
 {
     /**
      * Configuration
@@ -149,18 +151,12 @@ class NavitiaService implements NavitiaServiceInterface
         $baseUrl = $this->config->getUrl().'/'.$this->config->getVersion().'/';
         $url = $request->buildUrl($baseUrl);
         $token = $this->config->getToken();
-        $request_uri = (isset($_SERVER['REQUEST_URI'])) ? basename($_SERVER['REQUEST_URI']) : '';
-        if (strpos($request_uri, 'debug=0') === false &&
-            (strpos($request_uri, 'debug=1') !== false ||
-            strpos($request_uri, 'debug=2') !== false ||
-            (isset($_COOKIE['ctp_debug']) && $_COOKIE['ctp_debug'] == '2') ||
-            (isset($_COOKIE['ctp_debug']) && $_COOKIE['ctp_debug'] == '1'))) {
-            $this->log(
-                $url,
-                $request->getApiName(),
-                array_merge($request->getParams(), array('token'=>$token))
-            );
-        }
+        $this->log(
+            $url,
+            $request->getApiName(),
+            array_merge($request->getParams(), array('token' => $token))
+        );
+
         $ch = new CurlService($url, $this->timeout, $token, $this->logger);
         $curlResponse = $ch->process();
         $response = $curlResponse['response'];
@@ -239,6 +235,7 @@ class NavitiaService implements NavitiaServiceInterface
 
             throw $exception;
         }
+
         return $response;
     }
 
@@ -251,9 +248,9 @@ class NavitiaService implements NavitiaServiceInterface
      */
     protected function log($url, $api, $parameters)
     {
-        $logger = $this->getLogger();
-        if ($logger !== null) {
-            $logger->debug(
+
+        if ($this->logger !== null) {
+            $this->logger->debug(
                 $url,
                 array(
                     'api' => $api,
@@ -274,12 +271,13 @@ class NavitiaService implements NavitiaServiceInterface
     }
 
     /**
-     * Setter du logger
-     *
      * @param LoggerInterface $logger
+     * @return $this
      */
-    public function setLogger($logger)
+    public function setLogger(LoggerInterface $logger)
     {
         $this->logger = $logger;
+
+        return $this;
     }
 }

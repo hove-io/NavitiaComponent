@@ -48,6 +48,7 @@ class ServiceFacade
     {
         $service = $this->getService();
         $service->setLogger($this->getLogger());
+
         return $service->process($call, $format, $timeout, $pagination);
     }
 

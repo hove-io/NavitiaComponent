@@ -13,6 +13,9 @@
             "email": "johan.rouve@canaltp.fr"
         }
     ],
+    "contributors": [
+		{ "name": "Jean-Baptiste Crestot", "email": "jean-baptiste.crestot@canaltp.fr" }
+	],
     "require": {
         "psr/log": "~1.0",
         "symfony/validator": ">=2.2",
