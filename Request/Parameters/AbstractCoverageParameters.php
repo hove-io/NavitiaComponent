@@ -13,6 +13,16 @@ namespace Navitia\Component\Request\Parameters;
  */
 abstract class AbstractCoverageParameters extends AbstractParameters
 {
+    /**
+     * @var int used to request navitia using only the base schedules
+     */
+    const DATA_FRESHNESS_BASE_SCHEDULE = 'base_schedule';
+
+    /**
+     * @var int include realtime when available
+     */
+    const DATA_FRESHNESS_REALTIME = 'realtime';
+
     protected $count;
     protected $depth;
     protected $start_page;
@@ -22,6 +32,7 @@ abstract class AbstractCoverageParameters extends AbstractParameters
     protected $end_date;
     protected $show_codes;
     protected $distance;
+    protected $data_freshness;
 
     public function getCount()
     {
@@ -116,5 +127,21 @@ abstract class AbstractCoverageParameters extends AbstractParameters
     public function setDistance($distance)
     {
         $this->distance = $distance;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDataFreshness()
+    {
+        return $this->data_freshness;
+    }
+
+    /**
+     * @param mixed $data_freshness
+     */
+    public function setDataFreshness($data_freshness)
+    {
+        $this->data_freshness = $data_freshness;
     }
 }
