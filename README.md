@@ -18,7 +18,7 @@ Installation
 ------------
 Pour installer NavitiaComponent il faut utiliser composer.
 
-    composer require "canaltp/navitia":"~1.1"
+    composer require "canaltp/navitia":"~1.2"
 
 
 How to use NavitiaComponent ?
