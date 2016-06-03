@@ -31,6 +31,7 @@ class JourneysParameters extends AbstractParameters
     protected $bike_distance;
     protected $car_distance;
     protected $wheelchair;
+    protected $type;
     protected $count;
     protected $min_nb_journeys;
     protected $max_nb_journeys;
@@ -202,6 +203,17 @@ class JourneysParameters extends AbstractParameters
     public function setWheelchair($wheelchair)
     {
         $this->wheelchair = $wheelchair;
+        return $this;
+    }
+
+    public function getType()
+    {
+        return $this->type;
+    }
+
+    public function setType($type)
+    {
+        $this->type = $type;
         return $this;
     }
 
