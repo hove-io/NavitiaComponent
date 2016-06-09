@@ -87,8 +87,10 @@ $query = array(
     'parameters' => array(
         'from' => '2.3749036;48.8467927',
         'to' => '2.2922926;48.8583736',
-    )
+    ),
 );
+
+$result = $client->call($query);
 ```
 
 
@@ -105,6 +107,8 @@ $query = array(
         'region' => 'sandbox',
     ),
 );
+
+$result = $client->call($query);
 ```
 
 
