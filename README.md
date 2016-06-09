@@ -1,209 +1,173 @@
 README
 ======
-What is NavitiaComponent ?
----------------------------
-Le composant Navitia permet de faire des appels à l'API __Navitia 2__
-et de contrôler les paramètres.
 
-NavitiaComponent est une librairie full-stack PHP 5.3.
-Il peut être associé à un framework (Symfony, Zend, ...).
+Navitia Component is a PHP library to query __Navitia 2__ Api (http://api.navitia.io),
+and controls query parameters.
+
 
 Requirements
 ------------
-1. PHP: >=5.3.3 - NavitiaComponent utilise PHP 5.3.3 et plus.
-2. Psr/Log: ~1.0 - Pour utiliser un logger, il faut qu'il implémente
-l'interface LoggerInterface de Psr
+
+- PHP: >=5.3.3
+- a Navitia token
+
 
 Installation
 ------------
-Pour installer NavitiaComponent il faut utiliser composer.
+
+Using composer:
 
     composer require "canaltp/navitia":"~1.2"
 
 
 How to use NavitiaComponent ?
 -----------------------------
-NavitiaComponent propose une utilisation simple et une utilisation avancée.
 
-### 1 - Utilisation simple ###
+### Basic usage
 
-#### 1.1 - Configuration ####
+Configuration:
 
-##### 1.1.1 - Paramètres #####
+``` php
+use Navitia\Component\Service\ServiceFacade;
 
-La configuration est sous la forme d'un tableau (array).
+// Configuration
+$config = array(
+    'url' => 'api.navitia.io',
+    'token' => '3b036afe-0110-4202-b9ed-99718476c2e0', // This token has an access to sandbox data
+);
 
-| Parametres          | Type       |Explication              | Valeurs acceptées  | Valeur défaut |
+$client = ServiceFacade::getInstance(new \Psr\Log\NullLogger());
+$client->setConfiguration($config);
+```
+
+Query example:
+
+``` php
+use Doctrine\Common\Annotations\AnnotationRegistry;
+
+// must be called to register Doctrine annotations
+AnnotationRegistry::registerLoader('class_exists');
+
+$query = array(
+    'api' => 'journeys',
+    'parameters' => array(
+        'from' => '2.3749036;48.8467927',
+        'to' => '2.2922926;48.8583736',
+    ),
+);
+
+$result = $client->call($query); // Returns an object with Api result
+```
+
+Config parameters:
+
+| Name                | Type       | Description             | Accepted values    | Default value |
 | :------------------ | :--------- |:----------------------: | :----------------: | ------------: |
-| url (obligatoire)   | string     | Url d'appel navitia     |                    |               |
-| token (obligatoire) | string     | Token de l'api navitia  |                    |               |
-| version (optionnel) | string     | Version de l'api navitia| v1                 | v1            |
-| format (optionnel)  | string     | Format de la sortie     | 'json', 'object'   | object        |
+| `url`   (required)  | `string`   | Base url of Navitia     |                    |               |
+| `token` (required)  | `string`   | Your token              |                    |               |
+| `version`           | `string`   | Api version             | `v1`               | `v1`          |
+| `format`            | `string`   | Wanted output format    | `json`, `object`   | `object`      |
 
-##### 1.1.2 - Exemple d'utilisation #####
+### Uses cases
 
-    // Configuration
-    $config = array(
-        'url' => 'http://navitia2-ws.ctp.dev.canaltp.fr',
-        'format' => 'json',
-        'token' => '123456789abcdef'
-    );
+Navitia component supports two apis:
 
-#### 1.2 - Appel Navitia ####
+1. Journeys
+2. Coverage
 
-Nous supportons  deux API Navitia :
+#### Journeys
 
-1. Coverage
-2. Journeys
+Check documentation to see which parameters can be provided: http://doc.navitia.io/#journeys
 
-##### 1.2.1 - Paramètres #####
+Example of an itinerary:
 
-Pour ces deux API, nous pouvons passer les paramètres sous la forme d'un "String" ou d'un "Array".
-
-###### 1.2.1.1 Journeys ######
-
-| Parametres                | Type                  |Explication              | Valeurs acceptées  |
-| :------------------------ | :-------------------- |:----------------------: | :----------------: |
-| api (obligatoire)         | string                | api journeys de Navitia |journeys            |
-| parameters (obligatoire)  | mixed (string, array) | parametres journeys     |                    |
-
-###### 1.2.1.1.2 Exemple parameters (Array) ######
-
-Pour Journeys, le passage des paramètres peut se faire de deux manières:
-
-    // 1. Un tableau de paramètres
-    $query = array(
-        'api' => 'journeys',
-    	'parameters' => array(
-            'from' => 'stop_area:TAN:SA:COMM',
-            'to' => 'stop_area:SCF:SA:SAOCE87481051',
-            'datetime' => '20130819T153000',
-            'datetime_represents' => 'departure'
-    	)
-    );
+``` php
+$query = array(
+    'api' => 'journeys',
+    'parameters' => array(
+        'from' => '2.3749036;48.8467927',
+        'to' => '2.2922926;48.8583736',
+    )
+);
+```
 
 
-    // 2. Un tableau de paramètres contenant un tableau de paramètres
-    $query = array(
-        'api' => 'journeys',
-    	'parameters' => array(
-    		'parameters' => array(
-    			'from' => 'stop_area:TAN:SA:COMM',
-    			'to' => 'stop_area:SCF:SA:SAOCE87481051',
-    			'datetime' => '20130819T153000',
-    			'datetime_represents' => 'departure'
-    		)
-    	)
-    );
+#### Coverage
 
-###### 1.2.1.1.3 Exemple parameters (String) ######
+Check documentation to see which parameters can be provided: http://doc.navitia.io/#coverage
 
-    // parameters string avec Journeys
-    $query = array(
-        'api' => 'journeys',
-        'parameters' => '?from=stop_area:TAN:SA:COMM&to=stop_area:SCF:SA:SAOCE87481051&'.
-        'datetime=20130819T153000&datetime_represents=departure'
-    );
+Example, retrieve metadata about a coverage:
 
-###### 1.2.1.2 Coverage ######
-
-| Parametres                 | Type               |Explication              | Valeurs acceptées  |
-| :------------------------- | :----------------- |:----------------------: | :----------------: |
-| api (obligatoire)          | string             | api coverage de Navitia | coverage           |
-| parameters (obligatoire)   | array              | parametres coverage     |                    |
-
-###### 1.2.1.2.1 Paramètres Coverage #####
- Les paramètres de coverage sont plus complexes que ceux de journeys.
-
-| Parametres Coverage      | Type                  |Explication              | Exemples           |
-| :----------------------- | :-------------------- |:----------------------: | :----------------: |
-| region (obligatoire)     | string                | Region                  | 'centre'           |
-| path_filter              | string                | Filtre de coverage      | 'lines/line_id'    |
-| action                   | string                | l'api de coverage       | 'route_schedules'  |
-| parameters               | mixed (array, string) | paramètres de l'action  |                    |
+``` php
+$query = array(
+    'api' => 'coverage',
+    'parameters' => array(
+        'region' => 'sandbox',
+    ),
+);
+```
 
 
-###### 1.2.1.2.2 Exemple parameters (array) ######
+### Calling any other Api
 
-    // parameters array avec Coverage
-    $query = array(
-        'api' => 'coverage',
-        'parameters' => array(
-            'region' => 'PaysDeLaLoire',
-            'path_filter' => 'lines/12',
-            'action' => 'route_schedules',
-            'parameters' => array (
-                'from_datetime' => 123312,
-                'duration' => 10
-            )
-        )
-    );
+To query Navitia with any other url using this component
+and the config you have provided, this pattern do the trick:
 
-###### 1.2.1.2.3 Exemple paramètres (string) ######
+``` php
+$query = array(
+    'api' => 'coverage',
+    'parameters' => array(
+        'region' => 'sandbox',                          // Coverage name
+        'path_filter' => 'stop_areas?variable=value',   // Url to call
+    ),
+);
 
-    // parameters string avec Coverage
-    $query = array(
-        'api' => 'coverage',
-        'parameters' => array(
-            'region' => 'centre',
-            'path_filter' => 'lines/12',
-            'action' => 'route_schedules',
-            'parameters' => '?from_datetime=123312&duration=10'
-        )
-    );
-
-##### 1.2.2 - Appel Navitia #####
-
-L'appel Navitia se fait en trois petites étapes :
-1. Instanciation de ServiceFacade
-2. Ajout (set) de la configuration
-3. Appel à l'api Navitia avec les paramètres de l'api
+$result = $client->call($query);
+// Will call http://api.navitia.io/v1/coverage/sandbox/stop_areas?variable=value
+```
 
 
-    $service = ServiceFacade::getInstance();
-    $service->setConfiguration($config);
-    $result = $service->call($query);
+### Using query builder
 
-### 2 - Utilisation avancée ###
+You can use a query builder:
 
-Des objets sont disponibles pour une utilisation avancée du NavitiaComponent.
+``` php
+use Navitia\Component\Request\JourneysRequest;
+use Navitia\Component\Request\Parameters\JourneysParameters;
 
-#### 2.1 Exemples paramètres (object) pour coverage ####
+$query = new JourneysRequest();
 
-    // parameters object avec Coverage
-    $query = new \Navitia\Component\Request\CoverageRequest();
-    $query->setRegion('centre');
-    $query->setPathFilter('lines/12');
-    $query->setAction('route_schedules');
-    $actionParams = new \Navitia\Component\Request\Parameters\CoverageRouteSchedulesParameters();
-    $actionParams->setFromDatetime(123312);
-    $actionParams->setDuration(10);
-    $query->setParameters($actionParams);
+$actionParameters = new JourneysParameters();
 
-#### 2.2 Exemples paramètres (object) pour journeys ####
+$actionParameters
+    ->setFrom('2.3749036;48.8467927')
+    ->setTo('2.2922926;48.8583736')
+    ->setDatetime('20160819T153000')
+;
 
-    // parameters object avec Journeys
-    $query = new \Navitia\Component\Request\JourneysRequest();
-    $actionParameters = new \Navitia\Component\Request\Parameters\JourneysParameters();
-    $actionParameters->setFrom('stop_area:TAN:SA:COMM');
-    $actionParameters->setTo('stop_area:SCF:SA:SAOCE87481051');
-    $actionParameters->setDatetime('20130819T153000');
-    $actionParameters->setDatetimeRepresents('departure');
-    $query->setParameters($actionParameters);
+$query->setParameters($actionParameters);
 
-#### 2.3 Appel ####
-Les trois étapes de l'appel restent les mêmes pour l'utilisation simple et avancée.
+$result = $client->call($query);
+```
 
 
 Running Tests
 -----------------------------
 
-Afin d'exécuter les tests unitaires, vous devez définir la variable d'environnement "NAVITIA_TOKEN" avec le token dont vous disposez:
+You have to provide a Navitia token through an OS environment variable `NAVITIA_TOKEN`:
 
-    // Exemple pour une distribution Linux
-    export NAVITIA_TOKEN=123456789abcdef
-    phpunit
+``` bash
+export NAVITIA_TOKEN=your-token-xxxx-xxxx
+phpunit
+```
+
 
 Contributing
 ------------
+
 [View all contributors](https://github.com/CanalTP/NavitiaComponent/graphs/contributors)
+
+License
+-------
+
+The library is under [GNU GPL-v3 License](LICENSE.txt).
