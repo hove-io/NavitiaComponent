@@ -11,6 +11,8 @@ Requirements
 - PHP: >=5.3.3
 - a Navitia token
 
+> Note:
+> If you don't have a Navitia token yet, you have to register here: http://navitia.io/register
 
 Installation
 ------------
