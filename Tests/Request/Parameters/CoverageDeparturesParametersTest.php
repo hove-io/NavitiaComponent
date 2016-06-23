@@ -19,7 +19,8 @@ class CoverageDeparturesParametersTest extends \PHPUnit_Framework_TestCase
     {
         $service = new CoverageDeparturesParameters();
         $testArray = array(
-            'nb_stoptimes' => 10
+            'forbidden_uris' => ['lines'],
+            'data_freshness' => 'realtime'
         );
         $setter = new UtilsTestFunction();
         $setter->setter($testArray, $service);

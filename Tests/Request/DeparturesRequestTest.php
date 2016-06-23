@@ -2,38 +2,24 @@
 
 namespace Navitia\Component\Tests\Request;
 
-use Navitia\Component\Request\CoverageRequest;
+use Navitia\Component\Request\DeparturesRequest;
 
 /**
  * Description of CoverageRequestTest
  *
  * @author rndiaye
  */
-class CoverageRequestTest extends \PHPUnit_Framework_TestCase
+class DeparturesRequestTest extends \PHPUnit_Framework_TestCase
 {
     private $service;
     private $path_filter;
-    private $action;
     private $parameters;
 
     protected function setUp()
     {
-        $this->service = new CoverageRequest();
-        $this->path_filter = 'lines/12';
-        $this->action = 'route_schedules';
+        $this->service = new DeparturesRequest();
+        $this->path_filter = 'lines/line:RAT:M1';
         $this->parameters = '?from_datetime=123312&duration=10';
-    }
-
-    /**
-     * Test for setAction
-     * Will have a BadParametersException Exception
-     *
-     * @expectedException Navitia\Component\Exception\BadParametersException
-     */
-    public function testSetAction()
-    {
-        $action = array('foo', 'bar');
-        $this->service->setAction($action);
     }
 
     /**
@@ -52,7 +38,7 @@ class CoverageRequestTest extends \PHPUnit_Framework_TestCase
     public function testAddToPathFilter()
     {
         $type = 'lines';
-        $value = '12';
+        $value = 'line:RAT:M1';
         $this->service->addToPathFilter($type, $value);
         $path_filter = $this->service->getPathFilter();
         $this->assertEquals($path_filter, $this->path_filter.'/');

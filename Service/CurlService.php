@@ -1,9 +1,5 @@
 <?php
 
-/*
- * CurlService
- */
-
 namespace Navitia\Component\Service;
 
 use Psr\Log\LoggerInterface;
@@ -47,7 +43,6 @@ class CurlService
      * @var array
      */
     private $curlErrors;
-
 
     public function __construct($url, $timeout, $token, LoggerInterface $logger = null)
     {
@@ -134,10 +129,10 @@ class CurlService
             '87'    =>  'CURLE_FTP_BAD_FILE_LIST',
             '88'    =>  'CURLE_CHUNK_FAILED'
         );
-        $this->logger = $logger;
 
+        $this->logger = $logger;
     }
-    
+
     /**
      * Getter du logger
      *
@@ -147,7 +142,7 @@ class CurlService
     {
         return $this->logger;
     }
-    
+
     /**
      * Setter du logger
      *
@@ -157,8 +152,7 @@ class CurlService
     {
         $this->logger = $logger;
     }
-    
-    
+
     /**
      * Curl operation error logging function
      *
@@ -192,7 +186,7 @@ class CurlService
                     'curlError' => array($this->curlErrors[curl_errno($ch)]),
                     'httpCode' => curl_getinfo($ch, CURLINFO_HTTP_CODE),
                     );
-        
+
         // Timeout error
         if (curl_errno($ch) == 28) {
             $context = array();
@@ -200,7 +194,7 @@ class CurlService
             $context["token"] = $this->token;
             $this->log($this->curlErrors[curl_errno($ch)], $context);
         }
-        
+
         curl_close($ch);
 
         return $buffer;
