@@ -1,5 +1,5 @@
-README
-======
+Navitia Component
+=================
 
 Navitia Component is a PHP library to query __Navitia 2__ Api (http://api.navitia.io),
 and controls query parameters.
@@ -72,14 +72,13 @@ Config parameters:
 
 ### Uses cases
 
-Navitia component supports two apis:
+Navitia component supports these apis:
 
-1. Journeys
-2. Coverage
+- Journeys
+- Coverage
+- Departures
 
 #### Journeys
-
-Check documentation to see which parameters can be provided: http://doc.navitia.io/#journeys
 
 Example of an itinerary:
 
@@ -95,10 +94,10 @@ $query = array(
 $result = $client->call($query);
 ```
 
+See also: http://doc.navitia.io/#journeys
+
 
 #### Coverage
-
-Check documentation to see which parameters can be provided: http://doc.navitia.io/#coverage
 
 Example, retrieve metadata about a coverage:
 
@@ -112,6 +111,27 @@ $query = array(
 
 $result = $client->call($query);
 ```
+
+See also: http://doc.navitia.io/#coverage
+
+
+#### Departures
+
+Example, get all next departures of a line and at a datetime:
+
+``` php
+$query = array(
+    'api' => 'departures',
+    'parameters' => array(
+        'region' => 'sandbox',
+        'path_filter' => '/lines/line:RAT:M1/departures?from_datetime=20160615T1337'
+    ),
+);
+
+$result = $client->call($query);
+```
+
+See also: http://doc.navitia.io/#departures
 
 
 ### Calling any other Api
@@ -150,6 +170,26 @@ $actionParameters
     ->setTo('2.2922926;48.8583736')
     ->setDatetime('20160819T153000')
 ;
+
+$query->setParameters($actionParameters);
+
+$result = $client->call($query);
+```
+
+Using query builder to get all next departures:
+
+``` php
+use Navitia\Component\Request\Parameters\CoverageDeparturesParameters;
+use Navitia\Component\Request\DeparturesRequest;
+
+$query = new DeparturesRequest();
+$query->setRegion('sandbox')->setPathFilter('lines/line:RAT:M1');
+
+$actionParameters = new CoverageDeparturesParameters();
+$actionParameters->setDuration(1);
+$actionParameters->setFromDatetime('20160615T1337');
+$actionParameters->setForbiddenUris(['lines', 'modes']);
+$actionParameters->setDataFreshness('realtime');
 
 $query->setParameters($actionParameters);
 
