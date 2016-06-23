@@ -25,7 +25,7 @@ class ServiceFacadeTest extends \PHPUnit_Framework_TestCase
         $this->service = ServiceFacade::getInstance($this->logger);
         $this->formats = array('json', 'object', 'xml');
         $this->config = array(
-            'url' => 'http://api.navitia.io',
+            'url' => 'http://navitia2-ws.ctp.dev.canaltp.fr',
             'version' => 'v1',
             'token' => Environment::getNavitiaToken()
         );
@@ -80,7 +80,7 @@ class ServiceFacadeTest extends \PHPUnit_Framework_TestCase
         $value = array(
             'api' => 'coverage',
             'parameters' => array(
-                'region' => 'sandbox',
+                'region' => 'jdr',
                 'action' => $action
             )
         );
