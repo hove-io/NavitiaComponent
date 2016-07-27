@@ -19,7 +19,8 @@ class CoverageStopSchedulesParametersTest extends \PHPUnit_Framework_TestCase
     {
         $service = new CoverageStopSchedulesParameters();
         $testArray = array(
-            'max_stop_date_times' => '20'
+            'max_stop_date_times' => '20',
+            'data_freshness' => 'base_schedule'
         );
         $setter = new UtilsTestFunction();
         $setter->setter($testArray, $service);
