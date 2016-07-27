@@ -14,7 +14,6 @@ abstract class AbstractCoverageSchedulesParameters extends AbstractCoverageParam
     /**
      * The date_time from which you want the schedules. Type: iso-date-time.
      *
-     * @Assert\NotBlank()
      * @Assert\Type(type="string")
      *
      * @var string
