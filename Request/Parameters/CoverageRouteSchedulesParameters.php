@@ -11,7 +11,11 @@ namespace Navitia\Component\Request\Parameters;
 class CoverageRouteSchedulesParameters extends AbstractCoverageSchedulesParameters
 {
     protected $max_date_times;
-    protected $disable_geojson = false;
+
+    /**
+     * @var bool
+     */
+    protected $disable_geojson;
 
     public function getMaxDateTimes()
     {
