@@ -27,11 +27,17 @@ class CoverageRouteSchedulesParameters extends AbstractCoverageSchedulesParamete
         $this->max_date_times = $max_date_times;
     }
 
+    /**
+     * @return bool
+     */
     public function getDisableGeojson()
     {
         return $this->disable_geojson;
     }
 
+    /**
+     * @param bool $disableGeojson
+     */
     public function setDisableGeojson($disableGeojson)
     {
         $this->disable_geojson = $disableGeojson;

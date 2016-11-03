@@ -28,11 +28,17 @@ class CoverageStopSchedulesParameters extends AbstractCoverageSchedulesParameter
         return $this;
     }
 
+    /**
+     * @return bool
+     */
     public function getDisableGeojson()
     {
         return $this->disable_geojson;
     }
 
+    /**
+     * @param bool $disableGeojson
+     */
     public function setDisableGeojson($disableGeojson)
     {
         $this->disable_geojson = $disableGeojson;
