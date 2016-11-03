@@ -12,6 +12,11 @@ class CoverageStopSchedulesParameters extends AbstractCoverageSchedulesParameter
 {
     protected $max_stop_date_times;
 
+    /**
+     * @var bool
+     */
+    protected $disable_geojson;
+
     public function getMaxStopDateTimes()
     {
         return $this->max_stop_date_times;
@@ -21,5 +26,21 @@ class CoverageStopSchedulesParameters extends AbstractCoverageSchedulesParameter
     {
         $this->max_stop_date_times = $max_stop_date_times;
         return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function getDisableGeojson()
+    {
+        return $this->disable_geojson;
+    }
+
+    /**
+     * @param bool $disableGeojson
+     */
+    public function setDisableGeojson($disableGeojson)
+    {
+        $this->disable_geojson = $disableGeojson;
     }
 }
