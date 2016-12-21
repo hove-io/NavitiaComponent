@@ -2,7 +2,7 @@
     "name": "canaltp/navitia",
     "type": "library",
     "description": "Navitia Component",
-    "license": "proprietary",
+    "license": "MIT",
     "authors": [
         {
             "name": "Ramatoulaye Ndiaye",
