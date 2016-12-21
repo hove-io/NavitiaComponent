@@ -216,4 +216,4 @@ Contributing
 License
 -------
 
-The library is under [GNU GPL-v3 License](LICENSE.txt).
+The library is under [MIT](LICENSE.md).
