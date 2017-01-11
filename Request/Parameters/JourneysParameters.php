@@ -270,6 +270,7 @@ class JourneysParameters extends AbstractParameters
     public function setDebug($debug)
     {
         $this->debug = $debug;
+        return $this;
     }
 
     public function getFirstSectionMode()
@@ -280,6 +281,7 @@ class JourneysParameters extends AbstractParameters
     public function setFirstSectionMode($first_section_mode)
     {
         $this->first_section_mode = $first_section_mode;
+        return $this;
     }
 
     public function getLastSectionMode()
@@ -290,6 +292,7 @@ class JourneysParameters extends AbstractParameters
     public function setLastSectionMode($last_section_mode)
     {
         $this->last_section_mode = $last_section_mode;
+        return $this;
     }
 
     public function getTravelerType()
@@ -300,6 +303,7 @@ class JourneysParameters extends AbstractParameters
     public function setTravelerType($traveler_type)
     {
         $this->traveler_type = $traveler_type;
+        return $this;
     }
 
     public function getBssStands()
@@ -310,6 +314,7 @@ class JourneysParameters extends AbstractParameters
     public function setBssStands($bss_stands)
     {
         $this->bss_stands = $bss_stands;
+        return $this;
     }
 
     public function getOverrideScenario()
@@ -320,5 +325,6 @@ class JourneysParameters extends AbstractParameters
     public function setOverrideScenario($override_scenario)
     {
         $this->_override_scenario = $override_scenario;
+        return $this;
     }
 }
