@@ -41,6 +41,7 @@ class JourneysParameters extends AbstractParameters
     protected $traveler_type;
     protected $bss_stands;
     protected $debug;
+    protected $_override_scenario;
 
     public function getFrom()
     {
@@ -309,5 +310,15 @@ class JourneysParameters extends AbstractParameters
     public function setBssStands($bss_stands)
     {
         $this->bss_stands = $bss_stands;
+    }
+
+    public function getOverrideScenario()
+    {
+        return $this->_override_scenario;
+    }
+
+    public function setOverrideScenario($override_scenario)
+    {
+        $this->_override_scenario = $override_scenario;
     }
 }
