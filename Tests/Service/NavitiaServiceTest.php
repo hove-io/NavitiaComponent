@@ -33,7 +33,6 @@ class NavitiaServiceTest extends \PHPUnit_Framework_TestCase
             'Navitia\Component\Request\CoverageRequest',
             $request
         );
-
     }
 
     /**
