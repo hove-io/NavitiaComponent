@@ -27,6 +27,13 @@ How to use NavitiaComponent ?
 
 ### Basic usage
 
+
+If you don't use any framework, do not forget to include the composer autoloader like this:
+
+``` php
+require __DIR__ . '/vendor/autoload.php';
+```
+
 Configuration:
 
 ``` php
