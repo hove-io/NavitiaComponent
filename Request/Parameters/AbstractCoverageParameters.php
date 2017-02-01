@@ -34,6 +34,11 @@ abstract class AbstractCoverageParameters extends AbstractParameters
     protected $distance;
     protected $data_freshness;
 
+    /**
+     * @var bool
+     */
+    protected $disable_geojson;
+
     public function getCount()
     {
         return $this->count;
@@ -143,5 +148,21 @@ abstract class AbstractCoverageParameters extends AbstractParameters
     public function setDataFreshness($data_freshness)
     {
         $this->data_freshness = $data_freshness;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isDisableGeoJson()
+    {
+        return $this->disable_geojson;
+    }
+
+    /**
+     * @param bool $disable_geojson
+     */
+    public function setDisableGeoJson($disable_geojson)
+    {
+        $this->disable_geojson = (bool)$disable_geojson;
     }
 }
