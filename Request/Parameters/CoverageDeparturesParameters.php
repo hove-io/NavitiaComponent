@@ -12,12 +12,6 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class CoverageDeparturesParameters extends AbstractCoverageSchedulesParameters
 {
-    /**
-     * If you want to avoid lines, modes, networks, etc.
-    *
-     * @var array
-     */
-    protected $forbidden_uris;
 
     /**
      * Define the freshness of data to use to compute journeys. "'realtime' by default"
@@ -27,28 +21,6 @@ class CoverageDeparturesParameters extends AbstractCoverageSchedulesParameters
      * @var string $data_freshness
      */
     protected $data_freshness;
-
-    /**
-     * Get ForbiddenUris
-     *
-     * @return string[]
-     */
-    public function getForbiddenUris()
-    {
-        return $this->forbidden_uris;
-    }
-
-    /**
-     * @param array $forbiddenUris
-     *
-     * @return self
-     */
-    public function setForbiddenUris(array $forbiddenUris)
-    {
-        $this->forbidden_uris = $forbiddenUris;
-
-        return $this;
-    }
 
     /**
      * Get data_freshness

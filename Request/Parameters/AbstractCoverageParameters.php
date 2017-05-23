@@ -35,6 +35,13 @@ abstract class AbstractCoverageParameters extends AbstractParameters
     protected $data_freshness;
 
     /**
+     * If you want to avoid lines, modes, networks, etc.
+    *
+     * @var array
+     */
+    protected $forbidden_uris;
+
+    /**
      * @var bool
      */
     protected $disable_geojson;
@@ -164,5 +171,27 @@ abstract class AbstractCoverageParameters extends AbstractParameters
     public function setDisableGeoJson($disable_geojson)
     {
         $this->disable_geojson = (bool)$disable_geojson;
+    }
+
+    /**
+     * Get ForbiddenUris
+     *
+     * @return string[]
+     */
+    public function getForbiddenUris()
+    {
+        return $this->forbidden_uris;
+    }
+
+    /**
+     * @param array $forbiddenUris
+     *
+     * @return self
+     */
+    public function setForbiddenUris(array $forbiddenUris)
+    {
+        $this->forbidden_uris = $forbiddenUris;
+
+        return $this;
     }
 }
