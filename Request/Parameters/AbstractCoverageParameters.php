@@ -45,6 +45,11 @@ abstract class AbstractCoverageParameters extends AbstractParameters
      * @var bool
      */
     protected $disable_geojson;
+    
+    /**
+     * @var bool
+     */
+    protected $disable_disruption;
 
     public function getCount()
     {
@@ -171,6 +176,22 @@ abstract class AbstractCoverageParameters extends AbstractParameters
     public function setDisableGeoJson($disable_geojson)
     {
         $this->disable_geojson = (bool)$disable_geojson;
+    }
+    
+    /**
+     * @return bool
+     */
+    public function isDisableDisruption()
+    {
+        return $this->disable_disruption;
+    }
+
+    /**
+     * @param bool $disable_disruption
+     */
+    public function setDisableDisruption($disable_disruption)
+    {
+        $this->disable_disruption = (bool)$disable_disruption;
     }
 
     /**
