@@ -42,6 +42,7 @@ class JourneysParameters extends AbstractParameters
     protected $bss_stands;
     protected $debug;
     protected $_override_scenario;
+    protected $add_poi_infos;
 
     public function getFrom()
     {
@@ -325,6 +326,17 @@ class JourneysParameters extends AbstractParameters
     public function setOverrideScenario($override_scenario)
     {
         $this->_override_scenario = $override_scenario;
+        return $this;
+    }
+
+    public function getAddPoiInfos()
+    {
+        return $this->add_poi_infos;
+    }
+
+    public function setAddPoiInfos($add_poi_infos)
+    {
+        $this->add_poi_infos = $add_poi_infos;
         return $this;
     }
 }
