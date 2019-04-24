@@ -10,4 +10,26 @@ namespace Navitia\Component\Request\Parameters;
  */
 class CoverageParameters extends AbstractCoverageParameters
 {
+    protected $filter = null;
+
+
+    /**
+     * @return  string
+     */
+    public function getFilter()
+    {
+        return $this->filter;
+    }
+
+    /**
+     * @param   string $filter
+     * @return  CoverageParameters
+     */
+    public function setFilter($filter)
+    {
+        $this->filter = $filter;
+
+        return $this;
+    }
+    
 }
