@@ -13,6 +13,7 @@ class CoveragePtObjectsParameters extends AbstractCoverageParameters
     protected $type;
     protected $nbmax;
     protected $admin_uri;
+    protected $filter;
 
     public function getQ()
     {
@@ -57,4 +58,16 @@ class CoveragePtObjectsParameters extends AbstractCoverageParameters
         $this->admin_uri = $admin_uri;
         return $this;
     }
+
+    public function getFilter()
+    {
+        return $this->filter;
+    }
+
+    public function setFilter($filter)
+    {
+        $this->filter = $filter;
+        return $this;
+    }
+
 }
