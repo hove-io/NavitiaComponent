@@ -1,6 +1,6 @@
 <?php
 
-namespace Navitia\Component\Test\Request;
+namespace Navitia\Tests\Request;
 
 use Navitia\Component\Request\MetadatasRequest;
 
