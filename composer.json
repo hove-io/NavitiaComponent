@@ -19,7 +19,7 @@
     "require": {
         "psr/log": "~1.0",
         "symfony/validator": ">=2.2",
-        "doctrine/annotations": "^1.12",
+        "doctrine/annotations": "1.11.1",
         "doctrine/cache": "^1.10"
     },
     "autoload": {
