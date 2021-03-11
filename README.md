@@ -1,12 +1,10 @@
-Navitia Component
-=================
+# Navitia Component
 
 Navitia Component is a PHP library to query __Navitia 2__ Api (http://api.navitia.io),
 and controls query parameters.
 
 
-Requirements
-------------
+## Requirements
 
 - PHP: >=5.3.3
 - a Navitia token
@@ -14,16 +12,22 @@ Requirements
 > Note:
 > If you don't have a Navitia token yet, you have to register here: http://navitia.io/register
 
-Installation
-------------
+## Choose your version
+
+Presently this component exists in 2 major versions :
+
+- NavitiaComponent 1.x.x used by 'classic' projects in production
+
+- NavitiaComponent 2.x.x compatible with modern frameworks like Symfony4
+
+## Installation
 
 Using composer:
 
     composer require "canaltp/navitia":"~1.2"
 
 
-How to use NavitiaComponent ?
------------------------------
+## How to use NavitiaComponent ?
 
 ### Basic usage
 
@@ -204,8 +208,7 @@ $result = $client->call($query);
 ```
 
 
-Running Tests
------------------------------
+## Running Tests
 
 You have to provide a Navitia token through an OS environment variable `NAVITIA_TOKEN`:
 
@@ -215,12 +218,10 @@ phpunit
 ```
 
 
-Contributing
-------------
+## Contributing
 
 [View all contributors](https://github.com/CanalTP/NavitiaComponent/graphs/contributors)
 
-License
--------
+## License
 
 The library is under [MIT](LICENSE).
