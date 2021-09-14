@@ -74,7 +74,7 @@ Config parameters:
 | :------------------   | :--------- |:----------------------: | :----------------: | ------------: |
 | `url`   (required)    | `string`   | Base url of Navitia     |                    |               |
 | `token` (required)    | `string`   | Your token              |                    |               |
-| `timeout`             | `int`      | Navitia timeout         |                    |  `6000`       |
+| `timeout`             | `int`      | Navitia timeout (in ms) |                    |  `6000`       |
 | `version`             | `string`   | Api version             | `v1`               | `v1`          |
 | `format`              | `string`   | Wanted output format    | `json`, `object`   | `object`      |
 
