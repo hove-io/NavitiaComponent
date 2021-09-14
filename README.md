@@ -70,12 +70,13 @@ $result = $client->call($query); // Returns an object with Api result
 
 Config parameters:
 
-| Name                | Type       | Description             | Accepted values    | Default value |
-| :------------------ | :--------- |:----------------------: | :----------------: | ------------: |
-| `url`   (required)  | `string`   | Base url of Navitia     |                    |               |
-| `token` (required)  | `string`   | Your token              |                    |               |
-| `version`           | `string`   | Api version             | `v1`               | `v1`          |
-| `format`            | `string`   | Wanted output format    | `json`, `object`   | `object`      |
+| Name                  | Type       | Description             | Accepted values    | Default value |
+| :------------------   | :--------- |:----------------------: | :----------------: | ------------: |
+| `url`   (required)    | `string`   | Base url of Navitia     |                    |               |
+| `token` (required)    | `string`   | Your token              |                    |               |
+| `timeout`             | `int`      | Navitia timeout         |                    |  `6000`       |
+| `version`             | `string`   | Api version             | `v1`               | `v1`          |
+| `format`              | `string`   | Wanted output format    | `json`, `object`   | `object`      |
 
 ### Uses cases
 
