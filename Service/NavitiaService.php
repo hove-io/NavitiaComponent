@@ -42,7 +42,7 @@ class NavitiaService implements NavitiaServiceInterface, LoggerAwareInterface
      * Timeout
      * @var integer
      */
-    private $timeout = 6000;
+    private $timeout;
 
     /**
      * processConfiguration
@@ -66,9 +66,9 @@ class NavitiaService implements NavitiaServiceInterface, LoggerAwareInterface
      *
      * @param mixed $query
      */
-    public function process($query, $format = null, $timeout = 6000, $pagination = true)
+    public function process($query, $format = null, $timeout = null, $pagination = true)
     {
-        $this->timeout = $this->config->getTimeout();
+        $this->timeout = $timeout ?? $this->config->getTimeout();
         $factory = new RequestProcessorFactory();
         $processor = $factory->create(gettype($query));
         $request = $processor->convertToObjectRequest($query);
