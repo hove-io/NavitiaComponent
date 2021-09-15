@@ -42,7 +42,7 @@ class NavitiaConfiguration implements NavitiaConfigurationInterface
      *
      * @var int
      */
-    private $timeout;
+    private $timeout = 6000;
 
     /**Resposne error type
      *
