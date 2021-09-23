@@ -38,6 +38,12 @@ class NavitiaConfiguration implements NavitiaConfigurationInterface
      */
     private $token;
 
+    /**
+     *
+     * @var int
+     */
+    private $timeout = 6000;
+
     /**Resposne error type
      *
      * @var string
@@ -130,6 +136,24 @@ class NavitiaConfiguration implements NavitiaConfigurationInterface
     public function setToken($token)
     {
         $this->token = $token;
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getTimeout()
+    {
+        return $this->timeout;
+    }
+
+    /**
+     * @param int $timeout
+     * @return \Navitia\Component\Configuration\NavitiaConfiguration
+     */
+    public function setTimeout(int $timeout)
+    {
+        $this->timeout = $timeout;
         return $this;
     }
 
