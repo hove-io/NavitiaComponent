@@ -4,12 +4,13 @@ namespace Navitia\Component\Tests\Request\Parameters;
 
 use Navitia\Component\Request\Parameters\CoveragePtObjectsParameters;
 use Navitia\Component\Tests\UtilsTestFunction;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Description of CoveragePtObjectsParametersTest
  *
  */
-class CoveragePtObjectsParametersTest extends \PHPUnit_Framework_TestCase
+class CoveragePtObjectsParametersTest extends TestCase
 {
     /**
      * This function is used to test all CoveragePtObjects setter/getter

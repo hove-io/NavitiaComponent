@@ -3,13 +3,14 @@
 namespace Navitia\Component\Tests\Request\Processor;
 
 use Navitia\Component\Request\Processor\ArrayRequestProcessor;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Description of ArrayRequestProcessorTest
  *
  * @author rndiaye
  */
-class ArrayRequestProcessorTest extends \PHPUnit_Framework_TestCase
+class ArrayRequestProcessorTest extends TestCase
 {
     private $service;
     private $query;

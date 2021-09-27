@@ -11,17 +11,18 @@ use Navitia\Component\Exception\NavitiaBadRequestException;
 class Environment
 {
     /**
-     * Return the NAVITIA_TOKEN environment variable defined
-     * @throws Navitia\Component\Exception\NavitiaBadRequestException
+     * Return the NAVITIA TOKEN
      */
     public static function getNavitiaToken()
     {
-        $navitiaToken = getenv('NAVITIA_TOKEN');
-        if ($navitiaToken === false) {
-            throw new NavitiaBadRequestException(
-                'The environment variable "NAVITIA_TOKEN" is required.'
-            );
-        }
-        return $navitiaToken;
+        return 'token';
+    }
+    
+    /**
+     * Return the NAVITIA URL
+     */
+    public static function getNavitiaUrl()
+    {
+        return 'http://mock_navitia:1080';
     }
 }

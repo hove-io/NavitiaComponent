@@ -1,0 +1,31 @@
+version: '3'
+
+services:
+  navitiacomponent:
+    image: kisiodigital/navitiacomponent-php:test
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.test
+    command: ["/srv/navitiacomponent/docker/run_test.sh"]
+    user: "$_UID:$GID"
+    volumes:
+      - ${PWD}:/srv/navitiacomponent:rw
+      - /etc/passwd:/etc/passwd:ro
+      - /etc/group:/etc/group:ro
+      - ${HOME}/.config/composer:${HOME}/.composer:rw
+    depends_on:
+      - mock_navitia
+    networks:
+      - navitiacomponent_test
+  mock_navitia:
+    image: mockserver/mockserver:mockserver-5.11.2
+    environment:
+      MOCKSERVER_INITIALIZATION_JSON_PATH: /config/mockserverconfig.json
+    volumes:
+      - ./docker/mock/navitia:/config
+    networks:
+      - navitiacomponent_test
+
+networks:
+  navitiacomponent_test:
+    driver: bridge

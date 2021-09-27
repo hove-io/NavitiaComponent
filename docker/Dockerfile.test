@@ -1,0 +1,21 @@
+FROM php:7.4-fpm
+
+WORKDIR /srv/navitiacomponent
+
+USER root
+
+# Install php x-debug extension
+RUN pecl install xdebug \
+    && docker-php-ext-enable xdebug
+
+# Install composer and ancilliarie
+RUN apt-get update \
+    && curl -sS https://getcomposer.org/installer | \
+    php -- --install-dir=/usr/bin/ --filename=composer \
+    && DEBIAN_FRONTEND=noninteractive apt-get install -yq \
+    git unzip \
+    && apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false -o APT::AutoRemove::SuggestsImportant=false \
+    && rm -rf /var/lib/apt/lists/*
+
+VOLUME ["/srv/navitiacomponent"]
+ENV XDEBUG_MODE "coverage"

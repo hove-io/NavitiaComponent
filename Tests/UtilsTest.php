@@ -3,6 +3,7 @@
 namespace Navitia\Component\Tests;
 
 use Navitia\Component\Utils;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Description of UtilsTest
@@ -11,7 +12,7 @@ use Navitia\Component\Utils;
  * @copyright (c) 2013, CANALTP
  * @author rndiaye
  */
-class UtilsTest extends \PHPUnit_Framework_TestCase
+class UtilsTest extends TestCase
 {
     /**
      * Test For deleteUnderscore function

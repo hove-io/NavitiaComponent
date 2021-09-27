@@ -4,13 +4,14 @@ namespace Navitia\Component\Tests\Request\Parameters\DataTransformer;
 
 use Navitia\Component\Request\Parameters\DataTransformer\StringToParametersTransformer;
 use Navitia\Component\Request\Parameters\JourneysParameters;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Description of StringToParametersTransformerTest
  *
  * @author rndiaye
  */
-class StringToParametersTransformerTest extends \PHPUnit_Framework_TestCase
+class StringToParametersTransformerTest extends TestCase
 {
     /**
      * Test for transfrom function with Exception

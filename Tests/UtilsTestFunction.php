@@ -3,6 +3,7 @@
 namespace Navitia\Component\Tests;
 
 use Navitia\Component\Utils;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Description of UtilsFunctionTest
@@ -10,7 +11,7 @@ use Navitia\Component\Utils;
  *
  * @author rndiaye
  */
-class UtilsTestFunction extends \PHPUnit_Framework_TestCase
+class UtilsTestFunction extends TestCase
 {
     /**
      * This function is used to test all setter/getter

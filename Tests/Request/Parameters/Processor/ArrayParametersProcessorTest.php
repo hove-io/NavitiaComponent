@@ -4,13 +4,14 @@ namespace Navitia\Component\Tests\Request\Parameters\Processor;
 
 use Navitia\Component\Request\Parameters\Processor\ArrayParametersProcessor;
 use Navitia\Component\Request\Parameters\JourneysParameters;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Description of ArrayParametersProcessorTest
  *
  * @author rndiaye
  */
-class ArrayParametersProcessorTest extends \PHPUnit_Framework_TestCase
+class ArrayParametersProcessorTest extends TestCase
 {
     /**
      * test ConvertToObjectParameters function

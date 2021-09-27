@@ -3,13 +3,14 @@
 namespace Navitia\Component\Tests\Request;
 
 use Navitia\Component\Request\CoverageRequest;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Description of CoverageRequestTest
  *
  * @author rndiaye
  */
-class CoverageRequestTest extends \PHPUnit_Framework_TestCase
+class CoverageRequestTest extends TestCase
 {
     private $service;
     private $path_filter;
