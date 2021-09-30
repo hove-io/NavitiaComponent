@@ -92,7 +92,7 @@ class NavitiaService implements NavitiaServiceInterface, LoggerAwareInterface
      * Function to delete Navitia pagination
      * Retrieve the result count and call again with count
      */
-    public function deletePagination(NavitiaRequestInterface $request, string $format, $result)
+    public function deletePagination(NavitiaRequestInterface $request, ?string $format, $result)
     {
         $parameters = $request->getParameters();
         $result_pagination_total_result = 0;
@@ -166,7 +166,7 @@ class NavitiaService implements NavitiaServiceInterface, LoggerAwareInterface
 
     }
 
-    private function getApiResponse(string $url, string $token)
+    private function getApiResponse(string $url, string $token): array
     {
         if ($this->hasCache()) {
             $cacheKey = $this->cache->generateCacheKey([$url, $token]);
