@@ -17,18 +17,11 @@ interface NavitiaServiceInterface
 {
     /**
      * Generateur des Request
-     *
-     * @param type $api
-     * @return \Navitia\Component\Request\NavitiaRequestInterface
      */
-    public function generateRequest($api);
+    public function generateRequest($api): NavitiaRequestInterface;
 
     /**
      * Fonction permettant de faire l'appel Navitia
-     *
-     * @param \Navitia\Component\Request\NavitiaRequestInterface $request
-     * @param mixed $format
-     * @return mixed
      */
-    public function callApi(NavitiaRequestInterface $request, $format);
+    public function callApi(NavitiaRequestInterface $request, ?string $format);
 }

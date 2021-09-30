@@ -8,6 +8,7 @@ namespace Navitia\Component\Service;
 
 use Navitia\Component\Service\NavitiaService;
 use Navitia\Component\Service\NavitiaServiceInterface;
+use Symfony\Component\Cache\Adapter\TagAwareAdapter;
 use Psr\Log\LoggerInterface;
 
 /**
@@ -18,15 +19,12 @@ use Psr\Log\LoggerInterface;
 class ServiceFacade
 {
     private static $instance = null;
-    private $service;
-    private $logger = null;
+    private NavitiaServiceInterface $service;
+    private ?LoggerInterface $logger = null;
     private $config;
+    private ?TagAwareAdapter $cache = null;
 
-    private function __construct()
-    {
-    }
-
-    public static function getInstance(LoggerInterface $logger = null)
+    public static function getInstance(?LoggerInterface $logger = null)
     {
         if (is_null(self::$instance)) {
             $instance = new ServiceFacade();
@@ -40,32 +38,39 @@ class ServiceFacade
     }
 
     /**
-     * Facade d'appel Navitia
+     * Call navitia
      * @param mixed $call
-     * @return type
+     * @return mixed
      */
-    public function call($call, $format = null, $timeout = null, $pagination = true)
+    public function call($call, ?string $format = null, ?int $timeout = null, bool $pagination = true)
     {
         $service = $this->getService();
         $service->setLogger($this->getLogger());
-
         return $service->process($call, $format, $timeout, $pagination);
     }
 
     /**
-     * Facade de setter de la configuration
+     * Setter configuration
      * @param mixed $config
-     * @return NavitiaService
      */
-    public function setConfiguration($config)
+    public function setConfiguration($config): self
     {
         $this->config = $config;
         $service = $this->getService();
-        return $service->processConfiguration($this->config);
+        $service->processConfiguration($this->config);
+        return $this;
+    }
+
+    public function setCache(TagAwareAdapter $cache): self
+    {
+        $this->cache = $cache;
+        $service = $this->getService();
+        $service->processCache($this->cache);
+        return $this;
     }
 
     /**
-     * Getter de la configuration
+     * Getter configuration
      *
      * @return mixed
      */
@@ -73,43 +78,24 @@ class ServiceFacade
     {
         return $this->config;
     }
-    /**
-     *
-     * @return NavitiaServiceInterface
-     */
-    public function getService()
+
+    public function getService(): NavitiaServiceInterface
     {
         return $this->service;
     }
 
-    /**
-     *
-     * @param NavitiaServiceInterface $service
-     * @return \Navitia\Component\Service\ServiceFacade
-     */
-    public function setService(NavitiaServiceInterface $service)
+    public function setService(NavitiaServiceInterface $service): self
     {
         $this->service = $service;
         return $this;
     }
 
-    /**
-     * Getter du logger
-     *
-     * @return \Psr\Log\LoggerInterface $logger
-     */
-    public function getLogger()
+    public function getLogger(): LoggerInterface
     {
         return $this->logger;
     }
 
-    /**
-     * Setter du logger
-     *
-     * @param \Psr\Log\LoggerInterface $logger
-     * @return \Navitia\Component\Service\ServiceFacade
-     */
-    public function setLogger(LoggerInterface $logger)
+    public function setLogger(LoggerInterface $logger): self
     {
         $this->logger = $logger;
         return $this;

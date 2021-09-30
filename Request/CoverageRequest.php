@@ -175,7 +175,7 @@ class CoverageRequest extends AbstractNavitiaRequest
      */
     public function setRegion($region)
     {
-        $this->region = $region.'/';
+        $this->region = $region;
         return $this;
     }
 
@@ -188,7 +188,7 @@ class CoverageRequest extends AbstractNavitiaRequest
         $parameters = http_build_query($this->getParams());
         $region = $this->getRegion();
         if (!is_null($region)) {
-            $url .= $region;
+            $url .= $region.'/';
             $path_filter = $this->getPathFilter();
             if (!is_null($path_filter)) {
                 $url .= $path_filter;

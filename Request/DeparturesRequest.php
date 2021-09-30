@@ -99,7 +99,7 @@ class DeparturesRequest extends AbstractNavitiaRequest
         } else {
             $this->path_filter = $path_filter.'/';
         }
-        
+
         return $this;
     }
 
@@ -137,9 +137,9 @@ class DeparturesRequest extends AbstractNavitiaRequest
     {
         $url = $base.self::getApiName().'/';
         $parameters = http_build_query($this->getParams());
-        $region = $this->getRegion(). '/';
+        $region = $this->getRegion();
         if (!is_null($region)) {
-            $url .= $region;
+            $url .= $region.'/';
             $path_filter = $this->getPathFilter();
             if (!is_null($path_filter)) {
                 $url .= $path_filter;
