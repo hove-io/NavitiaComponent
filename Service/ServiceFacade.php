@@ -39,14 +39,17 @@ class ServiceFacade
 
     /**
      * Call navitia
-     * @param mixed $call
-     * @return mixed
      */
-    public function call($call, ?string $format = null, ?int $timeout = null, bool $pagination = true)
-    {
+    public function call(
+        $call,
+        ?string $format = null,
+        ?int $timeout = null,
+        bool $pagination = true,
+        bool $enableCache = true
+    ) {
         $service = $this->getService();
         $service->setLogger($this->getLogger());
-        return $service->process($call, $format, $timeout, $pagination);
+        return $service->process($call, $format, $timeout, $pagination, $enableCache);
     }
 
     /**

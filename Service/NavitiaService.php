@@ -63,7 +63,8 @@ class NavitiaService implements NavitiaServiceInterface, LoggerAwareInterface
         $query,
         ?string $format = null,
         ?int $timeout = null,
-        ?bool $pagination = true
+        bool $pagination = true,
+        bool $enableCache = true
     ) {
         $this->timeout = $timeout ?? $this->config->getTimeout();
         $factory = new RequestProcessorFactory();
@@ -73,7 +74,7 @@ class NavitiaService implements NavitiaServiceInterface, LoggerAwareInterface
         if ($validation->count() !== 0) {
             return $validation;
         }
-        $result = $this->callApi($request, $format);
+        $result = $this->callApi($request, $format, $enableCache);
         $pagination_total_result_le_pagination_item_per_page = false;
         if (isset($result->pagination)) {
             if ($result->pagination->total_result <= $result->pagination->items_per_page) {
@@ -92,8 +93,11 @@ class NavitiaService implements NavitiaServiceInterface, LoggerAwareInterface
      * Function to delete Navitia pagination
      * Retrieve the result count and call again with count
      */
-    public function deletePagination(NavitiaRequestInterface $request, ?string $format, $result)
-    {
+    public function deletePagination(
+        NavitiaRequestInterface $request,
+        ?string $format,
+        $result
+    ) {
         $parameters = $request->getParameters();
         $result_pagination_total_result = 0;
         if (isset($result->pagination)) {
@@ -130,8 +134,11 @@ class NavitiaService implements NavitiaServiceInterface, LoggerAwareInterface
         return $factory->create($api);
     }
 
-    private function setCacheProperties(string $coverage, string $urlApi, string $token): void
-    {
+    private function setCacheProperties(
+        string $coverage,
+        string $urlApi,
+        string $token
+    ): void {
         if ($this->hasCache()) {
             $this->cache->setCoverage($coverage);
             $this->cache->setUrlApi($urlApi);
@@ -142,8 +149,11 @@ class NavitiaService implements NavitiaServiceInterface, LoggerAwareInterface
     /**
      * {@inheritDoc}
      */
-    public function callApi(NavitiaRequestInterface $request, ?string $format)
-    {
+    public function callApi(
+        NavitiaRequestInterface $request,
+        ?string $format,
+        bool $enableCache = true
+    ) {
         $baseUrl = $this->config->getUrl().'/'.$this->config->getVersion().'/';
         $url = $request->buildUrl($baseUrl);
         $token = $this->config->getToken();
@@ -153,7 +163,7 @@ class NavitiaService implements NavitiaServiceInterface, LoggerAwareInterface
             array_merge($request->getParams(), array('token' => $token))
         );
         $this->setCacheProperties($request->getRegion(), $baseUrl, $token);
-        $curlResponse = $this->getApiResponse($url, $token);
+        $curlResponse = $this->getApiResponse($url, $token, $enableCache);
 
         $response = $curlResponse['response'];
         $curlError = $curlResponse['curlError'];
@@ -166,9 +176,12 @@ class NavitiaService implements NavitiaServiceInterface, LoggerAwareInterface
 
     }
 
-    private function getApiResponse(string $url, string $token): array
-    {
-        if ($this->hasCache()) {
+    private function getApiResponse(
+        string $url,
+        string $token,
+        bool $enableCache = true
+    ): array {
+        if ($this->hasCache() && $enableCache) {
             $cacheKey = $this->cache->generateCacheKey([$url, $token]);
             try {
                 return $this->cache->getCachedItem($cacheKey);
