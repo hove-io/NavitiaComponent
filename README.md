@@ -31,43 +31,50 @@ Using composer:
 
 ## How to use NavitiaComponent ?
 
-### Basic usage
+### By autowire
 
-Configuration:
+In services.yaml file of your app, add this :
+``` yaml
+    navitia_component:
+        class: Navitia\Component\Service\ServiceFacade
+        factory: [Navitia\Component\Service\ServiceFacade, getInstance]
+        calls:
+            - [ setCache, ["@cache.app.taggable"]]
+            - [ setConfiguration, ["%navitia_config%"]]
+```
+
+And then add `@navitia_component` to the service that used NavitiaComponent like this :
+``` yaml
+    App\Service\Navitia:
+        class: App\Service\Navitia
+        arguments: ['@navitia_component']
+```
+
+Set configuration:
+
+You can pass an array of config with the `setConfiguration` function.
 
 ``` php
+namespace App\Service;
+
 use Navitia\Component\Service\ServiceFacade;
 
-// Configuration
-$config = array(
-    'url' => 'api.navitia.io',
-    'token' => '3b036afe-0110-4202-b9ed-99718476c2e0', // This token has an access to sandbox data
-);
+class Navitia
+{
+    private ServiceFacade $navitiacomponent;
 
-$client = ServiceFacade::getInstance(new \Psr\Log\NullLogger());
-$client->setConfiguration($config);
+    function __construct(ServiceFacade $navitiacomponent)
+    {
+        $this->navitiacomponent = $navitiacomponent;
+        // Configuration
+        $config = array(
+            'url' => 'api.navitia.io',
+            'token' => '3b036afe-0110-4202-b9ed-99718476c2e0', // This token has an access to sandbox data
+        );
+        $this->navitiacomponent->setConfiguration($config);
+    }
+}
 ```
-
-Query example:
-
-``` php
-use Doctrine\Common\Annotations\AnnotationRegistry;
-
-// must be called to register Doctrine annotations
-AnnotationRegistry::registerLoader('class_exists');
-
-$query = array(
-    'api' => 'journeys',
-    'parameters' => array(
-        'from' => '2.3749036;48.8467927',
-        'to' => '2.2922926;48.8583736',
-    ),
-);
-
-$result = $client->call($query); // Returns an object with Api result
-```
-
-Config parameters:
 
 | Name                  | Type       | Description             | Accepted values    | Default value |
 | :------------------   | :--------- |:----------------------: | :----------------: | ------------: |
@@ -76,6 +83,25 @@ Config parameters:
 | `timeout`             | `int`      | Navitia timeout (in ms) |                    |  `6000`       |
 | `version`             | `string`   | Api version             | `v1`               | `v1`          |
 | `format`              | `string`   | Wanted output format    | `json`, `object`   | `object`      |
+
+
+Query example:
+
+``` php
+$query = array(
+    'api' => 'journeys',
+    'parameters' => array(
+        'from' => '2.3749036;48.8467927',
+        'to' => '2.2922926;48.8583736',
+    ),
+);
+
+$result = $this->navitiacomponent->call($query); // Returns an object with Api result
+```
+
+Config parameters:
+
+
 
 ### Uses cases
 
@@ -98,7 +124,7 @@ $query = array(
     ),
 );
 
-$result = $client->call($query);
+$result = $this->navitiacomponent->call($query);
 ```
 
 See also: http://doc.navitia.io/#journeys
@@ -116,7 +142,7 @@ $query = array(
     ),
 );
 
-$result = $client->call($query);
+$result = $this->navitiacomponent->call($query);
 ```
 
 See also: http://doc.navitia.io/#coverage
@@ -135,7 +161,7 @@ $query = array(
     ),
 );
 
-$result = $client->call($query);
+$result = $this->navitiacomponent->call($query);
 ```
 
 See also: http://doc.navitia.io/#departures
@@ -155,7 +181,7 @@ $query = array(
     ),
 );
 
-$result = $client->call($query);
+$result = $this->navitiacomponent->call($query);
 // Will call http://api.navitia.io/v1/coverage/sandbox/stop_areas?variable=value
 ```
 
@@ -180,7 +206,7 @@ $actionParameters
 
 $query->setParameters($actionParameters);
 
-$result = $client->call($query);
+$result = $this->navitiacomponent->call($query);
 ```
 
 Using query builder to get all next departures:
@@ -200,7 +226,7 @@ $actionParameters->setDataFreshness('realtime');
 
 $query->setParameters($actionParameters);
 
-$result = $client->call($query);
+$result = $this->navitiacomponent->call($query);
 ```
 
 
