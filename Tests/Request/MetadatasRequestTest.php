@@ -3,13 +3,14 @@
 namespace Navitia\Tests\Request;
 
 use Navitia\Component\Request\MetadatasRequest;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Description of MetadatasRequestTest
  *
  * @author rndiaye
  */
-class MetadatasRequestTest extends \PHPUnit_Framework_TestCase
+class MetadatasRequestTest extends TestCase
 {
     /**
      * Test for addToPathFilter

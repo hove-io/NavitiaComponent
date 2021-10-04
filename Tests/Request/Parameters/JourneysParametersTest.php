@@ -4,13 +4,14 @@ namespace Navitia\Component\Tests\Request\Parameters;
 
 use Navitia\Component\Request\Parameters\JourneysParameters;
 use Navitia\Component\Tests\UtilsTestFunction;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Description of JourneysParametersTest
  *
  * @author rndiaye
  */
-class JourneysParametersTest extends \PHPUnit_Framework_TestCase
+class JourneysParametersTest extends TestCase
 {
     /**
      * This function is used to test all Journeys setter/getter

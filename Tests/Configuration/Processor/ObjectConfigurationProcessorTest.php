@@ -4,13 +4,15 @@ namespace Navitia\Component\Tests\Configuration\Processor;
 
 use Navitia\Component\Configuration\Processor\ObjectConfigurationProcessor;
 use Navitia\Component\Configuration\NavitiaConfiguration;
+use Navitia\Component\Tests\Environment;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Description of ObjectConfigurationProcessorTest
  *
  * @author rndiaye
  */
-class ObjectConfigurationProcessorTest extends \PHPUnit_Framework_TestCase
+class ObjectConfigurationProcessorTest extends TestCase
 {
 
     private $processor;
@@ -28,7 +30,7 @@ class ObjectConfigurationProcessorTest extends \PHPUnit_Framework_TestCase
     public function testConvertToObjectConfiguration()
     {
         $service = new NavitiaConfiguration();
-        $config = $service->setUrl('http://navitia2-ws.ctp.dev.canaltp.fr');
+        $config = $service->setUrl(Environment::getNavitiaUrl());
         $object = $this->processor->convertToObjectConfiguration($config);
         $this->assertInstanceOf(
             'Navitia\Component\Configuration\NavitiaConfigurationInterface',

@@ -5,6 +5,7 @@ namespace Navitia\Component\Tests\Service;
 use Navitia\Component\Service\ServiceFacade;
 use Navitia\Component\Tests\Logger;
 use Navitia\Component\Tests\Environment;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Description of ServiceFacadeTest
@@ -12,7 +13,7 @@ use Navitia\Component\Tests\Environment;
  * @copyright (c) 2013, CANALTP
  * @author rndiaye
  */
-class ServiceFacadeTest extends \PHPUnit_Framework_TestCase
+class ServiceFacadeTest extends TestCase
 {
     private $service;
     private $config;
@@ -25,7 +26,7 @@ class ServiceFacadeTest extends \PHPUnit_Framework_TestCase
         $this->service = ServiceFacade::getInstance($this->logger);
         $this->formats = array('json', 'object', 'xml');
         $this->config = array(
-            'url' => 'http://navitia2-ws.ctp.dev.canaltp.fr',
+            'url' => Environment::getNavitiaUrl(),
             'version' => 'v1',
             'token' => Environment::getNavitiaToken()
         );

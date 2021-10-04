@@ -4,6 +4,7 @@ namespace Navitia\Component\Tests\Service;
 
 use Navitia\Component\Service\NavitiaService;
 use Navitia\Component\Tests\Environment;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Description of NavitiaServiceTest
@@ -11,7 +12,7 @@ use Navitia\Component\Tests\Environment;
  * @copyright (c) 2013, CANALTP
  * @author rndiaye
  */
-class NavitiaServiceTest extends \PHPUnit_Framework_TestCase
+class NavitiaServiceTest extends TestCase
 {
     private $api;
     private $service;
@@ -41,7 +42,7 @@ class NavitiaServiceTest extends \PHPUnit_Framework_TestCase
     public function testCallApi()
     {
         $config = array(
-            'url' => 'http://navitia2-ws.ctp.dev.canaltp.fr',
+            'url' => Environment::getNavitiaUrl(),
             'version' => 'v1',
             'token' => Environment::getNavitiaToken()
         );
@@ -49,9 +50,9 @@ class NavitiaServiceTest extends \PHPUnit_Framework_TestCase
             'api' => 'coverage',
             'parameters' => array(
                 'region' => 'jdr',
-                'path_filter' => 'lines/12',
+                'path_filter' => 'lines/JDR:Bus512',
                 'action' => 'route_schedules',
-                'parameters' => '?from_datetime=123312&duration=10'
+                'parameters' => '?from_datetime=20210927T000000&duration=10'
             )
         );
         $this->service->processConfiguration($config);
@@ -64,7 +65,7 @@ class NavitiaServiceTest extends \PHPUnit_Framework_TestCase
     public function testValidation()
     {
         $config = array(
-            'url' => 'http://navitia2-ws.ctp.dev.canaltp.fr',
+            'url' => Environment::getNavitiaUrl(),
             'version' => 'v1',
             'token' => Environment::getNavitiaToken()
         );

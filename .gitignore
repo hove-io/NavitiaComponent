@@ -1,1 +1,9 @@
-vendor/
+###> phpunit ###
+.phpunit
+.phpunit.result.cache
+/phpunit.xml
+/Tests/junit.xml
+/Tests/CodeCoverage/
+/vendor/
+composer.lock
+###< phpunit ###

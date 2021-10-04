@@ -3,13 +3,15 @@
 namespace Navitia\Component\Tests\Request;
 
 use Navitia\Component\Request\JourneysRequest;
+use Navitia\Component\Tests\Environment;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Description of JourneysRequestTest
  *
  * @author rndiaye
  */
-class JourneysRequestTest extends \PHPUnit_Framework_TestCase
+class JourneysRequestTest extends TestCase
 {
     private $service;
 
@@ -43,7 +45,7 @@ class JourneysRequestTest extends \PHPUnit_Framework_TestCase
      */
     public function testBuildUrl()
     {
-        $base = 'http://navitia2-ws.ctp.dev.canaltp.fr/v1/';
+        $base = Environment::getNavitiaUrl().'/v1/';
         $this->service->setParameters(
             '?from=stop_area:TAN:SA:COMM'.
             '&to=stop_area:SCF:SA:SAOCE87481051'.

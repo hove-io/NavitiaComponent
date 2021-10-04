@@ -4,13 +4,14 @@ namespace Navitia\Component\Tests\Request\Parameters;
 
 use Navitia\Component\Request\Parameters\CoverageStopSchedulesParameters;
 use Navitia\Component\Tests\UtilsTestFunction;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Description of CoverageStopSchedulesParametersTest
  *
  * @author Johan ROUVE
  */
-class CoverageStopSchedulesParametersTest extends \PHPUnit_Framework_TestCase
+class CoverageStopSchedulesParametersTest extends TestCase
 {
     /**
      * This function is used to test all CoverageStopSchedulesParameters setter

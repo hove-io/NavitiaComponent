@@ -3,13 +3,14 @@
 namespace Navitia\Component\Tests\Request;
 
 use Navitia\Component\Request\RequestFactory;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Description of RequestFactoryTest
  *
  * @author rndiaye
  */
-class RequestFactoryTest extends \PHPUnit_Framework_TestCase
+class RequestFactoryTest extends TestCase
 {
     /**
      * Test for create function

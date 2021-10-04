@@ -4,13 +4,14 @@ namespace Navitia\Component\Tests\Request\Processor;
 
 use Navitia\Component\Request\Processor\ObjectRequestProcessor;
 use Navitia\Component\Request\JourneysRequest;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Description of ObjectRequestProcessorTest
  *
  * @author rndiaye
  */
-class ObjectRequestProcessorTest extends \PHPUnit_Framework_TestCase
+class ObjectRequestProcessorTest extends TestCase
 {
     /**
      * Test for convertToObjectRequest

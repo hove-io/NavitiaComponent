@@ -24,7 +24,7 @@ class CurlService
      * @var string
      */
     private $token;
-    
+
     /**
      * Logger
      *
@@ -167,7 +167,7 @@ class CurlService
         }
     }
 
-    public function process()
+    public function process(): array
     {
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $this->url);
