@@ -56,7 +56,11 @@ class NavitiaServiceTest extends TestCase
             )
         );
         $this->service->processConfiguration($config);
-        $this->service->process($coverage);
+        $result = $this->service->process($coverage);
+        $this->assertInstanceOf(
+            'Symfony\Component\Validator\ConstraintViolationList',
+            $result
+        );
     }
 
     /**
