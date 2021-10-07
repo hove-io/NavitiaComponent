@@ -25,4 +25,12 @@ class Environment
     {
         return 'http://mock_navitia:1080';
     }
+
+    /**
+     * Return the NAVITIA COVERAGE
+     */
+    public static function getNavitiaCoverage()
+    {
+        return 'jdr';
+    }
 }
