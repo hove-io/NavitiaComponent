@@ -2,9 +2,12 @@
 
 namespace Navitia\Component\Tests\Service;
 
+use Symfony\Component\Validator\ConstraintViolationListInterface;
+use Symfony\Component\Validator\ConstraintViolationList;
+use Navitia\Component\Request\CoverageRequest;
 use Navitia\Component\Service\NavitiaService;
 use Navitia\Component\Tests\Environment;
-use PHPUnit\Framework\TestCase;
+use Navitia\Component\Tests\TestCase;
 
 /**
  * Description of NavitiaServiceTest
@@ -17,7 +20,7 @@ class NavitiaServiceTest extends TestCase
     private $api;
     private $service;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->api = 'coverage';
         $this->service = new NavitiaService();
@@ -30,10 +33,7 @@ class NavitiaServiceTest extends TestCase
     public function testGenerateRequest()
     {
         $request = $this->service->generateRequest($this->api);
-        $this->assertInstanceOf(
-            'Navitia\Component\Request\CoverageRequest',
-            $request
-        );
+        $this->assertInstanceOf(CoverageRequest::class, $request);
     }
 
     /**
@@ -41,26 +41,23 @@ class NavitiaServiceTest extends TestCase
      */
     public function testCallApi()
     {
-        $config = array(
+        $config = [
             'url' => Environment::getNavitiaUrl(),
             'version' => 'v1',
-            'token' => Environment::getNavitiaToken()
-        );
-        $coverage = array(
+            'token' => Environment::getNavitiaToken(),
+        ];
+        $coverage = [
             'api' => 'coverage',
-            'parameters' => array(
+            'parameters' => [
                 'region' => 'jdr',
                 'path_filter' => 'lines/JDR:Bus512',
                 'action' => 'route_schedules',
-                'parameters' => '?from_datetime=20210927T000000&duration=10'
-            )
-        );
+                'parameters' => '?from_datetime=20210927T000000&duration=10',
+            ],
+        ];
         $this->service->processConfiguration($config);
         $result = $this->service->process($coverage);
-        $this->assertInstanceOf(
-            'Symfony\Component\Validator\ConstraintViolationList',
-            $result
-        );
+        $this->assertInstanceOf(ConstraintViolationList::class, $result);
     }
 
     /**
@@ -68,22 +65,19 @@ class NavitiaServiceTest extends TestCase
      */
     public function testValidation()
     {
-        $config = array(
+        $config = [
             'url' => Environment::getNavitiaUrl(),
             'version' => 'v1',
-            'token' => Environment::getNavitiaToken()
-        );
-        $journeys = array(
+            'token' => Environment::getNavitiaToken(),
+        ];
+        $journeys = [
             'api' => 'journeys',
-            'parameters' => array(
-                'max_duration' => 0
-            )
-        );
+            'parameters' => [
+                'max_duration' => 0,
+            ],
+        ];
         $this->service->processConfiguration($config);
         $result = $this->service->process($journeys);
-        $this->assertInstanceOf(
-            'Symfony\Component\Validator\ConstraintViolationListInterface',
-            $result
-        );
+        $this->assertInstanceOf(ConstraintViolationListInterface::class, $result);
     }
 }

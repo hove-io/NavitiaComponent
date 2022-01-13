@@ -4,7 +4,7 @@ namespace Navitia\Component\Tests\Request\Parameters;
 
 use Navitia\Component\Request\Parameters\CoverageParameters;
 use Navitia\Component\Tests\UtilsTestFunction;
-use PHPUnit\Framework\TestCase;
+use Navitia\Component\Tests\TestCase;
 
 /**
  * Description of CoverageParametersTest

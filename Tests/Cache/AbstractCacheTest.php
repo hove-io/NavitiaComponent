@@ -2,11 +2,10 @@
 
 namespace Navitia\Component\Tests\Cache;
 
-use Navitia\Component\Cache\Cache;
 use Symfony\Contracts\Cache\ItemInterface;
 use Symfony\Contracts\Cache\TagAwareCacheInterface;
 use Psr\Log\LoggerInterface;
-use PHPUnit\Framework\TestCase;
+use Navitia\Component\Tests\TestCase;
 
 abstract class AbstractCacheTest extends TestCase
 {

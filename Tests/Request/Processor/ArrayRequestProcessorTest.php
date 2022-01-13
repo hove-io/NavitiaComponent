@@ -2,8 +2,9 @@
 
 namespace Navitia\Component\Tests\Request\Processor;
 
+use Navitia\Component\Request\JourneysRequest;
 use Navitia\Component\Request\Processor\ArrayRequestProcessor;
-use PHPUnit\Framework\TestCase;
+use Navitia\Component\Tests\TestCase;
 
 /**
  * Description of ArrayRequestProcessorTest
@@ -15,7 +16,7 @@ class ArrayRequestProcessorTest extends TestCase
     private $service;
     private $query;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->service = new ArrayRequestProcessor();
         $this->query = array(
@@ -34,9 +35,6 @@ class ArrayRequestProcessorTest extends TestCase
     public function testConvertToObjectRequest()
     {
         $request = $this->service->convertToObjectRequest($this->query);
-        $this->assertInstanceOf(
-            'Navitia\Component\Request\JourneysRequest',
-            $request
-        );
+        $this->assertInstanceOf(JourneysRequest::class, $request);
     }
 }

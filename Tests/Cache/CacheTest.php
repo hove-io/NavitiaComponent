@@ -9,7 +9,7 @@ class CacheTest extends AbstractCacheTest
 {
     private Cache $cache;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->cache = new Cache($this->mockTagAwareCacheInterface());
     }

@@ -3,7 +3,7 @@
 namespace Navitia\Component\Tests;
 
 use Navitia\Component\Utils;
-use PHPUnit\Framework\TestCase;
+use Navitia\Component\Tests\TestCase;
 
 /**
  * Description of UtilsFunctionTest

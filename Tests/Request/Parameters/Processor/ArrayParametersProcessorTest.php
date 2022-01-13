@@ -2,9 +2,10 @@
 
 namespace Navitia\Component\Tests\Request\Parameters\Processor;
 
+use Navitia\Component\Request\Parameters\ParametersInterface;
 use Navitia\Component\Request\Parameters\Processor\ArrayParametersProcessor;
 use Navitia\Component\Request\Parameters\JourneysParameters;
-use PHPUnit\Framework\TestCase;
+use Navitia\Component\Tests\TestCase;
 
 /**
  * Description of ArrayParametersProcessorTest
@@ -29,9 +30,6 @@ class ArrayParametersProcessorTest extends TestCase
         );
         $request = new JourneysParameters();
         $result = $service->convertToObjectParameters($request, $params);
-        $this->assertInstanceOf(
-            'Navitia\Component\Request\Parameters\ParametersInterface',
-            $result
-        );
+        $this->assertInstanceOf(ParametersInterface::class, $result);
     }
 }

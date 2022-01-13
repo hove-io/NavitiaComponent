@@ -2,10 +2,13 @@
 
 namespace Navitia\Component\Tests\Service;
 
+use \TypeError;
+use Psr\Log\LoggerInterface;
 use Navitia\Component\Service\ServiceFacade;
 use Navitia\Component\Tests\Logger;
 use Navitia\Component\Tests\Environment;
-use PHPUnit\Framework\TestCase;
+use Navitia\Component\Tests\TestCase;
+use Navitia\Component\Exception\NavitiaCreationException;
 
 /**
  * Description of ServiceFacadeTest
@@ -15,21 +18,21 @@ use PHPUnit\Framework\TestCase;
  */
 class ServiceFacadeTest extends TestCase
 {
-    private $service;
-    private $config;
-    private $formats;
-    private $logger;
+    private ServiceFacade $service;
+    private array $config;
+    private array $formats;
+    private Logger $logger;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->logger = new Logger('test');
         $this->service = ServiceFacade::getInstance($this->logger);
-        $this->formats = array('json', 'object', 'xml');
-        $this->config = array(
+        $this->formats = ['json', 'object', 'xml'];
+        $this->config = [
             'url' => Environment::getNavitiaUrl(),
             'version' => 'v1',
-            'token' => Environment::getNavitiaToken()
-        );
+            'token' => Environment::getNavitiaToken(),
+        ];
     }
 
     /**
@@ -39,24 +42,14 @@ class ServiceFacadeTest extends TestCase
      */
     public function testGetInstance()
     {
-        $this->assertInstanceOf(
-            'Psr\Log\LoggerInterface',
-            $this->logger
-        );
-        $this->assertInstanceOf(
-            'Navitia\Component\Service\ServiceFacade',
-            $this->service
-        );
+        $this->assertInstanceOf(LoggerInterface::class, $this->logger);
+        $this->assertInstanceOf(ServiceFacade::class, $this->service);
     }
 
-    /**
-     * Test for setConfiguration function
-     *
-     * @expectedException Navitia\Component\Exception\NavitiaCreationException
-     * @expectedException Navitia\Component\Exception\BadParametersException
-     */
     public function testSetConfiguration()
     {
+        $this->expectException(NavitiaCreationException::class);
+
         foreach ($this->formats as $format) {
             $this->config['format'] = $format;
             $this->service->setConfiguration($this->config);
@@ -64,33 +57,28 @@ class ServiceFacadeTest extends TestCase
             $this->assertEquals($this->config, $result);
         }
         // Use a invalid config parameters to have Exception
-        $badConfig = array(
-            'foo' => 'bar'
-        );
+        $badConfig = ['foo' => 'bar',];
         $this->service->setConfiguration($badConfig);
     }
 
-    /**
-     * Test for call Function
-     *
-     * @expectedException Navitia\Component\Exception\BadParametersException
-     */
     public function testCall()
     {
+        $this->expectException(TypeError::class);
+
         $action = 'networks';
-        $value = array(
+        $value = [
             'api' => 'coverage',
-            'parameters' => array(
+            'parameters' => [
                 'region' => 'jdr',
-                'action' => $action
-            )
-        );
+                'action' => $action,
+            ],
+        ];
         // test format
         foreach ($this->formats as $format) {
             $this->config['format'] = $format;
             $this->service->setConfiguration($this->config);
             $result = $this->service->call($value);
-            $this->assertNotEquals(false, $result);
+            $this->assertNotSame(false, $result);
             switch ($format) {
                 case 'json':
                     $this->assertContains($action, $result);
