@@ -3,7 +3,8 @@
 namespace Navitia\Component\Tests\Request;
 
 use Navitia\Component\Request\RequestFactory;
-use PHPUnit\Framework\TestCase;
+use Navitia\Component\Tests\TestCase;
+use Navitia\Component\Exception\NavitiaCreationException;
 
 /**
  * Description of RequestFactoryTest
@@ -12,13 +13,10 @@ use PHPUnit\Framework\TestCase;
  */
 class RequestFactoryTest extends TestCase
 {
-    /**
-     * Test for create function
-     *
-     * @expectedException Navitia\Component\Exception\NavitiaCreationException
-     */
     public function testCreate()
     {
+        $this->expectException(NavitiaCreationException::class);
+
         $service = new RequestFactory();
         $service->setDefaultClass('test');
         $service->create(null);

@@ -3,7 +3,7 @@
 namespace Navitia\Component\Tests\Request;
 
 use Navitia\Component\Request\DeparturesRequest;
-use PHPUnit\Framework\TestCase;
+use Navitia\Component\Tests\TestCase;
 
 /**
  * Description of CoverageRequestTest
@@ -16,7 +16,7 @@ class DeparturesRequestTest extends TestCase
     private $path_filter;
     private $parameters;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->service = new DeparturesRequest();
         $this->path_filter = 'lines/line:RAT:M1';

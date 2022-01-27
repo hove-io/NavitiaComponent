@@ -2,8 +2,9 @@
 
 namespace Navitia\Tests\Request;
 
+use Navitia\Component\Exception\BadParametersException;
 use Navitia\Component\Request\MetadatasRequest;
-use PHPUnit\Framework\TestCase;
+use Navitia\Component\Tests\TestCase;
 
 /**
  * Description of MetadatasRequestTest
@@ -12,13 +13,10 @@ use PHPUnit\Framework\TestCase;
  */
 class MetadatasRequestTest extends TestCase
 {
-    /**
-     * Test for addToPathFilter
-     *
-     * @expectedException Navitia\Component\Exception\BadParametersException
-     */
     public function testAddToPathFilter()
     {
+        $this->expectException(BadParametersException::class);
+
         $service = new MetadatasRequest();
         $service->addtoPathFilter('bar', 'foo');
     }

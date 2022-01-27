@@ -3,7 +3,7 @@
 namespace Navitia\Component\Tests\Request\Parameters;
 
 use Navitia\Component\Request\Parameters\CoverageParametersFactory;
-use PHPUnit\Framework\TestCase;
+use Navitia\Component\Tests\TestCase;
 
 /**
  * Description of CoverageParametersFactoryTest

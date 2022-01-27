@@ -3,7 +3,7 @@
 namespace Navitia\Component\Tests;
 
 use Navitia\Component\Utils;
-use PHPUnit\Framework\TestCase;
+use Navitia\Component\Exception\NavitiaCreationException;
 
 /**
  * Description of UtilsTest
@@ -27,21 +27,17 @@ class UtilsTest extends TestCase
 
     public function dataDeleteUnderscore()
     {
-        return array(
-          array('test', 'test'),
-          array('test_un', 'testUn'),
-          array('test_un_deux', 'testUnDeux')
-        );
+        return [
+            ['test', 'test'],
+            ['test_un', 'testUn'],
+            ['test_un_deux', 'testUnDeux'],
+        ];
     }
 
-    /**
-     * Test For setter Function
-     * This Test will have an NavitiaCreationException
-     *
-     * @expectedException Navitia\Component\Exception\NavitiaCreationException
-     */
     public function testSetter()
     {
+        $this->expectException(NavitiaCreationException::class);
+
         Utils::setter(null, 'bar');
     }
 }

@@ -4,7 +4,8 @@ namespace Navitia\Component\Tests\Request\Parameters\DataTransformer;
 
 use Navitia\Component\Request\Parameters\DataTransformer\StringToParametersTransformer;
 use Navitia\Component\Request\Parameters\JourneysParameters;
-use PHPUnit\Framework\TestCase;
+use Navitia\Component\Tests\TestCase;
+use Navitia\Component\Exception\NavitiaCreationException;
 
 /**
  * Description of StringToParametersTransformerTest
@@ -13,13 +14,9 @@ use PHPUnit\Framework\TestCase;
  */
 class StringToParametersTransformerTest extends TestCase
 {
-    /**
-     * Test for transfrom function with Exception
-     *
-     * @expectedException Navitia\Component\Exception\NavitiaCreationException
-     */
     public function testTransform()
     {
+        $this->expectException(NavitiaCreationException::class);
         // test return object
         $service = new StringToParametersTransformer();
         $badParams = '?foo=bar&bar=foo';

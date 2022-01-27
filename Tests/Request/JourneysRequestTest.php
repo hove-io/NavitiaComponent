@@ -4,7 +4,7 @@ namespace Navitia\Component\Tests\Request;
 
 use Navitia\Component\Request\JourneysRequest;
 use Navitia\Component\Tests\Environment;
-use PHPUnit\Framework\TestCase;
+use Navitia\Component\Tests\TestCase;
 
 /**
  * Description of JourneysRequestTest
@@ -15,7 +15,7 @@ class JourneysRequestTest extends TestCase
 {
     private $service;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->service = new JourneysRequest();
     }

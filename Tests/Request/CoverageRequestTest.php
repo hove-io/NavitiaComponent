@@ -2,8 +2,9 @@
 
 namespace Navitia\Component\Tests\Request;
 
+use Navitia\Component\Exception\BadParametersException;
 use Navitia\Component\Request\CoverageRequest;
-use PHPUnit\Framework\TestCase;
+use Navitia\Component\Tests\TestCase;
 
 /**
  * Description of CoverageRequestTest
@@ -12,67 +13,49 @@ use PHPUnit\Framework\TestCase;
  */
 class CoverageRequestTest extends TestCase
 {
-    private $service;
-    private $path_filter;
-    private $action;
-    private $parameters;
+    private CoverageRequest $service;
+    private string $pathFilter;
+    private string $action;
+    private string $parameters;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->service = new CoverageRequest();
-        $this->path_filter = 'lines/12';
+        $this->pathFilter = 'lines/12';
         $this->action = 'route_schedules';
         $this->parameters = '?from_datetime=123312&duration=10';
     }
 
-    /**
-     * Test for setAction
-     * Will have a BadParametersException Exception
-     *
-     * @expectedException Navitia\Component\Exception\BadParametersException
-     */
     public function testSetAction()
     {
-        $action = array('foo', 'bar');
-        $this->service->setAction($action);
+        $this->expectException(BadParametersException::class);
+
+        $this->service->setAction(['foo', 'bar']);
     }
 
-    /**
-     * Test for setPathFilter function
-     */
-    public function testSetPathFilter()
+    public function testSetPathFilter(): void
     {
-        $this->service->setPathFilter($this->path_filter);
+        $this->service->setPathFilter($this->pathFilter);
         $path_filter = $this->service->getPathFilter();
-        $this->assertEquals($path_filter, $this->path_filter.'/');
+        $this->assertEquals($path_filter, $this->pathFilter.'/');
     }
 
-    /**
-     * Test for addToPathFilter function
-     */
-    public function testAddToPathFilter()
+    public function testAddToPathFilter(): void
     {
         $type = 'lines';
         $value = '12';
         $this->service->addToPathFilter($type, $value);
         $path_filter = $this->service->getPathFilter();
-        $this->assertEquals($path_filter, $this->path_filter.'/');
+        $this->assertEquals($path_filter, $this->pathFilter.'/');
     }
 
-    /**
-     * Test for clearPathFilter function
-     */
-    public function testClearPathFilter()
+    public function testClearPathFilter(): void
     {
         $this->service->clearPathFilter();
-        $path_filter = $this->service->getPathFilter();
-        $this->assertEquals($path_filter, null);
+        $this->assertNull($this->service->getPathFilter());
     }
 
-    /**
-     * Test for setParameters function
-     */
-    public function testSetParameters()
+    public function testSetParameters(): void
     {
         $this->service->setParameters($this->parameters);
         $parameters = $this->service->getParameters();
