@@ -1,26 +1,13 @@
 {
-    "name": "canaltp/navitia",
+    "name": "hove/navitia",
     "type": "library",
     "description": "Navitia Component",
     "license": "MIT",
-    "authors": [
-        {
-            "name": "Ramatoulaye Ndiaye",
-            "email": "ramatoulaye.ndiaye@canaltp.fr"
-        },
-        {
-            "name": "Johan Rouve",
-            "email": "johan.rouve@canaltp.fr"
-        }
-    ],
-    "contributors": [
-		{ "name": "Jean-Baptiste Crestot", "email": "jean-baptiste.crestot@canaltp.fr" }
-	],
     "require": {
         "php": ">=8.0.2",
         "psr/log": "2.0.*",
         "symfony/validator": "5.4.*",
-        "symfony/cache": "^6.0",
+        "symfony/cache": "^5.4",
         "doctrine/annotations": "^1.13",
         "doctrine/cache": "^2.1"
     },
@@ -29,7 +16,7 @@
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "3.0-dev"
+            "dev-master": "4.0-dev"
         }
     },
     "require-dev": {
