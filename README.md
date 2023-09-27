@@ -14,11 +14,15 @@ and controls query parameters.
 
 ## Choose your version
 
-Presently this component exists in 2 major versions :
+- NavitiaComponent 1.x.x used by legacy projects in production (example NMM Realtime)
 
-- NavitiaComponent 1.x.x used by 'classic' projects in production
+- NavitiaComponent 2.x.x compatible with frameworks like Symfony4
 
-- NavitiaComponent 2.x.x compatible with modern frameworks like Symfony4
+- NavitiaComponent 3.x.x compatible with modern frameworks like Symfony5.4, with old firm name CanalTP
+
+- NavitiaComponent 4.x.x compatible with modern frameworks like Symfony5.4, with updated firm name Hove
+
+
 
 This documentation is for NavitiaComponent 2.x.x
 
