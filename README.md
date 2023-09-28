@@ -20,7 +20,7 @@ and controls query parameters.
 
 - NavitiaComponent 3.x.x compatible with modern frameworks like Symfony5.4, with old firm name CanalTP
 
-- NavitiaComponent 4.x.x compatible with modern frameworks like Symfony5.4, with updated firm name Hove
+- NavitiaComponent 3.1.x compatible with modern frameworks like Symfony5.4, with present firm name Hove
 
 
 
