@@ -1,6 +1,6 @@
 {
     "name": "hove/navitia",
-    "type": "symfony-bundle",
+    "type": "library",
     "description": "Navitia Component",
     "license": "MIT",
     "require": {
