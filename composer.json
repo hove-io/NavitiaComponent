@@ -1,4 +1,4 @@
-i{
+{
     "name": "hove/navitia",
     "type": "symfony-bundle",
     "description": "Navitia Component",
