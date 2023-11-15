@@ -7,7 +7,7 @@
         "php": ">=8.0.2",
         "psr/log": "2.0.*",
         "symfony/validator": "5.4.*",
-        "symfony/cache": "^5.4",
+        "symfony/cache": "^6.0",
         "doctrine/annotations": "^1.13",
         "doctrine/cache": "^2.1"
     },
