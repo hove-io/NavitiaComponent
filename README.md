@@ -1,6 +1,6 @@
 # Navitia Component
 
-Navitia Component is a PHP library to query __Navitia 2__ Api (http://api.navitia.io),
+Navitia Component is a PHP library to query __Navitia__ Api (https://api.navitia.io),
 and controls query parameters.
 
 
@@ -10,17 +10,17 @@ and controls query parameters.
 - a Navitia token
 
 > Note:
-> If you don't have a Navitia token yet, you have to register here: http://navitia.io/register
+> If you don't have a Navitia token yet, you have to register here: https://navitia.io/register
 
 ## Choose your version
 
-- NavitiaComponent 1.x.x used by legacy projects in production (example NMM Realtime)
+- NavitiaComponent v1.x.x used by legacy projects in production (example NMM Realtime)
 
-- NavitiaComponent 2.x.x compatible with frameworks like Symfony4
+- NavitiaComponent v2.x.x compatible with frameworks like Symfony4
 
-- NavitiaComponent 3.x.x compatible with modern frameworks like Symfony5.4, with old firm name CanalTP
+- NavitiaComponent v3.x.x compatible with modern frameworks like Symfony5.4, with old firm name CanalTP
 
-- NavitiaComponent 3.1.x compatible with modern frameworks like Symfony5.4, with present firm name Hove
+- NavitiaComponent v3.1.x compatible with modern frameworks like Symfony5.4, with present firm name Hove
 
 
 
