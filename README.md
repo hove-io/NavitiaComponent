@@ -18,17 +18,22 @@ and controls query parameters.
 
 - NavitiaComponent v2.x.x compatible with frameworks like Symfony4
 
-- NavitiaComponent v3.x.x compatible with modern frameworks like Symfony5.4, with old firm name CanalTP
+- NavitiaComponent v3.0.0 compatible with modern frameworks like Symfony5.4, with old firm name CanalTP
 
 - NavitiaComponent v3.1.x compatible with modern frameworks like Symfony5.4, with present firm name Hove
 
 
 
-This documentation is for NavitiaComponent 2.x.x
+
 
 ## Installation
 
 Using composer:
+
+    composer require "hove/navitia":"^3.1"
+
+
+example for previous versions (before v3.1.x, deprecated)
 
     composer require "canaltp/navitia":"~2.0"
 
@@ -73,7 +78,7 @@ class Navitia
         // Configuration
         $config = array(
             'url' => 'api.navitia.io',
-            'token' => '3b036afe-0110-4202-b9ed-99718476c2e0', // This token has an access to sandbox data
+            'token' => '3b036afe-4242-abcd-4242-99718476c2e0', // Example of token
         );
         $this->navitiacomponent->setConfiguration($config);
     }
@@ -241,11 +246,6 @@ For this part, you should use docker (need install) and launch it with :
 ```shell
 make all_tests_dev
 ```
-
-
-## Contributing
-
-[View all contributors](https://github.com/CanalTP/NavitiaComponent/graphs/contributors)
 
 ## License
 

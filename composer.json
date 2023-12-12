@@ -1,7 +1,10 @@
 {
     "name": "hove/navitia",
     "type": "library",
-    "description": "Navitia Component",
+    "description": "A library to interract with Navitia Api (https://api.navitia.io)",
+    "support": {
+        "issues": "https://github.com/hove-io/NavitiaComponent/issues"
+    },
     "license": "MIT",
     "require": {
         "php": ">=8.0.2",
@@ -21,6 +24,8 @@
     },
     "minimum-stability": "stable",
     "autoload": {
-        "psr-4": { "Navitia\\Component\\": "" }
+        "psr-4": {
+            "Navitia\\Component\\": ""
+        }
     }
 }
