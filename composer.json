@@ -7,10 +7,10 @@
     },
     "license": "MIT",
     "require": {
-        "php": ">=8.0.2",
+        "php": ">=8.2.13",
         "psr/log": "2.0.*",
-        "symfony/validator": "5.4.*",
-        "symfony/cache": "^6.0",
+        "symfony/validator": "6.4.*",
+        "symfony/cache": "6.4.*",
         "doctrine/annotations": "^1.13",
         "doctrine/cache": "^2.1"
     },
