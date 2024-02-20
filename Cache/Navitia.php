@@ -84,7 +84,7 @@ class Navitia extends Cache
         }
         $currentPublicationDate = $this->getPublicationDate();
 
-        if ($currentPublicationDate !== $publicationDateInCache) {
+        if ($currentPublicationDate !== null && $currentPublicationDate !== $publicationDateInCache) {
             $cacheItem->set($currentPublicationDate);
             $this->cache->save($cacheItem);
             $this->cache->invalidateTags([$this->getCacheTag()]);
@@ -119,10 +119,23 @@ class Navitia extends Cache
 
     private function getPublicationDate(): string
     {
-        $url = $this->urlApi.'coverage/'.$this->coverage.'/'.self::PUBLICATION_DATE_API;
-        $ch = new CurlService($url, 6000, $this->token, $this->logger);
-        $curlResponse = $ch->process();
-        $response = json_decode($curlResponse['response']);
-        return $response->status->publication_date;
+        try {
+            $url = $this->urlApi.'coverage/'.$this->coverage.'/'.self::PUBLICATION_DATE_API;
+            $ch = new CurlService($url, 6000, $this->token, $this->logger);
+            $curlResponse = $ch->process();
+            $response = json_decode($curlResponse['response']);
+
+            return $response->status->publication_date;
+        } catch (\Exception $e) {
+            $this->logger->warning(
+                'Error while getting publication date',
+                [
+                    'api' => $url,
+                    'error' => $e->getMessage()
+                ]
+            );
+
+            return null;
+        }
     }
 }

@@ -186,9 +186,12 @@ class NavitiaService implements NavitiaServiceInterface, LoggerAwareInterface
             try {
                 return $this->cache->getCachedItem($cacheKey);
             } catch (CacheItemNotFoundException $e) {
+
                 $ch = new CurlService($url, $this->timeout, $token, $this->logger);
                 $result = $ch->process();
-                $this->cache->setCacheItem($cacheKey, $result);
+                if ($result['httpCode'] === 200) {
+                    $this->cache->setCacheItem($cacheKey, $result);
+                }
             }
         } else {
             $ch = new CurlService($url, $this->timeout, $token, $this->logger);
