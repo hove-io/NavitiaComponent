@@ -189,7 +189,9 @@ class NavitiaService implements NavitiaServiceInterface, LoggerAwareInterface
 
                 $ch = new CurlService($url, $this->timeout, $token, $this->logger);
                 $result = $ch->process();
-                if ($result['httpCode'] === 200) {
+                $curlErrorCode = $result['curlError'][0];
+
+                if ($result['httpCode'] === 200 && $curlErrorCode === 'NO_CURL_ERROR') {
                     $this->cache->setCacheItem($cacheKey, $result);
                 }
             }
