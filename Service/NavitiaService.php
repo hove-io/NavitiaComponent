@@ -137,12 +137,14 @@ class NavitiaService implements NavitiaServiceInterface, LoggerAwareInterface
     private function setCacheProperties(
         string $coverage,
         string $urlApi,
-        string $token
+        string $token,
+        ?string $cacheTtl = null
     ): void {
         if ($this->hasCache()) {
             $this->cache->setCoverage($coverage);
             $this->cache->setUrlApi($urlApi);
             $this->cache->setToken($token);
+            $this->cache->setCacheTtl($cacheTtl);
         }
     }
 
@@ -157,12 +159,13 @@ class NavitiaService implements NavitiaServiceInterface, LoggerAwareInterface
         $baseUrl = $this->config->getUrl().'/'.$this->config->getVersion().'/';
         $url = $request->buildUrl($baseUrl);
         $token = $this->config->getToken();
+        $cacheTtl = $this->config->getCacheTtl();
         $this->log(
             $url,
             $request->getApiName(),
             array_merge($request->getParams(), array('token' => $token))
         );
-        $this->setCacheProperties($request->getRegion(), $baseUrl, $token);
+        $this->setCacheProperties($request->getRegion(), $baseUrl, $token, $cacheTtl);
         $curlResponse = $this->getApiResponse($url, $token, $enableCache);
 
         $response = $curlResponse['response'];
