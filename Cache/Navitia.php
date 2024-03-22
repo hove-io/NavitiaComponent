@@ -15,6 +15,7 @@ class Navitia extends Cache
     private string $urlApi = '';
     private string $token = '';
     private ?LoggerInterface $logger = null;
+    private ?string $cacheTtl = null;
 
     private function needToCheckPublicationDate(): bool
     {
@@ -53,6 +54,12 @@ class Navitia extends Cache
     public function setLogger(LoggerInterface $logger): self
     {
         $this->logger = $logger;
+        return $this;
+    }
+
+    public function setCacheTtl(?string $cacheTtl = null): self
+    {
+        $this->cacheTtl = $cacheTtl;
         return $this;
     }
 
@@ -114,6 +121,9 @@ class Navitia extends Cache
 
         $cacheItem->tag([$this->getCacheTag()]);
         $cacheItem->set($data);
+        if ($this->cacheTtl) {
+            $cacheItem->expiresAfter(intval($this->cacheTtl, 10));
+        }
         $this->cache->save($cacheItem);
     }
 

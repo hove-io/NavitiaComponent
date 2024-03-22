@@ -51,6 +51,12 @@ class NavitiaConfiguration implements NavitiaConfigurationInterface
     private $response_error;
 
     /**
+     *
+     * @var ?string
+     */
+    private $cacheTtl = null;
+
+    /**
      * Returns the Url of navitia configuration.
      *
      * @return string
@@ -174,6 +180,28 @@ class NavitiaConfiguration implements NavitiaConfigurationInterface
     public function setResponseError($response_error)
     {
         $this->response_error = $response_error;
+        return $this;
+    }
+
+    /**
+     * Returns the Token of navitia configuration.
+     *
+     * @return ?string
+     */
+    public function getCacheTtl()
+    {
+        return $this->cacheTtl;
+    }
+
+    /**
+     * Set the cacheTtl of navitia configuration
+     *
+     * @param ?string $cacheTtl
+     * @return \Navitia\Component\Configuration\NavitiaConfiguration
+     */
+    public function setCacheTtl($cacheTtl = null)
+    {
+        $this->cacheTtl = $cacheTtl;
         return $this;
     }
 
