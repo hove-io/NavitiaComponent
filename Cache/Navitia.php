@@ -89,6 +89,7 @@ class Navitia extends Cache
         if ($cacheItem->isHit()) {
             $publicationDateInCache = $cacheItem->get();
         }
+
         $currentPublicationDate = $this->getPublicationDate();
 
         if ($currentPublicationDate !== null && $currentPublicationDate !== $publicationDateInCache) {
@@ -127,7 +128,7 @@ class Navitia extends Cache
         $this->cache->save($cacheItem);
     }
 
-    private function getPublicationDate(): string
+    private function getPublicationDate(): ?string
     {
         try {
             $url = $this->urlApi.'coverage/'.$this->coverage.'/'.self::PUBLICATION_DATE_API;
